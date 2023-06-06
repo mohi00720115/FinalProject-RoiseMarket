@@ -47,13 +47,19 @@ interface AppService {
         @Query("orderby") orderBy: String = "rating"
     ): ProductsUiState
 
-    //------------------------------------------------------------------------------------------------//
+//------------------------------------------------------------------------------------------------//
+    /**
+     * گرفتن تمام کتگوری ها بصورت یک لیست
+     */
     @GET("products/categories")
     suspend fun getProductsCategories(
         @Query("page") page: Int = 1,
         @Query("per_page") perPage: Int = 10,
     ): List<ProductsCategoryUiStateItem>
 
+    /**
+     * گرفتن ID های هر کتگوری
+     */
     @GET("products/")
     suspend fun getProductsByCategories(
         @Query("page") page: Int = 1,

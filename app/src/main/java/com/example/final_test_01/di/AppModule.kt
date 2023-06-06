@@ -70,7 +70,6 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-
     }
 
     @Provides
