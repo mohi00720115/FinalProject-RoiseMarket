@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.final_test_01.data.model.product_dto.ProductsUiState
+import com.example.final_test_01.data.model.product_dto.ProductsDto
 import com.example.final_test_01.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,14 +12,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val _newestProduct = MutableLiveData<ProductsUiState>()
-    val newestProduct: LiveData<ProductsUiState> = _newestProduct
+    private val _newestProduct = MutableLiveData<ProductsDto>()
+    val newestProduct: LiveData<ProductsDto> = _newestProduct
 
-    private val _mostVisitedProduct = MutableLiveData<ProductsUiState>()
-    val mostVisitedProduct: LiveData<ProductsUiState> = _mostVisitedProduct
+    private val _mostVisitedProduct = MutableLiveData<ProductsDto>()
+    val mostVisitedProduct: LiveData<ProductsDto> = _mostVisitedProduct
 
-    private val _topRatedProduct = MutableLiveData<ProductsUiState>()
-    val topRatedProduct: LiveData<ProductsUiState> = _topRatedProduct
+    private val _topRatedProduct = MutableLiveData<ProductsDto>()
+    val topRatedProduct: LiveData<ProductsDto> = _topRatedProduct
 
     init {
         getNewestProducts()

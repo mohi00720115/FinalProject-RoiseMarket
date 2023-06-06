@@ -9,26 +9,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.final_test_01.data.model.product_category_dto.ProductsCategoryUiStateItem
-import com.example.final_test_01.data.model.product_dto.ProductsUiStateItem
-import com.example.final_test_01.databinding.CategoryItemAdapterBinding
+import com.example.final_test_01.data.model.product_dto.ProductsItemsDto
 import com.example.final_test_01.databinding.ProductItemAdapterBinding
 
 class ProductsAdapter(
     private val onClick: (Int) -> Unit
-) : ListAdapter<ProductsUiStateItem, ProductsAdapter.MyViewHolder>(diffUtil) {
+) : ListAdapter<ProductsItemsDto, ProductsAdapter.MyViewHolder>(diffUtil) {
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<ProductsUiStateItem>() {
+        val diffUtil = object : DiffUtil.ItemCallback<ProductsItemsDto>() {
             override fun areItemsTheSame(
-                oldItem: ProductsUiStateItem,
-                newItem: ProductsUiStateItem
+                oldItem: ProductsItemsDto,
+                newItem: ProductsItemsDto
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ProductsUiStateItem,
-                newItem: ProductsUiStateItem
+                oldItem: ProductsItemsDto,
+                newItem: ProductsItemsDto
             ): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -55,7 +53,7 @@ class ProductsAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ProductsAdapter.MyViewHolder, position: Int) {
-        val item: ProductsUiStateItem = getItem(position)
+        val item: ProductsItemsDto = getItem(position)
         holder.apply {
             Glide.with(binding.root)
                 .load(item.images[0].src)

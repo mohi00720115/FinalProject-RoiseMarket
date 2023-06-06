@@ -1,39 +1,38 @@
 package com.example.final_test_01.data.repository
 
-import com.example.final_test_01.data.model.product_category_dto.ProductsCategoryUiState
-import com.example.final_test_01.data.model.product_category_dto.ProductsCategoryUiStateItem
-import com.example.final_test_01.data.model.product_dto.ProductsUiState
-import com.example.final_test_01.data.model.product_dto.ProductsUiStateItem
+import com.example.final_test_01.data.model.product_category_dto.ProductsCategoryItemsDto
+import com.example.final_test_01.data.model.product_dto.ProductsDto
+import com.example.final_test_01.data.model.product_dto.ProductsItemsDto
 import com.example.final_test_01.data.remote.AppService
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val appService: AppService) {
 
-    suspend fun getIdItemsProducts(id: Int): List<ProductsUiStateItem> {
-        return appService.getIdItemsProducts(id)
+    suspend fun getItemsIdsProducts(id: Int): List<ProductsItemsDto> {
+        return appService.getItemsIdsProducts(id)
     }
 
-    suspend fun getNewestProducts(page: Int, perPage: Int): ProductsUiState {
+    suspend fun getNewestProducts(page: Int, perPage: Int): ProductsDto {
         return appService.getNewestProducts(page, perPage)
     }
 
-    suspend fun getMostVisitedProducts(page: Int, perPage: Int): ProductsUiState {
+    suspend fun getMostVisitedProducts(page: Int, perPage: Int): ProductsDto {
         return appService.getMostVisitedProducts(page, perPage)
     }
 
-    suspend fun getTopRatedProducts(page: Int, perPage: Int): ProductsUiState {
+    suspend fun getTopRatedProducts(page: Int, perPage: Int): ProductsDto {
         return appService.getTopRatedProducts(page, perPage)
     }
 
-    suspend fun getProductsCategories(page: Int, perPage: Int): List<ProductsCategoryUiStateItem> {
-        return appService.getProductsCategories(page, perPage)
+    suspend fun getAllCategories(page: Int, perPage: Int): List<ProductsCategoryItemsDto> {
+        return appService.getAllCategories(page, perPage)
     }
 
-    suspend fun getProductsByCategories(
+    suspend fun getCategoriesByIds(
         page: Int,
         perPage: Int,
         category: String
-    ): List<ProductsUiStateItem> {
-        return appService.getProductsByCategories(page, perPage, category)
+    ): List<ProductsItemsDto> {
+        return appService.getCategoriesByIds(page, perPage, category)
     }
 }

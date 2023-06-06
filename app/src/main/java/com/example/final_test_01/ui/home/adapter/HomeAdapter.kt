@@ -9,24 +9,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.final_test_01.data.model.product_dto.ProductsUiStateItem
+import com.example.final_test_01.data.model.product_dto.ProductsItemsDto
 import com.example.final_test_01.databinding.ItemAdapterBinding
 
 class HomeAdapter(
     private val onClick: (Int) -> Unit
-) : ListAdapter<ProductsUiStateItem, HomeAdapter.MyViewHolder>(diffUtil) {
+) : ListAdapter<ProductsItemsDto, HomeAdapter.MyViewHolder>(diffUtil) {
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<ProductsUiStateItem>() {
+        val diffUtil = object : DiffUtil.ItemCallback<ProductsItemsDto>() {
             override fun areItemsTheSame(
-                oldItem: ProductsUiStateItem,
-                newItem: ProductsUiStateItem
+                oldItem: ProductsItemsDto,
+                newItem: ProductsItemsDto
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ProductsUiStateItem,
-                newItem: ProductsUiStateItem
+                oldItem: ProductsItemsDto,
+                newItem: ProductsItemsDto
             ): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -54,7 +54,7 @@ class HomeAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: HomeAdapter.MyViewHolder, position: Int) {
-        val item: ProductsUiStateItem = getItem(position)
+        val item: ProductsItemsDto = getItem(position)
         holder.apply {
             binding.tvAdapter.text = item.name
             binding.tvPrice.text = "${item.price} تومان"

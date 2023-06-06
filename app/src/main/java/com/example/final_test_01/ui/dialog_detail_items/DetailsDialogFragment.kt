@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -34,7 +33,7 @@ class DetailsDialogFragment : BottomSheetDialogFragment(R.layout.detail_dialog) 
 
     private fun setUi() {
         adapter = DetailItemsAdapter()
-        viewModel.getIdItemsProducts(args.detailItems)
+        viewModel.getItemsIdsProducts(args.detailItems)
         Log.e(TAG, "args.detailItems: ${args.detailItems}")
         viewModel.itemID.observe(viewLifecycleOwner) {
             with(binding) {

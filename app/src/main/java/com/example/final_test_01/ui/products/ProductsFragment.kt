@@ -34,7 +34,7 @@ class ProductsFragment : Fragment(R.layout.fragment_products) {
                 ProductsFragmentDirections.actionProductsFragmentToDetailsDialog(it)
             )
         })
-        viewModel.getProductsByCategories(args.productIdItem.toString())
+        viewModel.getCategoriesByIds(args.productIdItem.toString())
         binding.recyclerViewProducts.adapter = adapter
         viewModel.productCategory.observe(viewLifecycleOwner) {
             adapter.submitList(it)
