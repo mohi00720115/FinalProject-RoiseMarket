@@ -9,25 +9,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.final_test_01.data.model.product_dto.Image
 import com.example.final_test_01.data.model.product_dto.ProductsUiStateItem
 import com.example.final_test_01.databinding.DetailItemsAdapterBinding
 import com.example.final_test_01.databinding.ItemAdapterBinding
 
 class DetailItemsAdapter(
 //    private val onClick: (Int) -> Unit
-) : ListAdapter<ProductsUiStateItem, DetailItemsAdapter.MyViewHolder>(diffUtil) {
+) : ListAdapter<Image, DetailItemsAdapter.MyViewHolder>(diffUtil) {
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<ProductsUiStateItem>() {
+        val diffUtil = object : DiffUtil.ItemCallback<Image>() {
             override fun areItemsTheSame(
-                oldItem: ProductsUiStateItem,
-                newItem: ProductsUiStateItem
+                oldItem: Image,
+                newItem: Image
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ProductsUiStateItem,
-                newItem: ProductsUiStateItem
+                oldItem: Image,
+                newItem: Image
             ): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -54,12 +55,12 @@ class DetailItemsAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: DetailItemsAdapter.MyViewHolder, position: Int) {
-        val item: ProductsUiStateItem = getItem(position)
+        val item: Image = getItem(position)
         holder.apply {
             Glide.with(binding.root)
-                .load(item.images)
+                .load(item.src)
                 .into(binding.imageViewGalleryAdapter)
-            Log.d(TAG, "item.images: ${item.images}")
+            Log.d(TAG, "item.images: ${item.src}")
         }
     }
 }

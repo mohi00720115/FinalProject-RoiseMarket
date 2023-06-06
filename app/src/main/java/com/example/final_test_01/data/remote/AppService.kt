@@ -2,6 +2,7 @@ package com.example.final_test_01.data.remote
 
 import com.example.final_test_01.data.model.product_category_dto.ProductsCategoryUiState
 import com.example.final_test_01.data.model.product_dto.ProductsUiState
+import com.example.final_test_01.data.model.product_dto.ProductsUiStateItem
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,7 +11,7 @@ interface AppService {
     /**
      * گرفتن ID های هر محصول
      */
-    @GET("products/")
+    @GET("products")
     suspend fun getIdItemsProducts(
         @Query("include") id: Int
     ): ProductsUiState

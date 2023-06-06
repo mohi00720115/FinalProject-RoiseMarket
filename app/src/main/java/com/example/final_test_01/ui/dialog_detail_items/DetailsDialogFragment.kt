@@ -13,10 +13,11 @@ import androidx.navigation.fragment.navArgs
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.DetailDialogBinding
 import com.example.final_test_01.ui.dialog_detail_items.adapter.DetailItemsAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailsDialogFragment : DialogFragment(R.layout.detail_dialog) {
+class DetailsDialogFragment : BottomSheetDialogFragment(R.layout.detail_dialog) {
     private lateinit var binding: DetailDialogBinding
     private val viewModel: DetailDialogViewModel by viewModels()
     private lateinit var navController: NavController
@@ -36,8 +37,13 @@ class DetailsDialogFragment : DialogFragment(R.layout.detail_dialog) {
         viewModel.getIdItemsProducts(args.detailItems)
         Log.e(TAG, "args.detailItems: ${args.detailItems}")
         viewModel.itemID.observe(viewLifecycleOwner) {
-            binding.recyclerViewGallery.adapter = adapter
-            adapter.submitList(it)
+            with(binding) {
+                tvTitleDialog.text = it[0].name
+                tvPriceDialog.text = it[0].price
+                tvDescriptionDialog.text = it[0].description
+                recyclerViewGallery.adapter = adapter
+                adapter.submitList(it[0].images)
+            }
         }
     }
 }

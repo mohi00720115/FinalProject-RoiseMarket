@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.final_test_01.data.model.product_dto.ProductsUiState
+import com.example.final_test_01.data.model.product_dto.ProductsUiStateItem
 import com.example.final_test_01.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

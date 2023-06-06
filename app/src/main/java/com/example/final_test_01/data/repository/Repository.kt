@@ -1,6 +1,7 @@
 package com.example.final_test_01.data.repository
 
 import com.example.final_test_01.data.model.product_dto.ProductsUiState
+import com.example.final_test_01.data.model.product_dto.ProductsUiStateItem
 import com.example.final_test_01.data.remote.AppService
 import com.example.final_test_01.data.remote.DataClass
 import kotlinx.coroutines.Dispatchers.IO

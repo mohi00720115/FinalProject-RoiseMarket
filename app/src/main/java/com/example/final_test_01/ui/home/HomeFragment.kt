@@ -39,9 +39,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun createNewestAdapter() {
         adapterNewest = HomeAdapter(onClick = {
             navController.navigate(
-                HomeFragmentDirections.actionHomeFragmentToDetailsDialog(id)
+                HomeFragmentDirections.actionHomeFragmentToDetailsDialog(it)
             )
-            Log.e(TAG, "createNewestAdapter: $id")
+            Log.e(TAG, "createNewestAdapter: $it")
         })
         binding.recyclerNewsProducts.adapter = adapterNewest
     }
@@ -49,8 +49,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun createMostVisitedAdapter() {
         adapterMostVisited = HomeAdapter(onClick = {
             navController.navigate(
-                HomeFragmentDirections.actionHomeFragmentToDetailsDialog(id)
+                HomeFragmentDirections.actionHomeFragmentToDetailsDialog(it)
             )
+            Log.e(TAG, "createMostVisitedAdapter: $it")
         })
         binding.recyclerMostVisitedProducts.adapter = adapterMostVisited
     }
@@ -58,8 +59,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun createTopRatedAdapter() {
         adapterTopRated = HomeAdapter(onClick = {
             navController.navigate(
-                HomeFragmentDirections.actionHomeFragmentToDetailsDialog(id)
+                HomeFragmentDirections.actionHomeFragmentToDetailsDialog(it)
             )
+            Log.e(TAG, "createTopRatedAdapter: $it")
         })
         binding.recyclerTopRateProducts.adapter = adapterTopRated
     }
@@ -67,7 +69,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun observer() {
         viewModel.newestProduct.observe(viewLifecycleOwner) {
             adapterNewest.submitList(it)
-            Log.e(TAG, "setUiIT: ${it}")
+            Log.e(TAG, "setUiIT: $it")
         }
 
         viewModel.mostVisitedProduct.observe(viewLifecycleOwner) {
