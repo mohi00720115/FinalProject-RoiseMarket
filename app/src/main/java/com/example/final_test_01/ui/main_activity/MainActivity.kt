@@ -1,4 +1,4 @@
-package com.example.final_test_01.ui
+package com.example.final_test_01.ui.main_activity
 
 import android.content.ContentValues.TAG
 import android.os.Bundle

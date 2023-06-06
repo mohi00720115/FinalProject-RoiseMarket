@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailDialogViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val _itemID = MutableLiveData<ProductsUiState>()
-    val itemID: LiveData<ProductsUiState> = _itemID
+    private val _itemID = MutableLiveData<List<ProductsUiStateItem>>()
+    val itemID: LiveData<List<ProductsUiStateItem>> = _itemID
 
     fun getIdItemsProducts(id: Int) {
         viewModelScope.launch {

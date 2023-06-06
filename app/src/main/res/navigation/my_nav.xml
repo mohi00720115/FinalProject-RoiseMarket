@@ -22,4 +22,25 @@
             android:name="detail_items"
             app:argType="integer" />
     </dialog>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.final_test_01.ui.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_productsFragment"
+            app:destination="@id/productsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.final_test_01.ui.products.ProductsFragment"
+        android:label="fragment_products"
+        tools:layout="@layout/fragment_products" >
+        <argument
+            android:name="product_id_item"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_productsFragment_to_detailsDialog"
+            app:destination="@id/detailsDialog" />
+    </fragment>
 </navigation>

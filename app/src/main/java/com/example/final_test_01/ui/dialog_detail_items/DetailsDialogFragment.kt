@@ -39,7 +39,7 @@ class DetailsDialogFragment : BottomSheetDialogFragment(R.layout.detail_dialog) 
         viewModel.itemID.observe(viewLifecycleOwner) {
             with(binding) {
                 tvTitleDialog.text = it[0].name
-                tvPriceDialog.text = it[0].price
+                tvPriceDialog.text = "${it[0].price} تومان"
                 tvDescriptionDialog.text = it[0].description
                 recyclerViewGallery.adapter = adapter
                 adapter.submitList(it[0].images)

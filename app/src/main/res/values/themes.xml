@@ -5,5 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="circleImage20">
+        <item name="cornerSize">20%</item>
+    </style>
+
     <style name="Theme.Final_Test_01" parent="Base.Theme.Final_Test_01" />
 </resources>

@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentHomeBinding
-import com.example.final_test_01.ui.home.paging.HomeAdapter
+import com.example.final_test_01.ui.home.adapter.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,7 +41,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             navController.navigate(
                 HomeFragmentDirections.actionHomeFragmentToDetailsDialog(it)
             )
-            Log.e(TAG, "createNewestAdapter: $it")
         })
         binding.recyclerNewsProducts.adapter = adapterNewest
     }
@@ -51,7 +50,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             navController.navigate(
                 HomeFragmentDirections.actionHomeFragmentToDetailsDialog(it)
             )
-            Log.e(TAG, "createMostVisitedAdapter: $it")
         })
         binding.recyclerMostVisitedProducts.adapter = adapterMostVisited
     }
@@ -61,7 +59,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             navController.navigate(
                 HomeFragmentDirections.actionHomeFragmentToDetailsDialog(it)
             )
-            Log.e(TAG, "createTopRatedAdapter: $it")
         })
         binding.recyclerTopRateProducts.adapter = adapterTopRated
     }
@@ -69,17 +66,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun observer() {
         viewModel.newestProduct.observe(viewLifecycleOwner) {
             adapterNewest.submitList(it)
-            Log.e(TAG, "setUiIT: $it")
         }
 
         viewModel.mostVisitedProduct.observe(viewLifecycleOwner) {
             adapterMostVisited.submitList(it)
-            Log.e(TAG, "setUi: ${it[0]}")
         }
 
         viewModel.topRatedProduct.observe(viewLifecycleOwner) {
             adapterTopRated.submitList(it)
-            Log.e(TAG, "setUi: ${it[0]}")
         }
     }
 
