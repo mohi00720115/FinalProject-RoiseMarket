@@ -1,9 +1,8 @@
 package com.example.final_test_01.ui.home
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentHomeBinding
 import com.example.final_test_01.ui.home.adapter.HomeAdapter
+import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,10 +27,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding = DataBindingUtil.bind(view)!!
         navController = findNavController()
         setUi()
-        observer()
     }
 
     private fun setUi() {
+        createAdapters()
+        observers()
+    }
+
+    private fun createAdapters() {
         createNewestAdapter()
         createMostVisitedAdapter()
         createTopRatedAdapter()
@@ -63,17 +67,57 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.recyclerTopRateProducts.adapter = adapterTopRated
     }
 
-    private fun observer() {
-        viewModel.newestProduct.observe(viewLifecycleOwner) {
-            adapterNewest.submitList(it)
-        }
+    private fun observers() {
+        newestProductObserve()
+        mostVisitedProductObserve()
+        topRatedProductObserve()
+    }
 
-        viewModel.mostVisitedProduct.observe(viewLifecycleOwner) {
-            adapterMostVisited.submitList(it)
-        }
-
+    private fun topRatedProductObserve() {
         viewModel.topRatedProduct.observe(viewLifecycleOwner) {
-            adapterTopRated.submitList(it)
+            when (it) {
+                is ResponseState.Error -> Toast.makeText(
+                    requireContext(),
+                    "مشکل در اتصال به شبکه",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                is ResponseState.Success -> {
+                    adapterTopRated.submitList(it.data)
+                }
+            }
+        }
+    }
+
+    private fun mostVisitedProductObserve() {
+        viewModel.mostVisitedProduct.observe(viewLifecycleOwner) {
+            when (it) {
+                is ResponseState.Error -> Toast.makeText(
+                    requireContext(),
+                    "مشکل در اتصال به شبکه",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                is ResponseState.Success -> {
+                    adapterMostVisited.submitList(it.data)
+                }
+            }
+        }
+    }
+
+    private fun newestProductObserve() {
+        viewModel.newestProduct.observe(viewLifecycleOwner) {
+            when (it) {
+                is ResponseState.Error -> Toast.makeText(
+                    requireContext(),
+                    "مشکل در اتصال به شبکه",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                is ResponseState.Success -> {
+                    adapterNewest.submitList(it.data)
+                }
+            }
         }
     }
 

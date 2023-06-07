@@ -2,6 +2,7 @@ package com.example.final_test_01.ui.products
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentProductsBinding
 import com.example.final_test_01.ui.products.adapter.ProductsAdapter
+import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +31,11 @@ class ProductsFragment : Fragment(R.layout.fragment_products) {
     }
 
     private fun setUi() {
+        createProductAdapter()
+        productCategoryObserve()
+    }
+
+    private fun createProductAdapter() {
         adapter = ProductsAdapter(onClick = {
             navController.navigate(
                 ProductsFragmentDirections.actionProductsFragmentToDetailsDialog(it)
@@ -36,8 +43,21 @@ class ProductsFragment : Fragment(R.layout.fragment_products) {
         })
         viewModel.getCategoriesByIds(args.productIdItem.toString())
         binding.recyclerViewProducts.adapter = adapter
+    }
+
+    private fun productCategoryObserve() {
         viewModel.productCategory.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            when (it) {
+                is ResponseState.Error -> Toast.makeText(
+                    requireContext(),
+                    "مشکل در اتصال به شبکه",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                is ResponseState.Success -> {
+                    adapter.submitList(it.data)
+                }
+            }
         }
     }
 }

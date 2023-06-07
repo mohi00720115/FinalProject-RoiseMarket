@@ -1,9 +1,8 @@
 package com.example.final_test_01.ui.category
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentCategoryBinding
 import com.example.final_test_01.ui.category.adapter.CategoryAdapter
+import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,32 +20,42 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     private val viewModel: CategoryViewModel by viewModels()
     private lateinit var navController: NavController
     private lateinit var adapter: CategoryAdapter
-    //    private val args: DetailsDialogFragmentArgs by navArgs()
-//    private lateinit var adapter: DetailItemsAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
         binding.lifecycleOwner = viewLifecycleOwner
         navController = findNavController()
         setUi()
-
     }
 
     private fun setUi() {
+        createCategoryAdapter()
+        observeCategory()
+    }
+
+    private fun createCategoryAdapter() {
         adapter = CategoryAdapter(
-            onClick =  {
+            onClick = {
                 navController.navigate(
                     CategoryFragmentDirections.actionCategoryFragmentToProductsFragment(it)
                 )
-                Log.e(TAG, "CategoryFragmentDirections: $it")
             })
-
         viewModel.getAllCategories()
+        binding.recyclerViewCategory.adapter = adapter
+    }
+
+    private fun observeCategory() {
         viewModel.category.observe(viewLifecycleOwner) {
-            with(binding) {
-                recyclerViewCategory.adapter = adapter
-                adapter.submitList(it)
-                Log.e(TAG, "recyclerViewCategory: $it")
+            when (it) {
+                is ResponseState.Error -> Toast.makeText(
+                    requireContext(),
+                    "مشکل در اتصال به شبکه",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                is ResponseState.Success -> {
+                    adapter.submitList(it.data)
+                }
             }
         }
     }
