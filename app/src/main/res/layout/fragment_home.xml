@@ -36,7 +36,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/light_navy">
+                        android:background="@color/dark_indigo">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_news_products"
@@ -88,7 +88,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/light_navy">
+                        android:background="@color/dark_indigo">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_mostVisited_products"
@@ -139,7 +139,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/light_navy">
+                        android:background="@color/dark_indigo">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_topRate_products"

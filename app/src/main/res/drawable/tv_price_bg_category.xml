@@ -9,7 +9,7 @@
             />
         <path
             android:pathData="M0 0V42H261V0"
-            android:strokeColor="@color/sea_green"
+            android:strokeColor="@color/dark_indigo"
             android:strokeWidth="5"
             />
     </group>

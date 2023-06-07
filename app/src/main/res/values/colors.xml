@@ -52,6 +52,7 @@
     <color name="dark_indigo">#4B0082</color>
     <color name="indigo">#9B4F96</color>
     <color name="light_indigo">#C9A0DC</color>
+    <color name="very_light_indigo">#F6E4FF</color>
     <color name="dark_tomato">#FF6347</color>
     <color name="tomato">#FF7F50</color>
     <color name="light_tomato">#FFA07A</color>
