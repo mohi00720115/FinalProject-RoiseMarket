@@ -39,7 +39,6 @@ object AppModule {
                 .build()
             chain.proceed(request)
         }
-
     }
 
     @Provides

@@ -56,6 +56,8 @@ class ProductsFragment : Fragment(R.layout.fragment_products) {
 
                 is ResponseState.Success -> {
                     adapter.submitList(it.data)
+                    //ست کردن نام کتگوری ها در تکست ویو
+                    binding.tvProducts.text = it.data[0].categories?.get(0)?.name.toString()
                 }
             }
         }
