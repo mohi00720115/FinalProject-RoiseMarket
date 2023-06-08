@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -56,7 +57,11 @@ class DetailsDialogFragment : BottomSheetDialogFragment(R.layout.detail_dialog) 
                     is ResponseState.Success -> {
                         tvTitleDialog.text = it.data[0].name
                         tvPriceDialog.text = "${it.data[0].price} تومان"
-                        tvDescriptionDialog.text = it.data[0].description
+                        val description = HtmlCompat.fromHtml(
+                            it.data[0].description.toString(),
+                            HtmlCompat.FROM_HTML_MODE_LEGACY
+                        )
+                        tvDescriptionDialog.text = description
                         adapter.submitList(it.data[0].images)
                     }
                 }
