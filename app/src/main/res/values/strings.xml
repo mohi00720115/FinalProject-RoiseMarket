@@ -2,4 +2,15 @@
     <string name="app_name">Final_Test_01</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="newestProduct">جدیدترین محصولات</string>
+    <string name="mostVisitedProduct">پربازدید ترین محصولات</string>
+    <string name="bestProducts">بهترین محصولات</string>
+    <string name="tomanFee">قیمت به تومان</string>
+    <string name="nameProduct">اسم محصولات</string>
+    <string name="nameProducts">محل نمایش نام محصول</string>
+    <string name="feeProducts">محل نمایش قیمت محصول</string>
+    <string name="descriptionProducts">محل نمایش توضیحات محصول</string>
+    <string name="tvCategory">TV Category</string>
+    <string name="categories">دسته بندی ها</string>
+    <string name="categoryNames">دسته بندی</string>
 </resources>

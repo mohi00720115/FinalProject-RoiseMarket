@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/irmitra_bold"
-                    android:text="TV Category"
+                    android:text="@string/tvCategory"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="@+id/imageView_category"
                     app:layout_constraintStart_toStartOf="@+id/imageView_category"

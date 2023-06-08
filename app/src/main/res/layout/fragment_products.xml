@@ -16,7 +16,7 @@
             android:id="@+id/tv_products"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="دسته بندی"
+            android:text="@string/categoryNames"
             android:textSize="24sp"
             android:gravity="top|center"
             android:fontFamily="@font/iransans_bold"
