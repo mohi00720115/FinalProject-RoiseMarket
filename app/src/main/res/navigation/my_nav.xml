@@ -14,14 +14,15 @@
             android:id="@+id/action_homeFragment_to_detailsDialog"
             app:destination="@id/detailsDialog" />
     </fragment>
-    <dialog
+    <fragment
         android:id="@+id/detailsDialog"
         android:name="com.example.final_test_01.ui.dialog_detail_items.DetailsDialogFragment"
-        android:label="DetailsDialog" >
+        android:label="DetailsDialog"
+        tools:layout="@layout/detail_dialog" >
         <argument
             android:name="detail_items"
             app:argType="integer" />
-    </dialog>
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.final_test_01.ui.category.CategoryFragment"

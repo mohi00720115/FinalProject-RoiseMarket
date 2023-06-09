@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -18,7 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailsDialogFragment : BottomSheetDialogFragment(R.layout.detail_dialog) {
+class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
     private lateinit var binding: DetailDialogBinding
     private val viewModel: DetailDialogViewModel by viewModels()
     private lateinit var navController: NavController
