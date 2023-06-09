@@ -22,7 +22,7 @@ interface AppService {
     @GET("products/")
     suspend fun getNewestProducts(
         @Query("page") page: Int = 1,
-        @Query("per_page") perPage: Int = 10,
+        @Query("per_page") perPage: Int = 15,
         @Query("orderby") orderBy: String = "date"
     ): ProductsDto
 
@@ -32,7 +32,7 @@ interface AppService {
     @GET("products/")
     suspend fun getMostVisitedProducts(
         @Query("page") page: Int = 1,
-        @Query("per_page") perPage: Int = 10,
+        @Query("per_page") perPage: Int = 15,
         @Query("orderby") orderBy: String = "popularity"
     ): ProductsDto
 
@@ -42,7 +42,7 @@ interface AppService {
     @GET("products/")
     suspend fun getTopRatedProducts(
         @Query("page") page: Int = 1,
-        @Query("per_page") perPage: Int = 10,
+        @Query("per_page") perPage: Int = 15,
         @Query("orderby") orderBy: String = "rating"
     ): ProductsDto
 
@@ -53,7 +53,7 @@ interface AppService {
     @GET("products/categories")
     suspend fun getAllCategories(
         @Query("page") page: Int = 1,
-        @Query("per_page") perPage: Int = 10,
+        @Query("per_page") perPage: Int = 15,
     ): List<ProductsCategoryItemsDto>
 
     /**
@@ -62,7 +62,7 @@ interface AppService {
     @GET("products/")
     suspend fun getCategoriesByIds(
         @Query("page") page: Int = 1,
-        @Query("per_page") perPage: Int = 10,
+        @Query("per_page") perPage: Int = 15,
         @Query("category") category: String
     ): List<ProductsItemsDto>
 
