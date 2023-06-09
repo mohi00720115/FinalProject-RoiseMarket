@@ -20,7 +20,7 @@ class CategoryViewModel @Inject constructor(private val repository: Repository) 
 
     fun getAllCategories() {
         viewModelScope.launch {
-            repository.getAllCategories(1, 10).asResponseState().collect {
+            repository.getAllCategories(1, 15).asResponseState().collect {
                 _category.postValue(it)
             }
         }

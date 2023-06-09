@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     private fun getNewestProducts() {
         viewModelScope.launch {
-            repository.getNewestProducts(1, 10).asResponseState().collect {
+            repository.getNewestProducts(1, 15).asResponseState().collect {
                 _newestProduct.postValue(it)
             }
         }
@@ -39,7 +39,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     private fun getMostVisitedProducts() {
         viewModelScope.launch {
-            repository.getMostVisitedProducts(1, 10).asResponseState().collect {
+            repository.getMostVisitedProducts(1, 15).asResponseState().collect {
                 _mostVisitedProduct.postValue(it)
             }
         }
@@ -47,7 +47,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     private fun getTopRatedProducts() {
         viewModelScope.launch {
-            repository.getTopRatedProducts(1, 10).asResponseState().collect {
+            repository.getTopRatedProducts(1, 15).asResponseState().collect {
                 _topRatedProduct.postValue(it)
             }
         }

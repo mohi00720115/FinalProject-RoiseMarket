@@ -21,7 +21,7 @@ class ProductsViewModel @Inject constructor(private val repository: Repository) 
 
     fun getCategoriesByIds(id: String) {
         viewModelScope.launch {
-            repository.getCategoriesByIds(1, 10, id).asResponseState().collect {
+            repository.getCategoriesByIds(1, 15, id).asResponseState().collect {
                 _productCategory.postValue(it)
                 Log.e(TAG, "getProductsByCategories: $id")
             }
