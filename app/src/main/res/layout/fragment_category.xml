@@ -18,6 +18,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/iransans_medium"
             android:gravity="center"
+            android:background="@color/dark_indigo"
+            android:textColor="@color/white"
             android:text="@string/categories"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
