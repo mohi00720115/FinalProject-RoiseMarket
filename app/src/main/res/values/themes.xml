@@ -9,5 +9,10 @@
         <item name="cornerSize">20%</item>
     </style>
 
+    <!--استفاده از این استایل در تمام تکست ویو ها برای اعمال فونت-->
+    <style name="font1" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/iransans_bold</item>
+    </style>
+
     <style name="Theme.Final_Test_01" parent="Base.Theme.Final_Test_01" />
 </resources>
