@@ -11,53 +11,85 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#f1f1f1"
-        tools:context=".ui.main_activity.MainActivity">
+        tools:context=".ui.activity.main.MainActivity">
 
-<!--        <com.google.android.material.bottomappbar.BottomAppBar-->
-<!--            android:id="@+id/toolbar_home"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="68dp"-->
-<!--            android:backgroundTint="@color/light_azure"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:menu="@menu/menu_toolbar"-->
-<!--            tools:ignore="BottomAppBar" />-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/search_cardView"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="5dp"
+            app:cardElevation="7dp"
+            tools:ignore="MissingConstraints">
 
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="6dp"-->
-<!--            android:contentDescription="TODO"-->
-<!--            app:layout_anchor="@id/toolbar_home"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/toolbar_home"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/toolbar_home"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:srcCompat="@drawable/baseline_local_offer_24" />-->
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:iconifiedByDefault="false"
+                app:iconifiedByDefault="false"
+                android:queryHint="جستجو..."
+                app:defaultQueryHint="جستجو..."
+                android:gravity="center"
+                android:textDirection="rtl"
+                app:searchHintIcon="@drawable/baseline_search_24"
+                app:searchIcon="@drawable/baseline_search_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/containerView"
+                tools:ignore="MissingConstraints" />
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!--        <com.google.android.material.bottomappbar.BottomAppBar-->
+        <!--            android:id="@+id/toolbar_home"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="68dp"-->
+        <!--            android:backgroundTint="@color/light_azure"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:menu="@menu/menu_toolbar"-->
+        <!--            tools:ignore="BottomAppBar" />-->
+
+        <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginEnd="6dp"-->
+        <!--            android:contentDescription="TODO"-->
+        <!--            app:layout_anchor="@id/toolbar_home"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/toolbar_home"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/toolbar_home"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/baseline_local_offer_24" />-->
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/containerView"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="600dp"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_cardView"
             app:navGraph="@navigation/my_nav" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
             android:layout_width="0dp"
             android:layout_height="70dp"
+            app:itemActiveIndicatorStyle="@style/activeIndicator_bottomNav"
             app:itemBackground="@color/light_azure"
             app:itemIconTint="@color/dark_indigo"
             app:itemTextColor="@color/dark_indigo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/containerView"
             app:menu="@menu/menu_bottom_navigation"
             tools:ignore="MissingConstraints" />
 
