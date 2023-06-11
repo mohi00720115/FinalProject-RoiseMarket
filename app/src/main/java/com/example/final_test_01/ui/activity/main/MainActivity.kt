@@ -1,6 +1,7 @@
-package com.example.final_test_01.ui.main_activity
+package com.example.final_test_01.ui.activity.main
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import androidx.navigation.ui.NavigationUI
 import com.afollestad.materialdialogs.MaterialDialog
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.ActivityMainBinding
+import com.example.final_test_01.ui.activity.search.SearchActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +24,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setUi()
+    }
+
+    private fun setUi() {
         setBottomNavigation()
+        intentIntoSearchActivity()
+    }
+
+    /**
+     * رفتن به اکتیویتی سرچ
+     */
+    private fun intentIntoSearchActivity() {
+        binding.searchView.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
