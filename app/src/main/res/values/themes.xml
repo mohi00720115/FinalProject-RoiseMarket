@@ -9,6 +9,11 @@
         <item name="cornerSize">20%</item>
     </style>
 
+    <style name="activeIndicator_bottomNav" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="cornerSize">10%</item>
+        <item name="colorSecondaryContainer">@color/green</item>
+    </style>
+
     <!--استفاده از این استایل در تمام تکست ویو ها برای اعمال فونت-->
     <style name="font1" parent="Widget.AppCompat.TextView">
         <item name="fontFamily">@font/iransans_bold</item>
