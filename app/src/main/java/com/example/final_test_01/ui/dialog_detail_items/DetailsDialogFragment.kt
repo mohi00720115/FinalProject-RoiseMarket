@@ -2,6 +2,7 @@ package com.example.final_test_01.ui.dialog_detail_items
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Spanned
 import android.view.View
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
@@ -56,14 +57,18 @@ class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
                     ).show()
 
                     is ResponseState.Success -> {
+                        binding.clDetail2.visibility = View.VISIBLE
+                        binding.progressBarDetail.visibility = View.INVISIBLE
                         tvTitleDialog.text = it.data[0].name
                         tvPriceDialog.text = "${it.data[0].price} تومان"
-                        val description = HtmlCompat.fromHtml(
-                            it.data[0].description.toString(),
-                            HtmlCompat.FROM_HTML_MODE_LEGACY
-                        )
+                        val description: Spanned = HtmlCompat.fromHtml(it.data[0].description.toString(),HtmlCompat.FROM_HTML_MODE_LEGACY)
                         tvDescriptionDialog.text = description
                         adapter.submitList(it.data[0].images)
+                    }
+
+                    ResponseState.Loading -> {
+                        binding.clDetail2.visibility = View.INVISIBLE
+                        binding.progressBarDetail.visibility = View.VISIBLE
                     }
                 }
             }

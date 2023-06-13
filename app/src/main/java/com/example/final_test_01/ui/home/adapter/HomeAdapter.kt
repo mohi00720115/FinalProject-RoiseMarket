@@ -40,7 +40,6 @@ class HomeAdapter(
             binding.root.apply {
                 setOnClickListener {
                     onClick(getItem(absoluteAdapterPosition).id)
-                    Log.e(TAG, "absoluteAdapterPosition: ${getItem(absoluteAdapterPosition).id}")
                 }
             }
         }

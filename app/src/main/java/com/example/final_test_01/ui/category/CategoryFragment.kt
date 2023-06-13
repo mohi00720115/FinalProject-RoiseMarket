@@ -54,7 +54,14 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
                 ).show()
 
                 is ResponseState.Success -> {
+                    binding.recyclerViewCategory.visibility = View.VISIBLE
+                    binding.progressBarCategory.visibility = View.INVISIBLE
                     adapter.submitList(it.data)
+                }
+
+                ResponseState.Loading -> {
+                    binding.recyclerViewCategory.visibility = View.INVISIBLE
+                    binding.progressBarCategory.visibility = View.VISIBLE
                 }
             }
         }

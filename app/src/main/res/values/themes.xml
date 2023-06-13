@@ -5,6 +5,11 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+<!--    <style name="Theme.App" parent="Theme.Material3.*">-->
+<!--        <item name="colorSurface">@color/shrine_theme_light_surface</item>-->
+<!--        <item name="colorOnSurfaceVariant">@color/shrine_theme_light_onSurfaceVariant</item>-->
+<!--    </style>-->
+
     <style name="circleImage20">
         <item name="cornerSize">20%</item>
     </style>

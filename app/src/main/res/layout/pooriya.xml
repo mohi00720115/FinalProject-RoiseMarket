@@ -21,7 +21,7 @@
             android:layout_gravity="center_horizontal|center_vertical">
 
             <ImageView
-                android:id="@+id/imageView_adapter3"
+                android:id="@+id/imageView_search_item"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_margin="15dp"
@@ -32,7 +32,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_adapter3"
+                android:id="@+id/tv_productName_search_item"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:gravity="top|start"
@@ -42,9 +42,9 @@
                 android:textColor="#465a65"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView_adapter3"
-                app:layout_constraintStart_toStartOf="@+id/imageView_adapter3"
-                app:layout_constraintTop_toBottomOf="@+id/imageView_adapter3"
+                app:layout_constraintEnd_toEndOf="@+id/imageView_search_item"
+                app:layout_constraintStart_toStartOf="@+id/imageView_search_item"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_search_item"
                 app:layout_constraintVertical_bias="0.0"
                 tools:ignore="MissingConstraints" />
 
@@ -54,14 +54,14 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:numStars="5"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_price3"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_price_search_item"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_price3"
-                app:layout_constraintTop_toTopOf="@+id/tv_price3"
+                app:layout_constraintStart_toEndOf="@+id/tv_price_search_item"
+                app:layout_constraintTop_toTopOf="@+id/tv_price_search_item"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/tv_price3"
+                android:id="@+id/tv_price_search_item"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="5dp"
@@ -71,10 +71,10 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tv_adapter3"
+                app:layout_constraintEnd_toEndOf="@+id/tv_productName_search_item"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/tv_adapter3"
-                app:layout_constraintTop_toBottomOf="@+id/tv_adapter3"
+                app:layout_constraintStart_toStartOf="@+id/tv_productName_search_item"
+                app:layout_constraintTop_toBottomOf="@+id/tv_productName_search_item"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

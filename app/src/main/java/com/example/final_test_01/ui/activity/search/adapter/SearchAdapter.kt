@@ -1,8 +1,6 @@
-package com.example.final_test_01.ui.products.adapter
+package com.example.final_test_01.ui.activity.search.adapter
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,11 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.final_test_01.data.model.product_dto.ProductsItemsDto
-import com.example.final_test_01.databinding.ProductItemAdapterBinding
+import com.example.final_test_01.databinding.SearchItemAdapterBinding
 
-class ProductsAdapter(
-    private val onClick: (Int) -> Unit
-) : ListAdapter<ProductsItemsDto, ProductsAdapter.MyViewHolder>(diffUtil) {
+class SearchAdapter(
+//    private val onClick: (Int) -> Unit
+) : ListAdapter<ProductsItemsDto, SearchAdapter.MyViewHolder>(diffUtil) {
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<ProductsItemsDto>() {
             override fun areItemsTheSame(
@@ -34,32 +32,35 @@ class ProductsAdapter(
         }
     }
 
-    inner class MyViewHolder(val binding: ProductItemAdapterBinding) :
+    inner class MyViewHolder(val binding: SearchItemAdapterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.apply {
                 setOnClickListener {
-                    onClick(getItem(absoluteAdapterPosition).id)
+//                    onClick(getItem(absoluteAdapterPosition).id)
                 }
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
-            ProductItemAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            SearchItemAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ProductsAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item: ProductsItemsDto = getItem(position)
         holder.apply {
-            Glide.with(binding.root)
-                .load(item.images[0].src)
-                .into(binding.imageViewProductAdapter)
-            binding.tvProductAdapter.text= item.name
-            binding.tvProductPrice.text = item.price
+            with(binding) {
+                Glide.with(binding.root)
+                    .load(item.images[0].src)
+                    .into(imageViewSearchItem)
+                tvProductNameSearchItem.text = item.name
+                tvPriceSearchItem.text = item.price+" تومان"
+            }
+
         }
     }
 }

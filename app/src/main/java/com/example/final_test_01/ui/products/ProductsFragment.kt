@@ -55,9 +55,16 @@ class ProductsFragment : Fragment(R.layout.fragment_products) {
                 ).show()
 
                 is ResponseState.Success -> {
+                    binding.recyclerViewProducts.visibility = View.VISIBLE
+                    binding.progressBarProduct.visibility = View.INVISIBLE
                     adapter.submitList(it.data)
                     //ست کردن نام کتگوری ها در تکست ویو
                     binding.tvProducts.text = it.data[0].categories?.get(0)?.name.toString()
+                }
+
+                ResponseState.Loading -> {
+                    binding.recyclerViewProducts.visibility = View.INVISIBLE
+                    binding.progressBarProduct.visibility = View.VISIBLE
                 }
             }
         }

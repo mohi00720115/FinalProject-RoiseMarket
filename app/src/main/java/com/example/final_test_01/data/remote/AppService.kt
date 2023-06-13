@@ -66,4 +66,14 @@ interface AppService {
         @Query("category") category: String
     ): List<ProductsItemsDto>
 
+    /**
+     * گرفتن همه ی محصولات برای سرچ
+     */
+    @GET("products")
+    suspend fun getAllProductsForSearch(
+        @Query("search") search: String,
+        @Query("orderby") orderBy: String,
+    ): List<ProductsItemsDto>
+
+
 }

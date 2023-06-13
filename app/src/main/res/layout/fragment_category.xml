@@ -38,5 +38,20 @@
             app:spanCount="2"
             tools:listitem="@layout/category_item_adapter" />
 
+        <ProgressBar
+            android:id="@+id/progressBar_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:indeterminate="true"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateTint="@color/dark_indigo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

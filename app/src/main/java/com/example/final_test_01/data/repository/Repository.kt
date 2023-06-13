@@ -49,4 +49,10 @@ class Repository @Inject constructor(private val appService: AppService) {
             emit(appService.getCategoriesByIds(page, perPage, category))
         }
     }
+
+    suspend fun getAllProductsForSearch(search: String, orderby: String): Flow<List<ProductsItemsDto>> {
+        return flow {
+            emit(appService.getAllProductsForSearch(search,orderby))
+        }
+    }
 }

@@ -16,7 +16,9 @@
         android:background="#f1f1f1"
         tools:context=".ui.home.HomeFragment">
 
+
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -31,8 +33,8 @@
                     android:layout_height="255dp"
                     android:layout_margin="4dp"
                     android:background="@color/black"
-                    app:cardBackgroundColor="#f1f1f1"
                     android:elevation="9dp"
+                    app:cardBackgroundColor="#f1f1f1"
                     app:cardCornerRadius="15dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,14 +50,14 @@
                             android:background="#f1f1f1"
                             android:layoutDirection="rtl"
                             android:orientation="horizontal"
-                            tools:listitem="@layout/item_adapter"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="1.0"
-                            app:spanCount="1" />
+                            app:spanCount="1"
+                            tools:listitem="@layout/item_adapter" />
 
                         <TextView
                             android:id="@+id/tv_news_products"
@@ -151,14 +153,14 @@
                             android:background="#f1f1f1"
                             android:layoutDirection="rtl"
                             android:orientation="horizontal"
-                            tools:listitem="@layout/item_adapter"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="1.0"
-                            app:spanCount="1" />
+                            app:spanCount="1"
+                            tools:listitem="@layout/item_adapter" />
 
                         <TextView
                             android:id="@+id/tv_best_products"
@@ -185,5 +187,19 @@
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressBar_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateTint="@color/dark_indigo"
+            app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
+            app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"
+            app:layout_constraintStart_toStartOf="@+id/nestedScrollView"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="visible"
+            tools:ignore="MissingConstraints" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
