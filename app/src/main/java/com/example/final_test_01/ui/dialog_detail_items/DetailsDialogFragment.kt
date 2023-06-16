@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.final_test_01.R
+import com.example.final_test_01.databinding.ActivityMainBinding
 import com.example.final_test_01.databinding.DetailDialogBinding
 import com.example.final_test_01.ui.dialog_detail_items.adapter.DetailItemsAdapter
 import com.example.final_test_01.util.ResponseState
@@ -31,6 +32,12 @@ class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
         binding = DataBindingUtil.bind(view)!!
         binding.lifecycleOwner = viewLifecycleOwner
         navController = findNavController()
+        binding.btnAddToCart.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "محصول به سبد خرید شما اضافه شد",
+                Toast.LENGTH_SHORT).show()
+        }
         setUi()
     }
 

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_detailsDialog"
             app:destination="@id/detailsDialog" />
+        <action
+            android:id="@+id/action_homeFragment_to_customerFragment2"
+            app:destination="@id/customerFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsDialog"
@@ -22,6 +25,9 @@
         <argument
             android:name="detail_items"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailsDialog_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -44,4 +50,18 @@
             android:id="@+id/action_productsFragment_to_detailsDialog"
             app:destination="@id/detailsDialog" />
     </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.final_test_01.ui.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" >
+        <argument
+            android:name="cart_id"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerFragment"
+        android:name="com.example.final_test_01.ui.customer.CustomerFragment"
+        android:label="CustomerFragment" />
 </navigation>

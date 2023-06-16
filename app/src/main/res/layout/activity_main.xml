@@ -17,26 +17,29 @@
             android:id="@+id/search_cardView"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            app:cardCornerRadius="10dp"
             android:layout_margin="5dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
-            <androidx.appcompat.widget.SearchView
+            <TextView
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:queryHint="جستجو..."
-                app:defaultQueryHint="جستجو..."
-                android:gravity="center"
+                android:gravity="start|center_vertical"
+                android:text="جستجو..."
                 android:textDirection="rtl"
-                app:searchHintIcon="@drawable/baseline_search_24"
-                app:searchIcon="@drawable/baseline_search_24"
+                app:layout_constraintBottom_toTopOf="@id/containerView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/containerView"
+                android:drawableStart="@drawable/baseline_search_24"
+                android:paddingEnd="5dp"
+                android:paddingStart="10sp"
                 tools:ignore="MissingConstraints" />
 
 
@@ -46,7 +49,7 @@
             android:id="@+id/containerView"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
-            android:layout_height="600dp"
+            android:layout_height="0dp"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
             app:layout_constraintEnd_toEndOf="parent"

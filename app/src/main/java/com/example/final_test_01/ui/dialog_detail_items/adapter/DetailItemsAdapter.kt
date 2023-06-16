@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.final_test_01.data.model.product_dto.Image
+import com.example.final_test_01.data.model.dto.product.Image
 import com.example.final_test_01.databinding.DetailItemsAdapterBinding
 
 class DetailItemsAdapter(

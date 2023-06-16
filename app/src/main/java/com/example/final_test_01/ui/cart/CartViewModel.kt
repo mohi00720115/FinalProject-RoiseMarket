@@ -1,4 +1,4 @@
-package com.example.final_test_01.ui.dialog_detail_items
+package com.example.final_test_01.ui.cart
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,14 +13,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailDialogViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val _itemID = MutableLiveData<ResponseState<List<ProductsItemsDto>>>()
-    val itemID: LiveData<ResponseState<List<ProductsItemsDto>>> = _itemID
+class CartViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+    private val _cartList = MutableLiveData<ResponseState<List<ProductsItemsDto>>>()
+    val cartList: LiveData<ResponseState<List<ProductsItemsDto>>> = _cartList
 
     fun getItemsIdsProducts(id: Int) {
         viewModelScope.launch {
             repository.getItemsIdsProducts(id).asResponseState().collect {
-                _itemID.postValue(it)
+                _cartList.postValue(it)
             }
         }
     }

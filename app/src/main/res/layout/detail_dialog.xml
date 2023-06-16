@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,80 +13,99 @@
         android:layout_height="match_parent"
         android:background="@color/light_azure">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_detail2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_gallery"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toTopOf="@+id/tv_title_dialog"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/tv_title_dialog"
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:fontFamily="@font/iransans_bold"
-                android:text="@string/nameProducts"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/recyclerView_gallery"
-                app:layout_constraintStart_toStartOf="@+id/recyclerView_gallery"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView_gallery" />
-
-            <TextView
-                android:id="@+id/tv_price_dialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tv_price_bg_category"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/feeProducts"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tv_title_dialog"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_dialog" />
-
-            <TextView
-                android:id="@+id/tv_description_dialog"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:fontFamily="@font/iransans_light"
-                android:text="@string/descriptionProducts"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_price_dialog"
-                app:layout_constraintStart_toStartOf="@+id/tv_price_dialog"
-                app:layout_constraintTop_toBottomOf="@+id/tv_price_dialog" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ProgressBar
-            android:id="@+id/progressBar_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            style="?android:attr/progressBarStyle"
-            android:indeterminateTint="@color/dark_indigo"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar_detail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_detail2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_gallery"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_title_dialog"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/tv_title_dialog"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:fontFamily="@font/iransans_bold"
+                    android:text="@string/nameProducts"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/recyclerView_gallery"
+                    app:layout_constraintStart_toStartOf="@+id/recyclerView_gallery"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_gallery" />
+
+                <TextView
+                    android:id="@+id/tv_price_dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tv_price_bg_category"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/feeProducts"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title_dialog"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_dialog" />
+
+                <TextView
+                    android:id="@+id/tv_description_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:fontFamily="@font/iransans_light"
+                    android:text="@string/descriptionProducts"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_price_dialog"
+                    app:layout_constraintStart_toStartOf="@+id/tv_price_dialog"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_price_dialog" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_addToCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/dark_indigo"
+                    android:text="افزودن به سبد خرید"
+                    android:textColor="@color/light_azure"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_description_dialog"
+                    tools:ignore="MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressBar_detail"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/dark_indigo"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/nestedScrollView_detail"
+            app:layout_constraintStart_toStartOf="@+id/nestedScrollView_detail"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,18 +5,19 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-<!--    <style name="Theme.App" parent="Theme.Material3.*">-->
-<!--        <item name="colorSurface">@color/shrine_theme_light_surface</item>-->
-<!--        <item name="colorOnSurfaceVariant">@color/shrine_theme_light_onSurfaceVariant</item>-->
-<!--    </style>-->
+    <!--    <style name="Theme.App" parent="Theme.Material3.*">-->
+    <!--        <item name="colorSurface">@color/shrine_theme_light_surface</item>-->
+    <!--        <item name="colorOnSurfaceVariant">@color/shrine_theme_light_onSurfaceVariant</item>-->
+    <!--    </style>-->
 
     <style name="circleImage20">
         <item name="cornerSize">20%</item>
     </style>
 
     <style name="activeIndicator_bottomNav" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="cornerSize">10%</item>
-        <item name="colorSecondaryContainer">@color/green</item>
+        <item name="android:height">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:color">@color/light_violet</item>
     </style>
 
     <!--استفاده از این استایل در تمام تکست ویو ها برای اعمال فونت-->

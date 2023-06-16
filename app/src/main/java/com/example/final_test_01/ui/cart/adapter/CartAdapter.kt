@@ -1,8 +1,6 @@
-package com.example.final_test_01.ui.category.adapter
+package com.example.final_test_01.ui.cart.adapter
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,11 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
-import com.example.final_test_01.databinding.CategoryItemAdapterBinding
+import com.example.final_test_01.databinding.CartItemAdapterBinding
 
-class CategoryAdapter(
-    private val onClick: (Int) -> Unit
-) : ListAdapter<ProductsCategoryItemsDto, CategoryAdapter.MyViewHolder>(diffUtil) {
+class CartAdapter(
+//    private val onClick: (Int) -> Unit
+) : ListAdapter<ProductsCategoryItemsDto, CartAdapter.MyViewHolder>(diffUtil) {
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<ProductsCategoryItemsDto>() {
             override fun areItemsTheSame(
@@ -34,32 +32,32 @@ class CategoryAdapter(
         }
     }
 
-    inner class MyViewHolder(val binding: CategoryItemAdapterBinding) :
+    inner class MyViewHolder(val binding: CartItemAdapterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.apply {
                 setOnClickListener {
-                    getItem(absoluteAdapterPosition).id?.let { id -> onClick(id) }
+//                    getItem(absoluteAdapterPosition).id?.let { id -> onClick(id) }
                 }
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.MyViewHolder {
         return MyViewHolder(
-            CategoryItemAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            CartItemAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: CategoryAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CartAdapter.MyViewHolder, position: Int) {
         val item: ProductsCategoryItemsDto = getItem(position)
         holder.apply {
             Glide.with(binding.root)
                 .load(item.image?.src)
-                .into(binding.imageViewCategory)
-            binding.tvCategory.text= item.name
-            Log.e(TAG, "ProductsCategoryUiStateItem: ${item.image?.src}")
+                .into(binding.imageViewCartItem)
+            binding.tvProductNameCartItem.text= item.name
+            binding.tvNumberOfProductCartItem.text= item.count.toString()
         }
     }
 }

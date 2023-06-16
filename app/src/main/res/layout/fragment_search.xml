@@ -30,10 +30,10 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:iconifiedByDefault="false"
                 android:queryHint="جستجو..."
                 android:textDirection="rtl"
                 app:defaultQueryHint="جستجو..."
-                android:iconifiedByDefault="false"
                 app:iconifiedByDefault="false"
                 app:layout_constraintBottom_toTopOf="@id/containerView"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -49,55 +49,134 @@
         <LinearLayout
             android:id="@+id/ll_search"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_cardView_fragment"
             tools:ignore="MissingConstraints">
 
-            <TextView
-                android:id="@+id/tvSearch_price"
-                android:layout_width="wrap_content"
+            <HorizontalScrollView
+                android:id="@+id/HorizontalScrollView_search"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:tag="price"
-                android:textSize="18sp"
-                android:text="گران ترین" />
+                android:layoutDirection="ltr"
+                tools:ignore="UselessParent">
 
-            <TextView
-                android:id="@+id/tvSearch_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:tag="date"
-                android:textSize="18sp"
-                android:text="جدید ترین" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/radio_group_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dark_indigo"
+                    android:orientation="horizontal"
+                    app:checkedChip="@+id/rbSearch_popularity">
 
-            <TextView
-                android:id="@+id/tvSearch_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:tag="rating"
-                android:textSize="18sp"
-                android:text="بالاترین امتیاز" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/rbSearch_popularity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@color/light_azure"
+                        android:fontFamily="@font/iransans_bold"
+                        android:gravity="center_vertical|start"
+                        android:tag="popularity"
+                        android:text="پربازدید ترین"
+                        android:textColor="@color/dark_indigo"
+                        android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/tvSearch_popularity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:tag="popularity"
-                android:textSize="18sp"
-                android:text="پربازدید ترین" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/rbSearch_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@color/light_azure"
+                        android:fontFamily="@font/iransans_bold"
+                        android:gravity="center_vertical|start"
+                        android:tag="rating"
+                        android:text="بالاترین امتیاز"
+                        android:textColor="@color/dark_indigo"
+                        android:textSize="18sp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/rbSearch_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@color/light_azure"
+                        android:fontFamily="@font/iransans_bold"
+                        android:gravity="center_vertical|start"
+                        android:tag="date"
+                        android:text="جدید ترین"
+                        android:textColor="@color/dark_indigo"
+                        android:textSize="18sp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/rbSearch_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="@color/light_azure"
+                        android:fontFamily="@font/iransans_bold"
+                        android:gravity="center_vertical|start"
+                        android:tag="price"
+                        android:text="گران ترین"
+                        android:textColor="@color/dark_indigo"
+                        android:textSize="18sp" />
+
+
+                </com.google.android.material.chip.ChipGroup>
+
+
+            </HorizontalScrollView>
+
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/tvSearch_price"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="4dp"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:gravity="start"-->
+            <!--                android:tag="price"-->
+            <!--                android:text="گران ترین"-->
+            <!--                android:textSize="18sp" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/tvSearch_date"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="4dp"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:gravity="start"-->
+            <!--                android:tag="date"-->
+            <!--                android:text="جدید ترین"-->
+            <!--                android:textSize="18sp" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/tvSearch_rating"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="4dp"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:gravity="start"-->
+            <!--                android:tag="rating"-->
+            <!--                android:text="بالاترین امتیاز"-->
+            <!--                android:textSize="18sp" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/tvSearch_popularity"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_margin="4dp"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:gravity="start"-->
+            <!--                android:tag="popularity"-->
+            <!--                android:text="پربازدید ترین"-->
+            <!--                android:textSize="18sp" />-->
 
         </LinearLayout>
 
@@ -106,12 +185,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:itemCount="1"
-            app:spanCount="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_search"
+            app:spanCount="1"
+            tools:itemCount="1"
             tools:listitem="@layout/search_item_adapter" />
 
 

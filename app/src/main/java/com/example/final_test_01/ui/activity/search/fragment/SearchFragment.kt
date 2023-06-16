@@ -1,10 +1,10 @@
 package com.example.final_test_01.ui.activity.search.fragment
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -14,6 +14,7 @@ import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentSearchBinding
 import com.example.final_test_01.ui.activity.search.adapter.SearchAdapter
 import com.example.final_test_01.util.ResponseState
+import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -30,6 +31,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchView = binding.searchViewFragment
         observeSearch(binding.searchViewFragment)
         setUi()
+        viewModel.query.observe(viewLifecycleOwner) {
+            viewModel.getCategoriesByIds()
+            Log.e(TAG, "getCategoriesByIds: $it")
+        }
     }
 
     private fun setUi() {
@@ -58,7 +63,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 }
 
                 ResponseState.Loading -> {
-                    Toast.makeText(requireContext(), "Alaki", Toast.LENGTH_SHORT).show()
+
                 }
             }
         }
@@ -71,18 +76,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Log.e(TAG, "onQueryTextChange: $newText")
                 return false
             }
         })
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun clickOnTvSearches() {
-        val clickForTvSearches = arrayListOf<TextView>(
-            binding.tvSearchDate,
-            binding.tvSearchPopularity,
-            binding.tvSearchPrice,
-            binding.tvSearchRating,
+        val clickForTvSearches = arrayListOf<Chip>(
+            binding.rbSearchDate,
+            binding.rbSearchPopularity,
+            binding.rbSearchPrice,
+            binding.rbSearchRating,
         )
         for (i in clickForTvSearches) {
             i.setOnClickListener {

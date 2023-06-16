@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_azure"
+        tools:context=".ui.cart.CartFragment">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_cart"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@drawable/tv_price_bg_category"
+            android:layout_margin="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView_cart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/tv_cart_price_fee"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/iransans_bold"
+                android:gravity="center"
+                android:text="99/000/000 تومان "
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerView_cart"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tv_cart_price"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:paddingEnd="4dp"
+                android:fontFamily="@font/iransans_bold"
+                android:gravity="start|center_vertical"
+                android:text="جمع کل خرید"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerView_cart"
+                tools:ignore="MissingConstraints" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_cart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_cart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_cart"
+            tools:listitem="@layout/cart_item_adapter" />
+
+        <Button
+            android:id="@+id/btn_cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="تکمیل خرید"
+            android:backgroundTint="@color/dark_indigo"
+            android:textColor="@color/light_azure"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            style="?android:attr/progressBarStyle"
+            android:indeterminateTint="@color/dark_indigo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,8 +1,9 @@
 package com.example.final_test_01.data.repository
 
-import com.example.final_test_01.data.model.product_category_dto.ProductsCategoryItemsDto
-import com.example.final_test_01.data.model.product_dto.ProductsDto
-import com.example.final_test_01.data.model.product_dto.ProductsItemsDto
+import com.example.final_test_01.data.model.dto.customer.CustomerDto
+import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
+import com.example.final_test_01.data.model.dto.product.ProductsDto
+import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.data.remote.AppService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -50,9 +51,27 @@ class Repository @Inject constructor(private val appService: AppService) {
         }
     }
 
-    suspend fun getAllProductsForSearch(search: String, orderby: String): Flow<List<ProductsItemsDto>> {
+    suspend fun getIdsCategoryForViewPager(
+        page: Int,
+        perPage: Int
+    ): Flow<List<ProductsItemsDto>> {
         return flow {
-            emit(appService.getAllProductsForSearch(search,orderby))
+            emit(appService.getIdsCategoryForViewPager(page, perPage))
+        }
+    }
+
+    suspend fun getAllProductsForSearch(
+        search: String,
+        orderby: String
+    ): Flow<List<ProductsItemsDto>> {
+        return flow {
+            emit(appService.getAllProductsForSearch(search, orderby))
+        }
+    }
+
+    suspend fun createCustomer(customer: CustomerDto): Flow<CustomerDto> {
+        return flow {
+            emit(appService.createCustomer(customer))
         }
     }
 }

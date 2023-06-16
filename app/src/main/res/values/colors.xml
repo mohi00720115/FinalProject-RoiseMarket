@@ -103,4 +103,6 @@
     <color name="dark_rose">#B22222</color>
     <color name="rose">#FFC6C6</color>
     <color name="light_rose">#FFE4E1</color>
+    <color name="roise">#ff0042</color>
+    <color name="light_roise">#ff0042</color>
 </resources>

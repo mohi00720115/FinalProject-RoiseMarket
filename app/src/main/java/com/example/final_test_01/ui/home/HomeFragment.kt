@@ -1,6 +1,8 @@
 package com.example.final_test_01.ui.home
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -8,9 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentHomeBinding
 import com.example.final_test_01.ui.home.adapter.HomeAdapter
+import com.example.final_test_01.ui.home.adapter.ViewPagerAdapter
 import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +27,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var adapterMostVisited: HomeAdapter
     private lateinit var adapterTopRated: HomeAdapter
     private lateinit var navController: NavController
+    private lateinit var viewPager: ViewPager
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var imageList: MutableList<String>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = DataBindingUtil.bind(view)!!
@@ -38,6 +46,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         createNewestAdapter()
         createMostVisitedAdapter()
         createTopRatedAdapter()
+        setUpViewPager()
     }
 
     private fun createNewestAdapter() {
@@ -140,6 +149,38 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
         }
+    }
+
+    private fun setUpViewPager() {
+        viewModel.getIdsCategoryForViewPager()
+        viewPager = binding.viewPagerHome
+        viewModel.onSellProducts.observe(viewLifecycleOwner) {
+            when (it) {
+                is ResponseState.Error -> Toast.makeText(
+                    requireContext(),
+                    "مشکل در اتصال به شبکه",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                is ResponseState.Success -> {
+                    imageList = mutableListOf()
+                    for (i in it.data) {
+                        for (j in i.images) {
+                            imageList.add(j.src!!)
+                        }
+                    }
+                    viewPagerAdapter = ViewPagerAdapter(requireContext(), imageList)
+                    viewPager = binding.viewPagerHome
+                    viewPager.adapter = viewPagerAdapter
+                }
+
+                ResponseState.Loading -> {
+                    binding.nestedScrollView.visibility = View.INVISIBLE
+                    binding.progressBarHome.visibility = View.VISIBLE
+                }
+            }
+        }
+
     }
 
 }

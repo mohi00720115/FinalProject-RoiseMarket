@@ -4,12 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.final_test_01.data.model.product_category_dto.ProductsCategoryItemsDto
+import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
 import com.example.final_test_01.data.repository.Repository
 import com.example.final_test_01.util.ResponseState
 import com.example.final_test_01.util.asResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

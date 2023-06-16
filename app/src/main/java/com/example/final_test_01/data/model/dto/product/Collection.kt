@@ -1,9 +1,9 @@
-package com.example.final_test_01.data.model.product_category_dto
+package com.example.final_test_01.data.model.dto.product
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Up(
+data class Collection(
     @SerializedName("href")
     val href: String?
 )

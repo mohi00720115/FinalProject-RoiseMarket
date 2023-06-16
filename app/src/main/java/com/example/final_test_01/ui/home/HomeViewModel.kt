@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.final_test_01.data.model.product_dto.ProductsDto
+import com.example.final_test_01.data.model.dto.product.ProductsDto
+import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.data.repository.Repository
 import com.example.final_test_01.util.ResponseState
 import com.example.final_test_01.util.asResponseState
@@ -22,6 +23,10 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     private val _topRatedProduct = MutableLiveData<ResponseState<ProductsDto>>()
     val topRatedProduct: LiveData<ResponseState<ProductsDto>> = _topRatedProduct
+
+    //فروش ویژه
+    private val _onSellProducts = MutableLiveData<ResponseState<List<ProductsItemsDto>>>()
+    val onSellProducts: LiveData<ResponseState<List<ProductsItemsDto>>> = _onSellProducts
 
     init {
         getNewestProducts()
@@ -53,5 +58,11 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
         }
     }
 
-
+    fun getIdsCategoryForViewPager() {
+        viewModelScope.launch {
+            repository.getIdsCategoryForViewPager(1, 15).asResponseState().collect {
+                _onSellProducts.postValue(it)
+            }
+        }
+    }
 }
