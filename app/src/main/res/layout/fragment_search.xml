@@ -127,58 +127,56 @@
                         android:textColor="@color/dark_indigo"
                         android:textSize="18sp" />
 
-
                 </com.google.android.material.chip.ChipGroup>
-
 
             </HorizontalScrollView>
 
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/tvSearch_price"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_margin="4dp"-->
-            <!--                android:layout_weight="1"-->
-            <!--                android:gravity="start"-->
-            <!--                android:tag="price"-->
-            <!--                android:text="گران ترین"-->
-            <!--                android:textSize="18sp" />-->
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/tvSearch_date"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_margin="4dp"-->
-            <!--                android:layout_weight="1"-->
-            <!--                android:gravity="start"-->
-            <!--                android:tag="date"-->
-            <!--                android:text="جدید ترین"-->
-            <!--                android:textSize="18sp" />-->
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/tvSearch_rating"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_margin="4dp"-->
-            <!--                android:layout_weight="1"-->
-            <!--                android:gravity="start"-->
-            <!--                android:tag="rating"-->
-            <!--                android:text="بالاترین امتیاز"-->
-            <!--                android:textSize="18sp" />-->
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/tvSearch_popularity"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_margin="4dp"-->
-            <!--                android:layout_weight="1"-->
-            <!--                android:gravity="start"-->
-            <!--                android:tag="popularity"-->
-            <!--                android:text="پربازدید ترین"-->
-            <!--                android:textSize="18sp" />-->
-
         </LinearLayout>
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:layout_constraintTop_toBottomOf="@+id/ll_search"
+            tools:ignore="BottomAppBar,MissingConstraints" >
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view_Appbar"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:iconifiedByDefault="false"
+                android:queryHint="جستجو..."
+                android:textDirection="rtl"
+                app:defaultQueryHint="جستجو..."
+                app:iconifiedByDefault="false"
+                app:layout_constraintBottom_toTopOf="@id/containerView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:searchHintIcon="@drawable/baseline_search_24"
+                app:searchIcon="@drawable/baseline_search_24"
+                tools:ignore="MissingConstraints" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end|center_horizontal"
+                android:backgroundTint="@color/dark_indigo"
+                android:src="@drawable/filter"
+                android:importantForAccessibility="no" />
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+<!--        <androidx.appcompat.widget.AppCompatSpinner-->
+<!--            android:id="@+id/spinner_search"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:spinnerMode="dialog"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/ll_search" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_search"
@@ -188,11 +186,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_search"
+            app:layout_constraintTop_toBottomOf="@+id/bottomAppBar"
             app:spanCount="1"
             tools:itemCount="1"
             tools:listitem="@layout/search_item_adapter" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

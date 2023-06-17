@@ -10,12 +10,16 @@ import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentSearchBinding
 import com.example.final_test_01.ui.activity.search.adapter.SearchAdapter
 import com.example.final_test_01.util.ResponseState
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -31,9 +35,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchView = binding.searchViewFragment
         observeSearch(binding.searchViewFragment)
         setUi()
-        viewModel.query.observe(viewLifecycleOwner) {
-            viewModel.getCategoriesByIds()
-            Log.e(TAG, "getCategoriesByIds: $it")
+    }
+
+    /**
+     * تازه اضافه کردم اینو
+     */
+    private fun getSearchQueryByCategoriesIds() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.query.collect {
+                    viewModel.getCategoriesByIds()
+                    Log.e(TAG, "getCategoriesByIds: $it")
+                }
+            }
         }
     }
 
@@ -41,6 +55,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         observeSearch(searchView)
         createSearchAdapter()
         clickOnTvSearches()
+        getSearchQueryByCategoriesIds()
     }
 
     private fun createSearchAdapter() {
@@ -49,21 +64,25 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun observeSearch(searchView: SearchView) {
-        viewModel.search.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseState.Error -> Toast.makeText(
-                    requireContext(),
-                    "مشکل در اتصال به شبکه",
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.search.collect {
+                    when (it) {
+                        is ResponseState.Error -> Toast.makeText(
+                            requireContext(),
+                            "مشکل در اتصال به شبکه",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                is ResponseState.Success -> {
-                    adapter.submitList(it.data)
-                    Log.e(TAG, "it.data: ${it.data}")
-                }
+                        is ResponseState.Success -> {
+                            adapter.submitList(it.data)
+                            Log.e(TAG, "it.data: ${it.data}")
+                        }
 
-                ResponseState.Loading -> {
+                        ResponseState.Loading -> {
 
+                        }
+                    }
                 }
             }
         }

@@ -1,5 +1,7 @@
 package com.example.final_test_01.data.repository
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.example.final_test_01.data.model.dto.customer.CustomerDto
 import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
 import com.example.final_test_01.data.model.dto.product.ProductsDto
@@ -14,6 +16,7 @@ class Repository @Inject constructor(private val appService: AppService) {
     suspend fun getItemsIdsProducts(id: Int): Flow<List<ProductsItemsDto>> {
         return flow {
             emit(appService.getItemsIdsProducts(id))
+            Log.e(TAG, "appService: $id")
         }
     }
 
@@ -66,6 +69,15 @@ class Repository @Inject constructor(private val appService: AppService) {
     ): Flow<List<ProductsItemsDto>> {
         return flow {
             emit(appService.getAllProductsForSearch(search, orderby))
+        }
+    }
+
+    suspend fun getCategoryForSearch(
+        search: String,
+        orderby: String
+    ): Flow<List<ProductsItemsDto>> {
+        return flow {
+            emit(appService.getCategoryForSearch(search, orderby))
         }
     }
 

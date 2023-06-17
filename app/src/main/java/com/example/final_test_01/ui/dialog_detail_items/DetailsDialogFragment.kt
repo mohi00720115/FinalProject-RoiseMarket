@@ -9,6 +9,9 @@ import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,6 +22,7 @@ import com.example.final_test_01.ui.dialog_detail_items.adapter.DetailItemsAdapt
 import com.example.final_test_01.util.ResponseState
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
@@ -32,13 +36,18 @@ class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
         binding = DataBindingUtil.bind(view)!!
         binding.lifecycleOwner = viewLifecycleOwner
         navController = findNavController()
+        setUi()
+        setOnClickBtnAddToCart()
+    }
+
+    private fun setOnClickBtnAddToCart() {
         binding.btnAddToCart.setOnClickListener {
             Toast.makeText(
                 requireContext(),
                 "محصول به سبد خرید شما اضافه شد",
-                Toast.LENGTH_SHORT).show()
+                Toast.LENGTH_SHORT
+            ).show()
         }
-        setUi()
     }
 
     private fun setUi() {
@@ -54,28 +63,35 @@ class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
 
     @SuppressLint("SetTextI18n")
     private fun observeItemId() {
-        viewModel.itemID.observe(viewLifecycleOwner) {
-            with(binding) {
-                when (it) {
-                    is ResponseState.Error -> Toast.makeText(
-                        requireContext(),
-                        "مشکل در اتصال به شبکه",
-                        Toast.LENGTH_SHORT
-                    ).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.itemID.collect {
+                    with(binding) {
+                        when (it) {
+                            is ResponseState.Error -> Toast.makeText(
+                                requireContext(),
+                                "مشکل در اتصال به شبکه",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
-                    is ResponseState.Success -> {
-                        binding.clDetail2.visibility = View.VISIBLE
-                        binding.progressBarDetail.visibility = View.INVISIBLE
-                        tvTitleDialog.text = it.data[0].name
-                        tvPriceDialog.text = "${it.data[0].price} تومان"
-                        val description: Spanned = HtmlCompat.fromHtml(it.data[0].description.toString(),HtmlCompat.FROM_HTML_MODE_LEGACY)
-                        tvDescriptionDialog.text = description
-                        adapter.submitList(it.data[0].images)
-                    }
+                            is ResponseState.Success -> {
+                                binding.clDetail2.visibility = View.VISIBLE
+                                binding.progressBarDetail.visibility = View.INVISIBLE
+                                tvTitleDialog.text = it.data[0].name
+                                tvPriceDialog.text = "${it.data[0].price} تومان"
+                                val description: Spanned = HtmlCompat.fromHtml(
+                                    it.data[0].description.toString(),
+                                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                                )
+                                tvDescriptionDialog.text = description
+                                adapter.submitList(it.data[0].images)
+                            }
 
-                    ResponseState.Loading -> {
-                        binding.clDetail2.visibility = View.INVISIBLE
-                        binding.progressBarDetail.visibility = View.VISIBLE
+                            ResponseState.Loading -> {
+                                binding.clDetail2.visibility = View.INVISIBLE
+                                binding.progressBarDetail.visibility = View.VISIBLE
+                            }
+                        }
                     }
                 }
             }

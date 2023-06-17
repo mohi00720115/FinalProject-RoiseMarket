@@ -96,6 +96,7 @@ interface AppService {
     @GET("products/categories")
     suspend fun getCategoryForSearch(
         @Query("search") search: String,
+        @Query("orderby") orderBy: String,
 //        @Query("category") category: String = "119",
     ): List<ProductsItemsDto>
 

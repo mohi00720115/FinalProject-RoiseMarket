@@ -4,10 +4,10 @@
     <item
         android:id="@+id/search_toolbar"
         android:icon="@drawable/baseline_search_24"
-        android:title="Search" />
+        android:title="@string/categories" />
 
     <item
         android:id="@+id/profile_toolbar"
         android:icon="@drawable/baseline_profile_24"
-        android:title="Profile" />
+        android:title="@string/profile" />
 </menu>

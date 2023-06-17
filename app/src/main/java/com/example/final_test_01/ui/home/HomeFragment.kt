@@ -1,23 +1,24 @@
 package com.example.final_test_01.ui.home
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentHomeBinding
 import com.example.final_test_01.ui.home.adapter.HomeAdapter
 import com.example.final_test_01.ui.home.adapter.ViewPagerAdapter
 import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -83,69 +84,81 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun topRatedProductObserve() {
-        viewModel.topRatedProduct.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseState.Error -> Toast.makeText(
-                    requireContext(),
-                    "مشکل در اتصال به شبکه",
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.topRatedProduct.collect {
+                    when (it) {
+                        is ResponseState.Error -> Toast.makeText(
+                            requireContext(),
+                            "مشکل در اتصال به شبکه",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                is ResponseState.Success -> {
-                    adapterTopRated.submitList(it.data)
-                    binding.progressBarHome.visibility = View.INVISIBLE
-                    binding.progressBarHome.visibility = View.INVISIBLE
-                }
+                        is ResponseState.Success -> {
+                            adapterTopRated.submitList(it.data)
+                            binding.progressBarHome.visibility = View.INVISIBLE
+                            binding.progressBarHome.visibility = View.INVISIBLE
+                        }
 
-                ResponseState.Loading -> {
-                    binding.nestedScrollView.visibility = View.INVISIBLE
-                    binding.progressBarHome.visibility = View.VISIBLE
+                        ResponseState.Loading -> {
+                            binding.nestedScrollView.visibility = View.INVISIBLE
+                            binding.progressBarHome.visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
         }
     }
 
     private fun mostVisitedProductObserve() {
-        viewModel.mostVisitedProduct.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseState.Error -> Toast.makeText(
-                    requireContext(),
-                    "مشکل در اتصال به شبکه",
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.mostVisitedProduct.collect {
+                    when (it) {
+                        is ResponseState.Error -> Toast.makeText(
+                            requireContext(),
+                            "مشکل در اتصال به شبکه",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                is ResponseState.Success -> {
-                    adapterMostVisited.submitList(it.data)
-                    binding.progressBarHome.visibility = View.INVISIBLE
-                    binding.progressBarHome.visibility = View.INVISIBLE
-                }
+                        is ResponseState.Success -> {
+                            adapterMostVisited.submitList(it.data)
+                            binding.progressBarHome.visibility = View.INVISIBLE
+                            binding.progressBarHome.visibility = View.INVISIBLE
+                        }
 
-                ResponseState.Loading -> {
-                    binding.nestedScrollView.visibility = View.INVISIBLE
-                    binding.progressBarHome.visibility = View.VISIBLE
+                        ResponseState.Loading -> {
+                            binding.nestedScrollView.visibility = View.INVISIBLE
+                            binding.progressBarHome.visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
         }
     }
 
     private fun newestProductObserve() {
-        viewModel.newestProduct.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseState.Error -> Toast.makeText(
-                    requireContext(),
-                    "مشکل در اتصال به شبکه",
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.newestProduct.collect {
+                    when (it) {
+                        is ResponseState.Error -> Toast.makeText(
+                            requireContext(),
+                            "مشکل در اتصال به شبکه",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                is ResponseState.Success -> {
-                    adapterNewest.submitList(it.data)
-                    binding.progressBarHome.visibility = View.INVISIBLE
-                    binding.nestedScrollView.visibility = View.VISIBLE
-                }
+                        is ResponseState.Success -> {
+                            adapterNewest.submitList(it.data)
+                            binding.progressBarHome.visibility = View.INVISIBLE
+                            binding.nestedScrollView.visibility = View.VISIBLE
+                        }
 
-                ResponseState.Loading -> {
-                    binding.nestedScrollView.visibility = View.INVISIBLE
-                    binding.progressBarHome.visibility = View.VISIBLE
+                        ResponseState.Loading -> {
+                            binding.nestedScrollView.visibility = View.INVISIBLE
+                            binding.progressBarHome.visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
         }
@@ -154,29 +167,33 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun setUpViewPager() {
         viewModel.getIdsCategoryForViewPager()
         viewPager = binding.viewPagerHome
-        viewModel.onSellProducts.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseState.Error -> Toast.makeText(
-                    requireContext(),
-                    "مشکل در اتصال به شبکه",
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.onSellProducts.collect {
+                    when (it) {
+                        is ResponseState.Error -> Toast.makeText(
+                            requireContext(),
+                            "مشکل در اتصال به شبکه",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                is ResponseState.Success -> {
-                    imageList = mutableListOf()
-                    for (i in it.data) {
-                        for (j in i.images) {
-                            imageList.add(j.src!!)
+                        is ResponseState.Success -> {
+                            imageList = mutableListOf()
+                            for (i in it.data) {
+                                for (j in i.images) {
+                                    imageList.add(j.src!!)
+                                }
+                            }
+                            viewPagerAdapter = ViewPagerAdapter(requireContext(), imageList)
+                            viewPager = binding.viewPagerHome
+                            viewPager.adapter = viewPagerAdapter
+                        }
+
+                        ResponseState.Loading -> {
+                            binding.nestedScrollView.visibility = View.INVISIBLE
+                            binding.progressBarHome.visibility = View.VISIBLE
                         }
                     }
-                    viewPagerAdapter = ViewPagerAdapter(requireContext(), imageList)
-                    viewPager = binding.viewPagerHome
-                    viewPager.adapter = viewPagerAdapter
-                }
-
-                ResponseState.Loading -> {
-                    binding.nestedScrollView.visibility = View.INVISIBLE
-                    binding.progressBarHome.visibility = View.VISIBLE
                 }
             }
         }

@@ -6,6 +6,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.final_test_01.R
@@ -13,6 +16,7 @@ import com.example.final_test_01.databinding.FragmentCategoryBinding
 import com.example.final_test_01.ui.category.adapter.CategoryAdapter
 import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment(R.layout.fragment_category) {
@@ -45,23 +49,27 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     }
 
     private fun observeCategory() {
-        viewModel.category.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseState.Error -> Toast.makeText(
-                    requireContext(),
-                    "مشکل در اتصال به شبکه",
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.category.collect {
+                    when (it) {
+                        is ResponseState.Error -> Toast.makeText(
+                            requireContext(),
+                            "مشکل در اتصال به شبکه",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                is ResponseState.Success -> {
-                    binding.recyclerViewCategory.visibility = View.VISIBLE
-                    binding.progressBarCategory.visibility = View.INVISIBLE
-                    adapter.submitList(it.data)
-                }
+                        is ResponseState.Success -> {
+                            binding.recyclerViewCategory.visibility = View.VISIBLE
+                            binding.progressBarCategory.visibility = View.INVISIBLE
+                            adapter.submitList(it.data)
+                        }
 
-                ResponseState.Loading -> {
-                    binding.recyclerViewCategory.visibility = View.INVISIBLE
-                    binding.progressBarCategory.visibility = View.VISIBLE
+                        ResponseState.Loading -> {
+                            binding.recyclerViewCategory.visibility = View.INVISIBLE
+                            binding.progressBarCategory.visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
         }
