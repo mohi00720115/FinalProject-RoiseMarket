@@ -74,10 +74,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                             is ResponseState.Success -> {
                                 binding.linearLayoutCart.visibility = View.VISIBLE
                                 binding.progressBarCart.visibility = View.INVISIBLE
-                                tvCartPrice.text = it.data[0].id.toString()
-                                Log.e(TAG, "tvCartPrice: ${it.data[0].id}")
+                                tvCartPrice.text = "جمع کل خرید"
                                 tvCartPriceFee.text = "${it.data[0].price} تومان"
-                                Log.e(TAG, "tvCartPriceFee: ${it.data[0].price}")
+                                adapter.submitList(it.data)
 //                        val description: Spanned = HtmlCompat.fromHtml(it.data[0].description.toString(),
 //                            HtmlCompat.FROM_HTML_MODE_LEGACY)
 //                        tvDescriptionDialog.text = description

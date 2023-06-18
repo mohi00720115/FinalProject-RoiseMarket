@@ -12,6 +12,19 @@
         android:layout_height="match_parent"
         tools:context=".ui.activity.search.fragment.SearchFragment">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottomAppBar"
+            app:spanCount="1"
+            tools:itemCount="1"
+            tools:listitem="@layout/search_item_adapter" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/search_cardView_fragment"
             android:layout_width="match_parent"
@@ -178,18 +191,6 @@
 <!--            app:layout_constraintStart_toStartOf="parent"-->
 <!--            app:layout_constraintTop_toBottomOf="@+id/ll_search" />-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_search"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottomAppBar"
-            app:spanCount="1"
-            tools:itemCount="1"
-            tools:listitem="@layout/search_item_adapter" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

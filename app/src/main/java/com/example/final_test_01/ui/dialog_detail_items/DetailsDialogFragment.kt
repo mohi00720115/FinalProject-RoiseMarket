@@ -42,6 +42,7 @@ class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
 
     private fun setOnClickBtnAddToCart() {
         binding.btnAddToCart.setOnClickListener {
+            navController.navigate(DetailsDialogFragmentDirections.actionDetailsDialogToCartFragment(args.detailItems))
             Toast.makeText(
                 requireContext(),
                 "محصول به سبد خرید شما اضافه شد",

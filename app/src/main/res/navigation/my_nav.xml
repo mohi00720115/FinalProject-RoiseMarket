@@ -57,7 +57,8 @@
         tools:layout="@layout/fragment_cart" >
         <argument
             android:name="cart_id"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/customerFragment"
