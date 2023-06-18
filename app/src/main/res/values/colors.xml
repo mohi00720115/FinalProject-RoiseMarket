@@ -50,9 +50,6 @@
     <color name="dark_violet">#9400D3</color>
     <color name="violet">#EE82EE</color>
     <color name="light_violet">#D8BFD8</color>
-    <color name="dark_indigo">#4B0082</color>
-    <color name="indigo">#9B4F96</color>
-    <color name="light_indigo">#C9A0DC</color>
     <color name="very_light_indigo">#F6E4FF</color>
     <color name="dark_tomato">#FF6347</color>
     <color name="tomato">#FF7F50</color>
@@ -84,9 +81,6 @@
     <color name="dark_crimson">#DC143C</color>
     <color name="crimson">#DC143C</color>
     <color name="light_crimson">#FFC0CB</color>
-    <color name="dark_azure">#1E90FF</color>
-    <color name="azure">#F0FFFF</color>
-    <color name="light_azure">#F0F8FF</color>
     <color name="dark_orchid">#9932CC</color>
     <color name="orchid">#DA70D6</color>
     <color name="light_orchid">#D8BFD8</color>
@@ -105,4 +99,15 @@
     <color name="light_rose">#FFE4E1</color>
     <color name="roise">#ff0042</color>
     <color name="light_roise">#ff0042</color>
+    <!--  1  -->
+    <color name="dark_indigo">#083D77</color>
+    <color name="dark_indigo2">#4B0082</color>
+    <color name="indigo">#9B4F96</color>
+    <color name="light_indigo">#C9A0DC</color>
+    <color name="dark_azure">#1E90FF</color>
+    <color name="azure">#F0FFFF</color>
+    <!--  2  -->
+    <color name="light_azure">#EBEBD3</color>
+    <color name="light_azure2">#F0F8FF</color>
+
 </resources>
