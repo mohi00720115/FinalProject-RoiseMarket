@@ -4,73 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<variable
-    name="viewModel"
-    type="com.example.final_test_01.ui.customer.CustomerViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.example.final_test_01.ui.customer.CustomerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/login"
         tools:context=".ui.customer.CustomerFragment">
 
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView"
             android:layout_width="170dp"
             android:layout_height="170dp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/circleImage20"
+            app:strokeColor="@color/light_azure"
+            app:strokeWidth="4dp" />
 
         <EditText
             android:id="@+id/et_firstName_customer"
-            android:layout_width="0dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/iransans"
+            android:gravity="center_vertical"
+            android:hint="@string/name"
             android:inputType="text"
-            android:hint="Name"
             android:text="@={viewModel.firstName}"
+            android:textColor="@color/light_azure"
+            android:textColorHint="@color/light_azure"
+            android:textDirection="rtl"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
             android:id="@+id/et_lastName_customer"
-            android:layout_width="0dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/iransans"
+            android:gravity="center_vertical"
+            android:hint="@string/family"
             android:inputType="text"
-            android:hint="Family"
             android:text="@={viewModel.lastName}"
+            android:textColor="@color/light_azure"
+            android:textColorHint="@color/light_azure"
+            android:textDirection="rtl"
             app:layout_constraintEnd_toEndOf="@+id/et_firstName_customer"
             app:layout_constraintStart_toStartOf="@+id/et_firstName_customer"
             app:layout_constraintTop_toBottomOf="@+id/et_firstName_customer" />
 
         <EditText
             android:id="@+id/et_email_customer"
-            android:layout_width="0dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:inputType="text"
-            android:hint="Email"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/iransans"
+            android:gravity="center_vertical"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
             android:text="@={viewModel.email}"
+            android:textColor="@color/light_azure"
+            android:textColorHint="@color/light_azure"
+            android:textDirection="rtl"
             app:layout_constraintEnd_toEndOf="@+id/et_lastName_customer"
             app:layout_constraintStart_toStartOf="@+id/et_lastName_customer"
-            app:layout_constraintTop_toBottomOf="@+id/et_lastName_customer" />
+            app:layout_constraintTop_toBottomOf="@+id/et_lastName_customer"
+            tools:ignore="TextFields" />
 
         <Button
             android:id="@+id/btn_signUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SignUp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/light_azure"
+            android:text="@string/signup"
+            android:textColor="@color/dark_indigo"
             android:textSize="20sp"
-            android:backgroundTint="@color/dark_indigo"
-            android:textColor="@color/light_azure"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_email_customer"
+            app:layout_constraintVertical_bias="1"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
