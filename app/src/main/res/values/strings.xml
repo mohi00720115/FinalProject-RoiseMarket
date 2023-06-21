@@ -21,4 +21,8 @@
     <string name="finalAllPrice">جمع کل خرید</string>
     <string name="finalAllPrice_fee">000/000/000 تومان</string>
     <string name="complete">تکمیل خرید</string>
+    <string name="signup">SignUp</string>
+    <string name="email">ایمیل خود را وارد کنید</string>
+    <string name="family">نام خانوادگی خود را وارد کنید</string>
+    <string name="name">نام خود را وارد کنید</string>
 </resources>
