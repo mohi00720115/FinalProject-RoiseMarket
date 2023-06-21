@@ -1,4 +1,4 @@
-package com.example.final_test_01.ui.dialog_detail_items
+package com.example.final_test_01.ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

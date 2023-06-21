@@ -1,4 +1,4 @@
-package com.example.final_test_01.ui.dialog_detail_items.adapter
+package com.example.final_test_01.ui.detail.adapter
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
