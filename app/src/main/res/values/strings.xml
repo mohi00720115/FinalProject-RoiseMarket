@@ -14,4 +14,11 @@
     <string name="categories">دسته بندی ها</string>
     <string name="categoryNames">دسته بندی</string>
     <string name="profile">پروفایل</string>
+    <string name="numberOfProduct">تعداد محصول</string>
+    <string name="productNameInCart">نام محصول در سبد خرید</string>
+    <string name="finalPriceProduct">جمع نهایی محصول</string>
+    <string name="delete">حذف</string>
+    <string name="finalAllPrice">جمع کل خرید</string>
+    <string name="finalAllPrice_fee">000/000/000 تومان</string>
+    <string name="complete">تکمیل خرید</string>
 </resources>
