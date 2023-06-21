@@ -2,9 +2,11 @@ package com.example.final_test_01.ui.activity.search.fragment
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -91,6 +93,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.getAllProductsForSearch(query!!)
 //                viewModel.getCategoriesByIds(1,15, query)   //دقت
+                //بستن کیبورد زمانی که کاربر روی سرچ کلیک کرد.
+                val inputMethodManager =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(searchView.windowToken, 0)
                 return true
             }
 

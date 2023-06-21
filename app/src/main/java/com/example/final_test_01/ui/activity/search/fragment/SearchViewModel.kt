@@ -56,7 +56,7 @@ class SearchViewModel @Inject constructor(private val repository: Repository) : 
         viewModelScope.launch {
             repository.getCategoriesByIds(1, 15, "52").asResponseState().collect {
                 repository.getCategoriesByIds(1, 15, "havij").filter {
-                    it[0].description!!.contains(query.value!!, ignoreCase = true)
+                    it[0].description!!.contains(query.value, ignoreCase = true)
                 }
                 _categoryById.value = it
                 Log.i(TAG, "it.filter: $it")
