@@ -78,8 +78,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:4.15.1"
     //Ui - Material Dialogs
     implementation 'com.afollestad.material-dialogs:core:3.3.0'
-    //SmoothBottomBar
-//    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
+    //Lottie
+    implementation "com.airbnb.android:lottie:3.4.0"
 }
 kapt {
     correctErrorTypes true
