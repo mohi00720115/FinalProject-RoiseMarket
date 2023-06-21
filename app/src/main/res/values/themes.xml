@@ -17,7 +17,7 @@
     <style name="activeIndicator_bottomNav" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:height">30dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:color">@color/light_violet</item>
+        <item name="android:color">#DAE6FF</item>
     </style>
 
     <!--استفاده از این استایل در تمام تکست ویو ها برای اعمال فونت-->
