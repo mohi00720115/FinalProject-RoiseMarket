@@ -3,6 +3,7 @@ package com.example.final_test_01.ui.category
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -35,6 +36,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
     private fun setUi() {
         createCategoryAdapter()
         observeCategory()
+        showSearchView()
     }
 
     private fun createCategoryAdapter() {
@@ -74,4 +76,9 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             }
         }
     }
+
+    private fun showSearchView() {
+        requireActivity().findViewById<CardView>(R.id.search_cardView).visibility = View.VISIBLE
+    }
+
 }

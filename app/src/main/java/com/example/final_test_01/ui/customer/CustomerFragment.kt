@@ -3,6 +3,7 @@ package com.example.final_test_01.ui.customer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -22,9 +23,11 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         navController = findNavController()
+        requireActivity().findViewById<CardView>(R.id.search_cardView).visibility = View.GONE
 
-        binding.btnSignUp.setOnClickListener{
+        binding.btnSignUp.setOnClickListener {
             viewModel.createCustomerObject()
         }
+
     }
 }

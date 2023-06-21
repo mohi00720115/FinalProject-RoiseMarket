@@ -3,7 +3,9 @@ package com.example.final_test_01.ui.cart
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,6 +40,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private fun setUi() {
         createCartAdapter()
         observeItemId()
+        hideSearchView()
     }
 
     private fun createCartAdapter() {
@@ -95,6 +98,10 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 }
             }
         }
+    }
+
+    private fun hideSearchView() {
+        requireActivity().findViewById<CardView>(R.id.search_cardView).visibility = View.GONE
     }
 
 }

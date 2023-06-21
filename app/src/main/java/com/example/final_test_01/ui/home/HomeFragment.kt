@@ -3,6 +3,7 @@ package com.example.final_test_01.ui.home
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,6 +42,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun setUi() {
         createAdapters()
         observers()
+        showSearchView()
     }
 
     private fun createAdapters() {
@@ -198,6 +200,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
+    }
+    private fun showSearchView() {
+        requireActivity().findViewById<CardView>(R.id.search_cardView).visibility = View.VISIBLE
     }
 
 }
