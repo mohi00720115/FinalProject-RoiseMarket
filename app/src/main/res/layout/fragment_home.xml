@@ -224,18 +224,32 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <ProgressBar
-            android:id="@+id/progressBar_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyle"
-            android:indeterminateTint="@color/dark_indigo"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView_home"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
             app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"
             app:layout_constraintStart_toStartOf="@+id/nestedScrollView"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="visible"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/ottiechargement"
             tools:ignore="MissingConstraints" />
+
+
+<!--        <ProgressBar-->
+<!--            android:id="@+id/progressBar_home"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            style="?android:attr/progressBarStyle"-->
+<!--            android:indeterminateTint="@color/dark_indigo"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/nestedScrollView"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:visibility="visible"-->
+<!--            tools:ignore="MissingConstraints" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -96,13 +96,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                         is ResponseState.Success -> {
                             adapterTopRated.submitList(it.data)
-                            binding.progressBarHome.visibility = View.INVISIBLE
-                            binding.progressBarHome.visibility = View.INVISIBLE
+                            binding.animationViewHome.visibility = View.INVISIBLE
+                            binding.animationViewHome.visibility = View.INVISIBLE
                         }
 
                         ResponseState.Loading -> {
                             binding.nestedScrollView.visibility = View.INVISIBLE
-                            binding.progressBarHome.visibility = View.VISIBLE
+                            binding.animationViewHome.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -123,13 +123,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                         is ResponseState.Success -> {
                             adapterMostVisited.submitList(it.data)
-                            binding.progressBarHome.visibility = View.INVISIBLE
-                            binding.progressBarHome.visibility = View.INVISIBLE
+                            binding.animationViewHome.visibility = View.INVISIBLE
+                            binding.animationViewHome.visibility = View.INVISIBLE
                         }
 
                         ResponseState.Loading -> {
                             binding.nestedScrollView.visibility = View.INVISIBLE
-                            binding.progressBarHome.visibility = View.VISIBLE
+                            binding.animationViewHome.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -150,13 +150,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                         is ResponseState.Success -> {
                             adapterNewest.submitList(it.data)
-                            binding.progressBarHome.visibility = View.INVISIBLE
+                            binding.animationViewHome.visibility = View.INVISIBLE
                             binding.nestedScrollView.visibility = View.VISIBLE
                         }
 
                         ResponseState.Loading -> {
                             binding.nestedScrollView.visibility = View.INVISIBLE
-                            binding.progressBarHome.visibility = View.VISIBLE
+                            binding.animationViewHome.visibility = View.VISIBLE
                         }
                     }
                 }
@@ -184,14 +184,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                                     imageList.add(j.src!!)
                                 }
                             }
-                            viewPagerAdapter = ViewPagerAdapter(requireContext(), imageList)
+                            viewPagerAdapter = ViewPagerAdapter(requireContext(), imageList.take(7))
                             viewPager = binding.viewPagerHome
                             viewPager.adapter = viewPagerAdapter
                         }
 
                         ResponseState.Loading -> {
                             binding.nestedScrollView.visibility = View.INVISIBLE
-                            binding.progressBarHome.visibility = View.VISIBLE
+                            binding.animationViewHome.visibility = View.VISIBLE
                         }
                     }
                 }

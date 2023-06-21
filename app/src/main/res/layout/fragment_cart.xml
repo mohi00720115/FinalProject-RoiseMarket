@@ -31,9 +31,10 @@
                 android:layout_height="70dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/iransans_bold"
-                android:gravity="center"
-                android:text="99/000/000 تومان "
-                android:textSize="24sp"
+                android:gravity="end|center_vertical"
+                android:paddingStart="16dp"
+                android:text="@string/finalAllPrice_fee"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerView_cart"
                 tools:ignore="MissingConstraints" />
 
@@ -42,11 +43,11 @@
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_weight="1"
-                android:paddingEnd="4dp"
+                android:paddingEnd="16dp"
                 android:fontFamily="@font/iransans_bold"
                 android:gravity="start|center_vertical"
-                android:text="جمع کل خرید"
-                android:textSize="24sp"
+                android:text="@string/finalAllPrice"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerView_cart"
                 tools:ignore="MissingConstraints" />
 
@@ -70,7 +71,7 @@
             android:id="@+id/btn_cart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="تکمیل خرید"
+            android:text="@string/complete"
             android:backgroundTint="@color/dark_indigo"
             android:textColor="@color/light_azure"
             android:textSize="24sp"
@@ -79,20 +80,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
-        <ProgressBar
-            android:id="@+id/progressBar_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            style="?android:attr/progressBarStyle"
-            android:indeterminateTint="@color/dark_indigo"
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView_cart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/ottiechargement"
             tools:ignore="MissingConstraints" />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

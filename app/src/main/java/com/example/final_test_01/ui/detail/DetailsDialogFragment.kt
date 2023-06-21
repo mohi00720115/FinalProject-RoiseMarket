@@ -1,4 +1,4 @@
-package com.example.final_test_01.ui.dialog_detail_items
+package com.example.final_test_01.ui.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -16,11 +16,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.final_test_01.R
-import com.example.final_test_01.databinding.ActivityMainBinding
 import com.example.final_test_01.databinding.DetailDialogBinding
-import com.example.final_test_01.ui.dialog_detail_items.adapter.DetailItemsAdapter
+import com.example.final_test_01.ui.detail.adapter.DetailItemsAdapter
 import com.example.final_test_01.util.ResponseState
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -42,7 +40,11 @@ class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
 
     private fun setOnClickBtnAddToCart() {
         binding.btnAddToCart.setOnClickListener {
-            navController.navigate(DetailsDialogFragmentDirections.actionDetailsDialogToCartFragment(args.detailItems))
+            navController.navigate(
+                DetailsDialogFragmentDirections.actionDetailsDialogToCartFragment(
+                    args.detailItems
+                )
+            )
             Toast.makeText(
                 requireContext(),
                 "محصول به سبد خرید شما اضافه شد",
@@ -77,7 +79,7 @@ class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
 
                             is ResponseState.Success -> {
                                 binding.clDetail2.visibility = View.VISIBLE
-                                binding.progressBarDetail.visibility = View.INVISIBLE
+                                binding.animationViewDetail.visibility = View.INVISIBLE
                                 tvTitleDialog.text = it.data[0].name
                                 tvPriceDialog.text = "${it.data[0].price} تومان"
                                 val description: Spanned = HtmlCompat.fromHtml(
@@ -90,7 +92,7 @@ class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
 
                             ResponseState.Loading -> {
                                 binding.clDetail2.visibility = View.INVISIBLE
-                                binding.progressBarDetail.visibility = View.VISIBLE
+                                binding.animationViewDetail.visibility = View.VISIBLE
                             }
                         }
                     }

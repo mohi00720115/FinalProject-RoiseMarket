@@ -1,13 +1,9 @@
 package com.example.final_test_01.ui.cart
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.text.Spanned
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,8 +16,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentCartBinding
 import com.example.final_test_01.ui.cart.adapter.CartAdapter
-import com.example.final_test_01.ui.category.CategoryFragmentDirections
-import com.example.final_test_01.ui.dialog_detail_items.DetailsDialogFragmentArgs
 import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -73,10 +67,19 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
                             is ResponseState.Success -> {
                                 binding.linearLayoutCart.visibility = View.VISIBLE
-                                binding.progressBarCart.visibility = View.INVISIBLE
-                                tvCartPrice.text = "جمع کل خرید"
-                                tvCartPriceFee.text = "${it.data[0].price} تومان"
-                                adapter.submitList(it.data)
+                                binding.animationViewCart.visibility = View.INVISIBLE
+                                if (it.data.isNotEmpty()) {
+                                    tvCartPrice.text = "جمع کل خرید"
+                                    tvCartPriceFee.text = "${it.data[0].price} تومان"
+                                    adapter.submitList(it.data)
+                                } else {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "اطلاعاتی وجود ندارد",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
 //                        val description: Spanned = HtmlCompat.fromHtml(it.data[0].description.toString(),
 //                            HtmlCompat.FROM_HTML_MODE_LEGACY)
 //                        tvDescriptionDialog.text = description
@@ -85,7 +88,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
                             ResponseState.Loading -> {
                                 binding.linearLayoutCart.visibility = View.INVISIBLE
-                                binding.progressBarCart.visibility = View.VISIBLE
+                                binding.animationViewCart.visibility = View.VISIBLE
                             }
                         }
                     }

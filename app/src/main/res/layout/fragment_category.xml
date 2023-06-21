@@ -38,20 +38,18 @@
             app:spanCount="2"
             tools:listitem="@layout/category_item_adapter" />
 
-        <ProgressBar
-            android:id="@+id/progressBar_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:indeterminate="true"
-            style="?android:attr/progressBarStyle"
-            android:indeterminateTint="@color/dark_indigo"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView_category"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/ottiechargement"
             tools:ignore="MissingConstraints" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
