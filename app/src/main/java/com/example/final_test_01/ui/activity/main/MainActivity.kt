@@ -2,9 +2,12 @@ package com.example.final_test_01.ui.activity.main
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -21,15 +24,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var bottomNavigationView: BottomNavigationView
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setUi()
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun setUi() {
         setBottomNavigation()
         intentIntoSearchActivity()
+        changeStatusBarColor()
     }
 
     /**
@@ -51,6 +57,15 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         bottomNavigationView = binding.bottomNav
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
+    }
+
+    /**
+     * تغییر رنگ، نوار وضعیت بالا و پایین گوشی موبایل
+     */
+    @RequiresApi(Build.VERSION_CODES.P)
+    private fun changeStatusBarColor() {
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.black)
     }
 
     /**
