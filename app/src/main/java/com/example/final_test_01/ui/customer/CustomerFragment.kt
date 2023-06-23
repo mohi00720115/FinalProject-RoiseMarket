@@ -11,18 +11,12 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.final_test_01.R
-import com.example.final_test_01.data.model.dto.customer.CustomerDto
 import com.example.final_test_01.databinding.FragmentCustomerBinding
-import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CustomerFragment : Fragment(R.layout.fragment_customer) {
@@ -45,16 +39,14 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
                 val firstName = etFirstNameCustomer.text.toString()
                 val lastName = etLastNameCustomer.text.toString()
                 val email = etEmailCustomer.text.toString()
-//                viewModel.createCustomerByEmail(email)
-                viewModel.createCustomerByEmail((CustomerDto(firstName, lastName, email)))
-                viewLifecycleOwner.lifecycleScope.launch {
-                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        viewModel.customer.collect {
-                            val idi = it.email
-                            Log.e(TAG, "onViewCreated Email: $email")
-                            Log.e(TAG, "onViewCreated idi: $idi")
-                        }
-                    }
+                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()){
+                    Toast.makeText(requireContext(),"لطفا تمام اطلاعات رو کامل کنید",Toast.LENGTH_SHORT).show()
+                } else{
+                    viewModel?.createObjectDto(firstName, lastName, email)
+                    Toast.makeText(requireContext(),"ثبت نام با موفقیت انجام شد",Toast.LENGTH_SHORT).show()
+//                    viewModel?.customer?.observe(viewLifecycleOwner) {
+//                        Log.e(TAG, "onViewCreated idi: ${it.email}")
+//                    }
                 }
             }
         }
