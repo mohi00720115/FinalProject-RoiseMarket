@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.final_test_01.R
+import com.example.final_test_01.data.model.dto.customer.CustomerDto
 import com.example.final_test_01.databinding.FragmentCustomerBinding
 import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,26 +35,35 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         navController = findNavController()
-        requireActivity().findViewById<CardView>(R.id.search_cardView).visibility = View.GONE
+        setUi()
 
-        binding.btnSignUp.setOnClickListener {
-            val email = binding.etEmailCustomer.text.toString()
-//            viewModel.createCustomerByEmail(email)
-            viewModel.createCusromer()
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.customer.collect {
-                        val idi = it.email
-                        Log.e(TAG, "onViewCreated Email: $email")
-                        Log.e(TAG, "onViewCreated idi: $idi")}
+    }
+
+    private fun createCustomerOnClick() {
+        with(binding) {
+            btnSignUp.setOnClickListener {
+                val firstName = etFirstNameCustomer.text.toString()
+                val lastName = etLastNameCustomer.text.toString()
+                val email = etEmailCustomer.text.toString()
+//                viewModel.createCustomerByEmail(email)
+                viewModel.createCustomerByEmail((CustomerDto(firstName, lastName, email)))
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.customer.collect {
+                            val idi = it.email
+                            Log.e(TAG, "onViewCreated Email: $email")
+                            Log.e(TAG, "onViewCreated idi: $idi")
+                        }
+                    }
                 }
             }
         }
+    }
 
-        binding.imageView.setOnClickListener {
-            setImage()
-        }
-
+    private fun setUi() {
+        createCustomerOnClick()
+        hideSearchView()
+        setImageAsGallery()
     }
 
     /**
@@ -74,6 +84,14 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
                 .load(imageUri)
                 .into(binding.imageView)
         }
+    }
+
+    private fun setImageAsGallery() {
+        binding.imageView.setOnClickListener { setImage() }
+    }
+
+    private fun hideSearchView() {
+        requireActivity().findViewById<CardView>(R.id.search_cardView).visibility = View.GONE
     }
 
 }

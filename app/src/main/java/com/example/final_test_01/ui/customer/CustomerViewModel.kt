@@ -18,13 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CustomerViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val _customer = MutableStateFlow<CustomerDto>(CustomerDto("Ali", "Reza", ""))
+    private val _customer = MutableStateFlow<CustomerDto>(CustomerDto("", "", ""))
     val customer: StateFlow<CustomerDto> = _customer
-
-    fun createCusromer(){
-        val dt = CustomerDto("","","sca@gmail.com")
-        createCustomerByEmail(dt)
-    }
 
     fun createCustomerByEmail(
 //        email: String,
