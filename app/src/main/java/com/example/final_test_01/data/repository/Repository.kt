@@ -6,7 +6,9 @@ import com.example.final_test_01.data.model.dto.customer.CustomerDto
 import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
 import com.example.final_test_01.data.model.dto.product.ProductsDto
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
+import com.example.final_test_01.data.model.ui.MyCustomerItem
 import com.example.final_test_01.data.remote.AppService
+import com.example.final_test_01.mapper.customerItemToCustomerDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -81,9 +83,13 @@ class Repository @Inject constructor(private val appService: AppService) {
         }
     }
 
-    suspend fun createCustomer(customer: CustomerDto): Flow<CustomerDto> {
+    suspend fun createCustomer(
+//        email: String,
+    dto:CustomerDto
+    ): Flow<CustomerDto> {
         return flow {
-            emit(appService.createCustomer(customer))
+//            emit(appService.createCustomer(customerItemToCustomerDto(MyCustomerItem.empty.copy(email = email))))
+            emit(appService.createCustomer(dto))
         }
     }
 }

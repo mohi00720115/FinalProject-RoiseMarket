@@ -1,5 +1,7 @@
 package com.example.final_test_01.ui.customer
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.final_test_01.data.model.dto.customer.CustomerDto
@@ -9,26 +11,32 @@ import com.example.final_test_01.util.ResponseState.Loading
 import com.example.final_test_01.util.asResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CustomerViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    val firstName = MutableStateFlow("")
-    val lastName = MutableStateFlow("")
-    val email = MutableStateFlow("")
+    private val _customer = MutableStateFlow<CustomerDto>(CustomerDto("Ali", "Reza", ""))
+    val customer: StateFlow<CustomerDto> = _customer
 
-    private val _customerId = MutableStateFlow<ResponseState<CustomerDto>>(Loading)
-    val customerId = _customerId
-
-    fun createCustomerObject() {
-        val customer = CustomerDto(email.value, firstName.value, lastName.value)
-        createCustomer(customer)
+    fun createCusromer(){
+        val dt = CustomerDto("","","sca@gmail.com")
+        createCustomerByEmail(dt)
     }
 
-    private fun createCustomer(customer: CustomerDto) {
+    fun createCustomerByEmail(
+//        email: String,
+        dto: CustomerDto
+    ) {
         viewModelScope.launch {
-            repository.createCustomer(customer).asResponseState()
+            repository.createCustomer(dto).collect {
+                _customer.value = it
+                Log.e(TAG, "createCustomerByEmail: $it")
+            }
+
         }
     }
+
 }
