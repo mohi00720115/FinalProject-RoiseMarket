@@ -13,6 +13,7 @@ import com.example.final_test_01.data.model.ui.MyCustomerItem
 import com.example.final_test_01.data.remote.AppService
 import com.example.final_test_01.mapper.customerItemToCustomerDto
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import kotlin.system.measureTimeMillis
@@ -97,6 +98,8 @@ class Repository @Inject constructor(
         return flow {
 //            emit(appService.createCustomer(customerItemToCustomerDto(MyCustomerItem.empty.copy(email = email))))
             emit(appService.createCustomer(dto))
+        }.catch {
+            Log.e(TAG, "createCustomer: اطلاعات جدید بساز تکراری نده.")
         }
     }
 
@@ -116,8 +119,8 @@ class Repository @Inject constructor(
         cartDao.update(lineItemEntity)
     }
 
-    suspend fun delete(productId: Int) {
-        cartDao.delete(productId)
+    suspend fun delete(lineItemEntity: LineItemEntity) {
+        cartDao.delete(lineItemEntity)
     }
 
     fun getAllProduct(): Flow<List<LineItemEntity>> {
