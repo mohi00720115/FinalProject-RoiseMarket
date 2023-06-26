@@ -7,6 +7,5 @@ import androidx.room.Entity
 data class LineItemEntity(
     @ColumnInfo("product_id")
     val productId: Int,
-    val quantity: Int,
-    val id: Int,
+    val quantity: Int = 1,
     )
