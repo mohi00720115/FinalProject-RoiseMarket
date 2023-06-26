@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.final_test_01.R
+import com.example.final_test_01.data.local.LineItemEntity
 import com.example.final_test_01.databinding.DetailDialogBinding
 import com.example.final_test_01.ui.detail.adapter.DetailItemsAdapter
 import com.example.final_test_01.util.ResponseState
@@ -40,16 +41,8 @@ class DetailsDialogFragment : Fragment(R.layout.detail_dialog) {
 
     private fun setOnClickBtnAddToCart() {
         binding.btnAddToCart.setOnClickListener {
-            navController.navigate(
-                DetailsDialogFragmentDirections.actionDetailsDialogToCartFragment(
-                    args.detailItems
-                )
-            )
-            Toast.makeText(
-                requireContext(),
-                "محصول به سبد خرید شما اضافه شد",
-                Toast.LENGTH_SHORT
-            ).show()
+            viewModel.insert(LineItemEntity(args.detailItems))
+            Toast.makeText(requireContext(),"محصول به سبد خرید شما اضافه شد",Toast.LENGTH_SHORT).show()
         }
     }
 

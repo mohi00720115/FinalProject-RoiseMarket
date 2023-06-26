@@ -2,6 +2,7 @@ package com.example.final_test_01.ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.final_test_01.data.local.LineItemEntity
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.data.repository.Repository
 import com.example.final_test_01.util.ResponseState
@@ -23,6 +24,12 @@ class DetailDialogViewModel @Inject constructor(private val repository: Reposito
             repository.getItemsIdsProducts(id).asResponseState().collect {
                 _itemID.value = it
             }
+        }
+    }
+
+    fun insert(lineItemEntity: LineItemEntity) {
+        viewModelScope.launch {
+            repository.insert(lineItemEntity)
         }
     }
 }
