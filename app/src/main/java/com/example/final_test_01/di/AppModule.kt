@@ -1,5 +1,9 @@
 package com.example.final_test_01.di
 
+import android.app.Application
+import androidx.room.Room
+import com.example.final_test_01.data.local.ICartDao
+import com.example.final_test_01.data.local.OrderDataBase
 import com.example.final_test_01.data.remote.AppService
 import com.example.final_test_01.util.Const.API_KEY
 import com.example.final_test_01.util.Const.API_SECRET
@@ -78,5 +82,20 @@ object AppModule {
     fun provideService(retrofit: Retrofit): AppService {
         return retrofit.create(AppService::class.java)
     }
+
+    //---------------------------------------- Data Base -----------------------------------------//
+
+    @Provides
+    @Singleton
+    fun provideDatabase(application: Application): OrderDataBase {
+        return Room.databaseBuilder(application, OrderDataBase::class.java, "order_database").build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCartDao(orderDataBase: OrderDataBase): ICartDao {
+        return orderDataBase.cartDao()
+    }
+
 
 }
