@@ -8,14 +8,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.final_test_01.data.model.dto.customer.CustomerDto
 import com.example.final_test_01.data.repository.Repository
+import com.example.final_test_01.util.ResponseState
+import com.example.final_test_01.util.asResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CustomerViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val _customer = MutableLiveData<CustomerDto>()
-    val customer: LiveData<CustomerDto> = _customer
+    private val _customer = MutableLiveData<ResponseState<CustomerDto>>()
+    val customer: LiveData<ResponseState<CustomerDto>> = _customer
 
     fun createObjectDto(firstName: String, lastName: String, email: String) {
         createCustomerByEmail(CustomerDto(firstName, lastName, email))
@@ -23,11 +25,10 @@ class CustomerViewModel @Inject constructor(private val repository: Repository) 
 
     private fun createCustomerByEmail(dto: CustomerDto) {
         viewModelScope.launch {
-            repository.createCustomer(dto).collect {
+            repository.createCustomer(dto).asResponseState().collect {
                 _customer.postValue(it)
                 Log.e(TAG, "createCustomerByEmail: $it")
             }
         }
     }
-
 }

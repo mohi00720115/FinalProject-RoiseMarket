@@ -1,21 +1,21 @@
 package com.example.final_test_01.ui.customer
 
 import android.app.Activity.RESULT_OK
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentCustomerBinding
+import com.example.final_test_01.util.ResponseState
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,15 +35,49 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
 
     private fun createCustomerOnClick() {
         with(binding) {
+            viewModel?.customer?.observe(viewLifecycleOwner) {
+                when (it) {
+                    is ResponseState.Error -> {
+                        constraintLayoutCustomer.visibility = View.VISIBLE
+                        animationViewCustomer.visibility = View.INVISIBLE
+                        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility = View.VISIBLE
+                        Toast.makeText(
+                            requireContext(),
+                            "اطلاعات تکراریست، لطفا اطلاعات جدید وارد کنید",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                    ResponseState.Loading -> {
+                        constraintLayoutCustomer.visibility = View.INVISIBLE
+                        animationViewCustomer.visibility = View.VISIBLE
+                        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility = View.GONE
+                    }
+
+                    is ResponseState.Success -> {
+                        constraintLayoutCustomer.visibility = View.VISIBLE
+                        animationViewCustomer.visibility = View.INVISIBLE
+                        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility = View.VISIBLE
+                        Toast.makeText(
+                            requireContext(),
+                            "ثبت نام با موفقیت انجام شد",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
             btnSignUp.setOnClickListener {
                 val firstName = etFirstNameCustomer.text.toString()
                 val lastName = etLastNameCustomer.text.toString()
                 val email = etEmailCustomer.text.toString()
-                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()){
-                    Toast.makeText(requireContext(),"لطفا تمام اطلاعات رو کامل کنید",Toast.LENGTH_SHORT).show()
-                } else{
+                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "لطفا تمام اطلاعات رو کامل کنید",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
                     viewModel?.createObjectDto(firstName, lastName, email)
-                    Toast.makeText(requireContext(),"ثبت نام با موفقیت انجام شد",Toast.LENGTH_SHORT).show()
 //                    viewModel?.customer?.observe(viewLifecycleOwner) {
 //                        Log.e(TAG, "onViewCreated idi: ${it.email}")
 //                    }
