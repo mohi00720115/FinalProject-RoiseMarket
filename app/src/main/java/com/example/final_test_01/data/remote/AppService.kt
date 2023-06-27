@@ -7,7 +7,6 @@ import com.example.final_test_01.data.model.dto.product.ProductsDto
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -113,34 +112,5 @@ interface AppService {
     @POST("orders")
     suspend fun createOrders(@Body orderDto: OrderDto): OrderDto
 
-
-    /**
-     * //    private object Route {
-    //        private const val PREFIX = "/wp-json/wc/v3"
-    //        const val PRODUCT_DETAILS = "$PREFIX/products/{id}"
-    //        const val PRODUCTS = "$PREFIX/products"
-    //        const val PRODUCTS_CATEGORIES = "$PREFIX/products/categories"
-    //
-    //        /* customer */
-    //        const val CUSTOMERS = "$PREFIX/customers"
-    //        const val CUSTOMERS_ID = "$PREFIX/customers/{id}"
-    //
-    //        /* Orders */
-    //        const val ORDERS = "$PREFIX/orders"
-    //        const val ORDERS_ID = "$PREFIX/orders/{id}"
-    //
-    //        /* Reviews */
-    //        const val REVIEWS = "$PREFIX/products/reviews"
-    //
-    //        /* Coupons */
-    //        const val COUPONS = "$PREFIX/coupons"
-    //    }
-    //    private object PARAMS {
-    //        const val PRODUCT_ID = "id"
-    //        const val PAGE = "page"
-    //        const val PER_PAGE = "per_page"
-    //    }
-
-     */
 
 }
