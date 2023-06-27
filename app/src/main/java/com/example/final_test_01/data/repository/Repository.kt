@@ -6,17 +6,13 @@ import com.example.final_test_01.data.local.ICartDao
 import com.example.final_test_01.data.local.LineItemEntity
 import com.example.final_test_01.data.model.dto.customer.CustomerDto
 import com.example.final_test_01.data.model.dto.order.OrderDto
-import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
 import com.example.final_test_01.data.model.dto.product.ProductsDto
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
-import com.example.final_test_01.data.model.ui.MyCustomerItem
+import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
 import com.example.final_test_01.data.remote.AppService
-import com.example.final_test_01.mapper.customerItemToCustomerDto
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import kotlin.system.measureTimeMillis
 
 class Repository @Inject constructor(
     private val appService: AppService,
@@ -98,8 +94,6 @@ class Repository @Inject constructor(
         return flow {
 //            emit(appService.createCustomer(customerItemToCustomerDto(MyCustomerItem.empty.copy(email = email))))
             emit(appService.createCustomer(dto))
-        }.catch {
-            Log.e(TAG, "createCustomer: اطلاعات جدید بساز تکراری نده.")
         }
     }
 
@@ -124,9 +118,7 @@ class Repository @Inject constructor(
     }
 
     fun getAllProduct(): Flow<List<LineItemEntity>> {
-        return flow {
-            emit(cartDao.getAllProduct())
-        }
+        return cartDao.getAllProduct()
     }
 
 }
