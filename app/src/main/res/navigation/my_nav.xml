@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsDialog"
-        android:name="com.example.final_test_01.ui.detail.DetailsDialogFragment"
+        android:name="com.example.final_test_01.ui.detail.DetailsFragment"
         android:label="DetailsDialog"
         tools:layout="@layout/detail_dialog" >
         <argument
