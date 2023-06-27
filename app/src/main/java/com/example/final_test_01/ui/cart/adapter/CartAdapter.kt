@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
-import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
 import com.example.final_test_01.databinding.CartItemAdapterBinding
 
 class CartAdapter(
@@ -53,12 +52,21 @@ class CartAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CartAdapter.MyViewHolder, position: Int) {
         val item: ProductsItemsDto = getItem(position)
+        var count = 1
         holder.apply {
-            Glide.with(binding.root)
-                .load(item.images[0].src)
-                .into(binding.imageViewCartItem)
-            binding.tvProductNameCartItem.text= item.name
-            binding.tvNumberOfProductCartItem.text= item.id.toString()
+            with(binding) {
+                Glide.with(binding.root)
+                    .load(item.images[0].src)
+                    .into(imageViewCartItem)
+                tvProductNameCartItem.text = item.name
+                tvPriceCartItem.text = item.price + " تومان"
+                tvAddProductCart.setOnClickListener {
+                    tvNumberProductCart.text = (++count).toString()
+                }
+                tvMinusProductCart.setOnClickListener {
+                    tvNumberProductCart.text = (--count).toString()
+                }
+            }
         }
     }
 }
