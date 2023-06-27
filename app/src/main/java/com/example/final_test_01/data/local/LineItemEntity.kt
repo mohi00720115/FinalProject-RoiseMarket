@@ -8,4 +8,5 @@ data class LineItemEntity(
     @ColumnInfo("product_id")
     val productId: Int,
     val quantity: Int = 1,
-    )
+    val id: Int = 0
+)
