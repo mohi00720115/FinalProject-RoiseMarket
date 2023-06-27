@@ -1,9 +1,7 @@
 package com.example.final_test_01.ui.cart
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
@@ -39,7 +37,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
     private fun setUi() {
         createCartAdapter()
-        observeItemId()
+        observeAddItemsToCart()
         hideSearchView()
     }
 
@@ -55,50 +53,40 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         binding.recyclerViewCart.adapter = adapter
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun observeItemId() {
+    private fun observeAddItemsToCart() {
+        viewModel.product.observe(viewLifecycleOwner) {
+            it.forEach { id -> viewModel.getItemsIdsProducts(id.productId) }
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.cartList.collect {
-                    with(binding) {
-                        when (it) {
-                            is ResponseState.Error -> Toast.makeText(
+                    when (it) {
+                        is ResponseState.Error -> {
+                            Toast.makeText(
                                 requireContext(),
                                 "مشکل در اتصال به شبکه",
                                 Toast.LENGTH_SHORT
                             ).show()
+                        }
 
-                            is ResponseState.Success -> {
-                                binding.linearLayoutCart.visibility = View.VISIBLE
-                                binding.animationViewCart.visibility = View.INVISIBLE
-                                if (it.data.isNotEmpty()) {
-                                    tvCartPrice.text = "جمع کل خرید"
-                                    tvCartPriceFee.text = "${it.data[0].price} تومان"
-                                    adapter.submitList(it.data)
-                                } else {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "اطلاعاتی وجود ندارد",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                        ResponseState.Loading -> {
+                            binding.linearLayoutCart.visibility = View.INVISIBLE
+                            binding.animationViewCart.visibility = View.VISIBLE
+                        }
 
-//                        val description: Spanned = HtmlCompat.fromHtml(it.data[0].description.toString(),
-//                            HtmlCompat.FROM_HTML_MODE_LEGACY)
-//                        tvDescriptionDialog.text = description
-//                        adapter.submitList(it.data[0].images)
-                            }
-
-                            ResponseState.Loading -> {
-                                binding.linearLayoutCart.visibility = View.INVISIBLE
-                                binding.animationViewCart.visibility = View.VISIBLE
-                            }
+                        is ResponseState.Success -> {
+                            binding.linearLayoutCart.visibility = View.VISIBLE
+                            binding.animationViewCart.visibility = View.INVISIBLE
+                            val x = viewModel.addItemToList(it.data)
+                            adapter.submitList(x)
+                            Toast.makeText(requireContext(),"انجام شد",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             }
         }
     }
+
 
     private fun hideSearchView() {
         requireActivity().findViewById<CardView>(R.id.search_cardView).visibility = View.GONE
