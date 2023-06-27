@@ -16,85 +16,111 @@
         android:background="@drawable/login"
         tools:context=".ui.customer.CustomerFragment">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout_customer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView"
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            android:layout_marginTop="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/name"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageView"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/circleImage20"
+                app:strokeColor="@color/light_azure"
+                app:strokeWidth="4dp" />
+
+            <EditText
+                android:id="@+id/et_firstName_customer"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/iransans"
+                android:gravity="center_vertical"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:textColor="@color/light_azure"
+                android:textColorHint="@color/light_azure"
+                android:textDirection="rtl"
+                app:layout_constraintEnd_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <EditText
+                android:id="@+id/et_lastName_customer"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/iransans"
+                android:gravity="center_vertical"
+                android:hint="@string/family"
+                android:inputType="text"
+                android:textColor="@color/light_azure"
+                android:textColorHint="@color/light_azure"
+                android:textDirection="rtl"
+                app:layout_constraintEnd_toEndOf="@+id/et_firstName_customer"
+                app:layout_constraintStart_toStartOf="@+id/et_firstName_customer"
+                app:layout_constraintTop_toBottomOf="@+id/et_firstName_customer" />
+
+            <EditText
+                android:id="@+id/et_email_customer"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/iransans"
+                android:gravity="center_vertical"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/light_azure"
+                android:textColorHint="@color/light_azure"
+                android:textDirection="rtl"
+                app:layout_constraintEnd_toEndOf="@+id/et_lastName_customer"
+                app:layout_constraintStart_toStartOf="@+id/et_lastName_customer"
+                app:layout_constraintTop_toBottomOf="@+id/et_lastName_customer"
+                tools:ignore="TextFields" />
+
+            <Button
+                android:id="@+id/btn_signUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/light_azure"
+                android:fontFamily="@font/iransans"
+                android:text="@string/signup"
+                android:textColor="@color/dark_indigo"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_email_customer"
+                app:layout_constraintVertical_bias="1"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView_customer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/circleImage20"
-            app:strokeColor="@color/light_azure"
-            app:strokeWidth="4dp" />
-
-        <EditText
-            android:id="@+id/et_firstName_customer"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/iransans"
-            android:gravity="center_vertical"
-            android:hint="@string/name"
-            android:inputType="text"
-            android:textColor="@color/light_azure"
-            android:textColorHint="@color/light_azure"
-            android:textDirection="rtl"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <EditText
-            android:id="@+id/et_lastName_customer"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/iransans"
-            android:gravity="center_vertical"
-            android:hint="@string/family"
-            android:inputType="text"
-            android:textColor="@color/light_azure"
-            android:textColorHint="@color/light_azure"
-            android:textDirection="rtl"
-            app:layout_constraintEnd_toEndOf="@+id/et_firstName_customer"
-            app:layout_constraintStart_toStartOf="@+id/et_firstName_customer"
-            app:layout_constraintTop_toBottomOf="@+id/et_firstName_customer" />
-
-        <EditText
-            android:id="@+id/et_email_customer"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/iransans"
-            android:gravity="center_vertical"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/light_azure"
-            android:textColorHint="@color/light_azure"
-            android:textDirection="rtl"
-            app:layout_constraintEnd_toEndOf="@+id/et_lastName_customer"
-            app:layout_constraintStart_toStartOf="@+id/et_lastName_customer"
-            app:layout_constraintTop_toBottomOf="@+id/et_lastName_customer"
-            tools:ignore="TextFields" />
-
-        <Button
-            android:id="@+id/btn_signUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/light_azure"
-            android:text="@string/signup"
-            android:textColor="@color/dark_indigo"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_email_customer"
-            app:layout_constraintVertical_bias="1"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/customer_rating_app"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
