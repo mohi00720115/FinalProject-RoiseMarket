@@ -21,6 +21,6 @@ interface ICartDao {
     suspend fun delete(lineItemEntity: LineItemEntity)
 
     @Query("SELECT * FROM line_item_table")
-    fun getAllProduct(): List<LineItemEntity>
+    fun getAllProduct(): Flow<List<LineItemEntity>>
 
 }
