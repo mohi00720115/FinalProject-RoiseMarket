@@ -18,8 +18,6 @@ data class Shipping(
     val firstName: String?,
     @SerializedName("last_name")
     val lastName: String?,
-    @SerializedName("phone")
-    val phone: String?,
     @SerializedName("postcode")
     val postcode: String?,
     @SerializedName("state")
