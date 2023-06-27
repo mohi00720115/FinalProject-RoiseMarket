@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.final_test_01.data.local.LineItemEntity
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.data.repository.Repository
 import com.example.final_test_01.util.ResponseState
@@ -22,6 +23,11 @@ class CartViewModel @Inject constructor(private val repository: Repository) : Vi
     private val _cartList = MutableStateFlow<ResponseState<List<ProductsItemsDto>>>(Loading)
     val cartList: StateFlow<ResponseState<List<ProductsItemsDto>>> = _cartList
 
+    private val _product = MutableLiveData<List<LineItemEntity>>()
+    val product: LiveData<List<LineItemEntity>> = _product
+
+    private val productList = mutableListOf<ProductsItemsDto>()
+
     fun getItemsIdsProducts(id: Int) {
         viewModelScope.launch {
             repository.getItemsIdsProducts(id).asResponseState().collect {
@@ -30,4 +36,15 @@ class CartViewModel @Inject constructor(private val repository: Repository) : Vi
             }
         }
     }
+
+    /**
+     * تک محصول رو می گیره و اضافه می کنه به یک لیست
+     */
+    fun addItemToList(productItem: List<ProductsItemsDto>): List<ProductsItemsDto> {
+        productList += productItem
+        return productList
+    }
+
+
+
 }
