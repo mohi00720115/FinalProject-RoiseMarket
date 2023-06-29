@@ -10,4 +10,5 @@ object Const {
     //SharedPref
     const val ORDER_ID = "ORDER_ID"
     const val SHARED_KEY = "SHARED_KEY"
+    var STATUS = false
 }
