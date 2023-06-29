@@ -1,14 +1,8 @@
 package com.example.final_test_01.ui.detail
 
-import android.content.ContentValues
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.final_test_01.data.local.LineItemEntity
-import com.example.final_test_01.data.model.dto.order.LineItem
-import com.example.final_test_01.data.model.dto.order.OrderDto
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.data.repository.Repository
 import com.example.final_test_01.util.ResponseState
@@ -25,8 +19,8 @@ class DetailsViewModel @Inject constructor(private val repository: Repository) :
     private val _itemID = MutableStateFlow<ResponseState<List<ProductsItemsDto>>>(Loading)
     val itemID: StateFlow<ResponseState<List<ProductsItemsDto>>> = _itemID
 
-    private val _order = MutableLiveData<ResponseState<OrderDto>>()
-    val order: LiveData<ResponseState<OrderDto>> = _order
+//    private val _order = MutableLiveData<ResponseState<OrderDto>>()
+//    val order: LiveData<ResponseState<OrderDto>> = _order
 
     fun getItemsIdsProducts(id: Int) {
         viewModelScope.launch {
@@ -36,18 +30,18 @@ class DetailsViewModel @Inject constructor(private val repository: Repository) :
         }
     }
 
-    fun createOrders(productId: Int) {
-        val lineItemList = mutableListOf<LineItem>()
-        val lineItem = LineItem(0, productId, 1)
-        lineItemList.add(lineItem)
-        val order = OrderDto(0, lineItemList)
-        viewModelScope.launch {
-            repository.createOrders(order).asResponseState().collect {
-                _order.postValue(it)
-                Log.e(ContentValues.TAG, "createOrders: $it")
-            }
-        }
-    }
+//    fun createOrders(productId: Int) {
+//        val lineItemList = mutableListOf<LineItem>()
+//        val lineItem = LineItem(0, productId, 1)
+//        lineItemList.add(lineItem)
+//        val order = OrderDto(0, lineItemList)
+//        viewModelScope.launch {
+//            repository.createOrders(order).asResponseState().collect {
+//                _order.postValue(it)
+//                Log.e(ContentValues.TAG, "createOrders: $it")
+//            }
+//        }
+//    }
 
     fun insert(lineItemEntity: LineItemEntity) {
         viewModelScope.launch {

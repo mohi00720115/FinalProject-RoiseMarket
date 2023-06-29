@@ -1,11 +1,8 @@
 package com.example.final_test_01.ui.detail
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.content.Context
 import android.os.Bundle
 import android.text.Spanned
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
@@ -21,8 +18,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.DetailDialogBinding
 import com.example.final_test_01.ui.detail.adapter.DetailItemsAdapter
-import com.example.final_test_01.util.Const.ORDER_ID
-import com.example.final_test_01.util.Const.SHARED_KEY
 import com.example.final_test_01.util.ResponseState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -56,34 +51,37 @@ class DetailsFragment : Fragment(R.layout.detail_dialog) {
 
     private fun setOnClickBtnAddToCart() {
         binding.btnAddToCart.setOnClickListener {
-            viewModel.createOrders(args.detailItems)
-            viewModel.order.observe(viewLifecycleOwner) {
-                when (it) {
-                    is ResponseState.Error -> {
-                        Toast.makeText(
-                            requireContext(),
-                            "مشکل در اتصال به شبکه",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-                    ResponseState.Loading -> {
-                        binding.clDetail2.visibility = View.INVISIBLE
-                        binding.animationViewDetail.visibility = View.VISIBLE
-                    }
-
-                    is ResponseState.Success -> {
-                        binding.clDetail2.visibility = View.VISIBLE
-                        binding.animationViewDetail.visibility = View.INVISIBLE
-                        Log.e(TAG, "setOnClickBtnAddToCart ORDER_ID ${it.data.id}")
-                        val sharedPreferences =
-                            context?.getSharedPreferences(SHARED_KEY, Context.MODE_PRIVATE)
-                        sharedPreferences?.edit()?.putInt(ORDER_ID, it.data.id!!)?.apply()
-                    }
-                }
-            }
-            Toast.makeText(requireContext(), "محصول به سبد خرید شما اضافه شد", Toast.LENGTH_SHORT)
-                .show()
+//            viewModel.createOrders(args.detailItems)
+//            viewModel.order.observe(viewLifecycleOwner) {
+//                when (it) {
+//                    is ResponseState.Error -> {
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "مشکل در اتصال به شبکه",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//
+//                    ResponseState.Loading -> {
+//                        binding.clDetail2.visibility = View.INVISIBLE
+//                        binding.animationViewDetail.visibility = View.VISIBLE
+//                    }
+//
+//                    is ResponseState.Success -> {
+//                        binding.clDetail2.visibility = View.VISIBLE
+//                        binding.animationViewDetail.visibility = View.INVISIBLE
+//                        Log.e(TAG, "setOnClickBtnAddToCart 'ORDER_ID' ${it.data.id}")
+//                        /*val sharedPreferences = context?.getSharedPreferences(SHARED_KEY, Context.MODE_PRIVATE)
+//                        val status = sharedPreferences?.getBoolean("BOOLEAN", STATUS)*/
+//                        if (!STATUS) {
+//                            Log.e(TAG, "setOnClickBtnAddToCart: به سبد خرید مراجعه کنید")
+//                        } else {
+//                            Log.e(TAG, "setOnClickBtnAddToCart: خرید انجام شد")
+//                        }
+//                    }
+//                }
+//            }
+//            Toast.makeText(requireContext(), "محصول به سبد خرید شما اضافه شد", Toast.LENGTH_SHORT).show()
         }
     }
 
