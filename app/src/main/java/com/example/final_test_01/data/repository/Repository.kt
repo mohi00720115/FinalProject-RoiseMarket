@@ -97,9 +97,21 @@ class Repository @Inject constructor(
         }
     }
 
+    suspend fun getCustomersByEmail(email: String): Flow<List<CustomerDto>> {
+        return flow {
+            emit(appService.getCustomersByEmail(email))
+        }
+    }
+
     suspend fun createOrders(order: OrderDto): Flow<OrderDto> {
         return flow {
             emit(appService.createOrders(order))
+        }
+    }
+
+    suspend fun getOrdersByEmail(searchEmail: String): Flow<List<OrderDto>> {
+        return flow {
+            emit(appService.getOrdersByEmail(searchEmail))
         }
     }
 
