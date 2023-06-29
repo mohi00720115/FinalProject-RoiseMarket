@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     private fun getNewestProducts() {
         viewModelScope.launch {
-            repository.getNewestProducts(1, 15).asResponseState().collect {
+            repository.getNewestProducts(1, 14).asResponseState().collect {
                 _newestProduct.value = it
             }
         }
