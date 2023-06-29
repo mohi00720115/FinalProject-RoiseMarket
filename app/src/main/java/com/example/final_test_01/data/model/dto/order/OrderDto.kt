@@ -4,8 +4,8 @@ package com.example.final_test_01.data.model.dto.order
 import com.google.gson.annotations.SerializedName
 
 data class OrderDto(
-//    @SerializedName("billing")
-//    val billing: Billing?,
+    @SerializedName("billing")
+    val billing: Billing?,
 //    @SerializedName("cart_hash")
 //    val cartHash: String?,
 //    @SerializedName("cart_tax")
@@ -47,9 +47,9 @@ data class OrderDto(
 //    @SerializedName("fee_lines")
 //    val feeLines: List<Any>?,
     @SerializedName("id")
-    val id: Int?,
+    val id: Int? = 0,
     @SerializedName("line_items")
-    val lineItems: List<LineItem>,
+    val lineItems: List<LineItem> = emptyList(),
 //    @SerializedName("_links")
 //    val links: Links?,
 //    @SerializedName("meta_data")
