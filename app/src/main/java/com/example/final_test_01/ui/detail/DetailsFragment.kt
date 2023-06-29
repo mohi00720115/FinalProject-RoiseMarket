@@ -95,15 +95,12 @@ class DetailsFragment : Fragment(R.layout.detail_dialog) {
                 viewModel.itemID.collect {
                     with(binding) {
                         when (it) {
-                            is ResponseState.Error -> Toast.makeText(
-                                requireContext(),
-                                "مشکل در اتصال به شبکه",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            is ResponseState.Error -> {
+                                errorToast()
+                            }
 
                             is ResponseState.Success -> {
-                                binding.clDetail2.visibility = View.VISIBLE
-                                binding.animationViewDetail.visibility = View.INVISIBLE
+                                succeedVisibility()
                                 tvTitleDialog.text = it.data[0].name
                                 tvPriceDialog.text = "${it.data[0].price} تومان"
                                 val description: Spanned = HtmlCompat.fromHtml(
@@ -116,14 +113,27 @@ class DetailsFragment : Fragment(R.layout.detail_dialog) {
                             }
 
                             ResponseState.Loading -> {
-                                binding.clDetail2.visibility = View.INVISIBLE
-                                binding.animationViewDetail.visibility = View.VISIBLE
+                                loadingVisibility()
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun loadingVisibility() {
+        binding.clDetail2.visibility = View.INVISIBLE
+        binding.animationViewDetail.visibility = View.VISIBLE
+    }
+
+    private fun succeedVisibility() {
+        binding.clDetail2.visibility = View.VISIBLE
+        binding.animationViewDetail.visibility = View.INVISIBLE
+    }
+
+    private fun errorToast() {
+        Toast.makeText(requireContext(),"مشکل در اتصال به شبکه",Toast.LENGTH_SHORT).show()
     }
 
 }

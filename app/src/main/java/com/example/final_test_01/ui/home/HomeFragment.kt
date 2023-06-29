@@ -90,21 +90,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.topRatedProduct.collect {
                     when (it) {
-                        is ResponseState.Error -> Toast.makeText(
-                            requireContext(),
-                            "مشکل در اتصال به شبکه",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        is ResponseState.Success -> {
-                            adapterTopRated.submitList(it.data)
-                            binding.animationViewHome.visibility = View.INVISIBLE
-                            binding.animationViewHome.visibility = View.INVISIBLE
+                        is ResponseState.Error -> {
+                            errorToast()
                         }
 
                         ResponseState.Loading -> {
-                            binding.nestedScrollView.visibility = View.INVISIBLE
-                            binding.animationViewHome.visibility = View.VISIBLE
+                            loadingVisibility()
+                        }
+
+                        is ResponseState.Success -> {
+                            succeedVisibility()
+                            adapterTopRated.submitList(it.data)
                         }
                     }
                 }
@@ -117,22 +113,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.mostVisitedProduct.collect {
                     when (it) {
-                        is ResponseState.Error -> Toast.makeText(
-                            requireContext(),
-                            "مشکل در اتصال به شبکه",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        is ResponseState.Success -> {
-                            adapterMostVisited.submitList(it.data)
-                            binding.animationViewHome.visibility = View.INVISIBLE
-                            binding.animationViewHome.visibility = View.INVISIBLE
+                        is ResponseState.Error -> {
+                            errorToast()
                         }
 
                         ResponseState.Loading -> {
-                            binding.nestedScrollView.visibility = View.INVISIBLE
-                            binding.animationViewHome.visibility = View.VISIBLE
+                            loadingVisibility()
                         }
+
+                        is ResponseState.Success -> {
+                            succeedVisibility()
+                            adapterMostVisited.submitList(it.data)
+                        }
+
+
                     }
                 }
             }
@@ -144,21 +138,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.newestProduct.collect {
                     when (it) {
-                        is ResponseState.Error -> Toast.makeText(
-                            requireContext(),
-                            "مشکل در اتصال به شبکه",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        is ResponseState.Success -> {
-                            adapterNewest.submitList(it.data)
-                            binding.animationViewHome.visibility = View.INVISIBLE
-                            binding.nestedScrollView.visibility = View.VISIBLE
+                        is ResponseState.Error -> {
+                            errorToast()
                         }
 
                         ResponseState.Loading -> {
-                            binding.nestedScrollView.visibility = View.INVISIBLE
-                            binding.animationViewHome.visibility = View.VISIBLE
+                            loadingVisibility()
+                        }
+
+                        is ResponseState.Success -> {
+                            succeedVisibility()
+                            adapterNewest.submitList(it.data)
+
                         }
                     }
                 }
@@ -173,13 +164,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.onSellProducts.collect {
                     when (it) {
-                        is ResponseState.Error -> Toast.makeText(
-                            requireContext(),
-                            "مشکل در اتصال به شبکه",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        is ResponseState.Error -> {
+                            errorToast()
+                        }
+
+                        ResponseState.Loading -> {
+                            loadingVisibility()
+                        }
 
                         is ResponseState.Success -> {
+                            succeedVisibility()
                             imageList = mutableListOf()
                             for (i in it.data) {
                                 for (j in i.images) {
@@ -191,16 +185,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             viewPager.adapter = viewPagerAdapter
                         }
 
-                        ResponseState.Loading -> {
-                            binding.nestedScrollView.visibility = View.INVISIBLE
-                            binding.animationViewHome.visibility = View.VISIBLE
-                        }
+
                     }
                 }
             }
         }
 
     }
+
+    private fun errorToast() {
+        Toast.makeText(requireContext(), "مشکل در اتصال به شبکه", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loadingVisibility() {
+        binding.nestedScrollView.visibility = View.INVISIBLE
+        binding.animationViewHome.visibility = View.VISIBLE
+    }
+
+    private fun succeedVisibility() {
+        binding.animationViewHome.visibility = View.INVISIBLE
+        binding.nestedScrollView.visibility = View.VISIBLE
+    }
+
     private fun showSearchView() {
         requireActivity().findViewById<CardView>(R.id.search_cardView).visibility = View.VISIBLE
     }

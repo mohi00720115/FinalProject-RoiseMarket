@@ -55,26 +55,36 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.category.collect {
                     when (it) {
-                        is ResponseState.Error -> Toast.makeText(
-                            requireContext(),
-                            "مشکل در اتصال به شبکه",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        is ResponseState.Error -> {
+                            errorToast()
+                        }
 
                         is ResponseState.Success -> {
-                            binding.recyclerViewCategory.visibility = View.VISIBLE
-                            binding.animationViewCategory.visibility = View.INVISIBLE
+                            succeedVisibility()
                             adapter.submitList(it.data)
                         }
 
                         ResponseState.Loading -> {
-                            binding.recyclerViewCategory.visibility = View.INVISIBLE
-                            binding.animationViewCategory.visibility = View.VISIBLE
+                            loadingVisibility()
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun errorToast() {
+        Toast.makeText(requireContext(),"مشکل در اتصال به شبکه",Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loadingVisibility() {
+        binding.recyclerViewCategory.visibility = View.INVISIBLE
+        binding.animationViewCategory.visibility = View.VISIBLE
+    }
+
+    private fun succeedVisibility() {
+        binding.recyclerViewCategory.visibility = View.VISIBLE
+        binding.animationViewCategory.visibility = View.INVISIBLE
     }
 
     private fun showSearchView() {

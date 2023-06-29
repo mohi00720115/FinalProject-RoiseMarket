@@ -62,29 +62,41 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 viewModel.cartList.collect {
                     when (it) {
                         is ResponseState.Error -> {
-                            Toast.makeText(
-                                requireContext(),
-                                "مشکل در اتصال به شبکه",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            errorToast()
                         }
 
                         ResponseState.Loading -> {
-                            binding.linearLayoutCart.visibility = View.INVISIBLE
-                            binding.animationViewCart.visibility = View.VISIBLE
+                            loadingVisibility()
                         }
 
                         is ResponseState.Success -> {
-                            binding.linearLayoutCart.visibility = View.VISIBLE
-                            binding.animationViewCart.visibility = View.INVISIBLE
+                            succeedVisibility()
                             val x = viewModel.addItemToList(it.data)
                             adapter.submitList(x)
-                            Toast.makeText(requireContext(),"انجام شد",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun succeedVisibility() {
+        binding.linearLayoutCart.visibility = View.VISIBLE
+        binding.animationViewCart.visibility = View.INVISIBLE
+        Toast.makeText(requireContext(), "انجام شد", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loadingVisibility() {
+        binding.linearLayoutCart.visibility = View.INVISIBLE
+        binding.animationViewCart.visibility = View.VISIBLE
+    }
+
+    private fun errorToast() {
+        Toast.makeText(
+            requireContext(),
+            "مشکل در اتصال به شبکه",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 

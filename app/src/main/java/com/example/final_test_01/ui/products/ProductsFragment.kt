@@ -54,27 +54,39 @@ class ProductsFragment : Fragment(R.layout.fragment_products) {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.productCategory.collect {
                     when (it) {
-                        is ResponseState.Error -> Toast.makeText(
-                            requireContext(),
-                            "مشکل در اتصال به شبکه",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        is ResponseState.Error -> {
+                            errorToast()
+                        }
+
+                        ResponseState.Loading -> {
+                            loadingVisibility()
+                        }
 
                         is ResponseState.Success -> {
-                            binding.recyclerViewProducts.visibility = View.VISIBLE
-                            binding.progressBarProduct.visibility = View.INVISIBLE
+                            succeedVisibility()
                             adapter.submitList(it.data)
                             //ست کردن نام کتگوری ها در تکست ویو
                             binding.tvProducts.text = it.data[0].categories?.get(0)?.name.toString()
                         }
 
-                        ResponseState.Loading -> {
-                            binding.recyclerViewProducts.visibility = View.INVISIBLE
-                            binding.progressBarProduct.visibility = View.VISIBLE
-                        }
+
                     }
                 }
             }
         }
+    }
+
+    private fun errorToast() {
+        Toast.makeText(requireContext(),"مشکل در اتصال به شبکه",Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loadingVisibility() {
+        binding.recyclerViewProducts.visibility = View.INVISIBLE
+        binding.progressBarProduct.visibility = View.VISIBLE
+    }
+
+    private fun succeedVisibility() {
+        binding.recyclerViewProducts.visibility = View.VISIBLE
+        binding.progressBarProduct.visibility = View.INVISIBLE
     }
 }
