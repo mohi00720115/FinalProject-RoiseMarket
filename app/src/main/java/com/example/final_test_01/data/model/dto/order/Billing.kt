@@ -5,25 +5,25 @@ import com.google.gson.annotations.SerializedName
 
 data class Billing(
     @SerializedName("address_1")
-    val address1: String?,
+    val address1: String? = "",
     @SerializedName("address_2")
-    val address2: String?,
+    val address2: String? = "",
     @SerializedName("city")
-    val city: String?,
+    val city: String? = "",
     @SerializedName("company")
-    val company: String?,
+    val company: String? = "",
     @SerializedName("country")
-    val country: String?,
+    val country: String? = "",
     @SerializedName("email")
-    val email: String?,
+    val email: String? = "",
     @SerializedName("first_name")
-    val firstName: String?,
+    val firstName: String? = "",
     @SerializedName("last_name")
-    val lastName: String?,
+    val lastName: String? = "",
     @SerializedName("phone")
-    val phone: String?,
+    val phone: String? = "",
     @SerializedName("postcode")
-    val postcode: String?,
+    val postcode: String? = "",
     @SerializedName("state")
-    val state: String?
+    val state: String? = ""
 )
