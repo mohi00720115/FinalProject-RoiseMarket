@@ -1,6 +1,8 @@
 package com.example.final_test_01.ui.activity.main
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +18,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.ActivityMainBinding
 import com.example.final_test_01.ui.activity.search.SearchActivity
+import com.example.final_test_01.util.Const.SHARED_KEY
+import com.example.final_test_01.util.Const.STATUS
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -82,5 +86,13 @@ class MainActivity : AppCompatActivity() {
             }
             negativeButton(text = "لغو")
         }
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    override fun onDestroy() {
+        super.onDestroy()
+        STATUS = false
+        val sharedPreferences = this.getSharedPreferences(SHARED_KEY, Context.MODE_PRIVATE)
+        sharedPreferences?.edit()?.clear()
     }
 }
