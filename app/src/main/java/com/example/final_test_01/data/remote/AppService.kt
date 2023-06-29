@@ -27,7 +27,7 @@ interface AppService {
     @GET("products/")
     suspend fun getNewestProducts(
         @Query("page") page: Int = 1,
-        @Query("per_page") perPage: Int = 15,
+        @Query("per_page") perPage: Int = 14,
         @Query("orderby") orderBy: String = "date"
     ): ProductsDto
 
@@ -109,8 +109,18 @@ interface AppService {
     @Headers("Content-Type: application/json")
     suspend fun createCustomer(@Body customerDto: CustomerDto): CustomerDto
 
+    @GET("customers")
+    suspend fun getCustomersByEmail(@Query("email") email: String): List<CustomerDto>
+
     @POST("orders")
     suspend fun createOrders(@Body orderDto: OrderDto): OrderDto
+
+    @GET("orders")
+    suspend fun getOrdersByEmail(
+        @Query("search") searchEmail: String,
+        @Query("status") status: String = "processing",
+        @Query("orderby") orderby: String = "date",
+    ): List<OrderDto>
 
 
 }
