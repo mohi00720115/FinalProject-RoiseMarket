@@ -3,7 +3,6 @@ package com.example.final_test_01.data.repository
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.example.final_test_01.data.local.ICartDao
-import com.example.final_test_01.data.local.LineItemEntity
 import com.example.final_test_01.data.model.dto.customer.CustomerDto
 import com.example.final_test_01.data.model.dto.order.OrderDto
 import com.example.final_test_01.data.model.dto.product.ProductsDto
@@ -115,22 +114,16 @@ class Repository @Inject constructor(
         }
     }
 
-    //---------------------------------------- Data Base -----------------------------------------//
-
-    suspend fun insert(lineItemEntity: LineItemEntity) {
-        cartDao.insert(lineItemEntity)
+    suspend fun putUpdateOrder(id: Int, customerOrder: OrderDto): Flow<OrderDto> {
+        return flow {
+            emit(appService.putUpdateOrder(id, customerOrder))
+        }
     }
 
-    suspend fun update(lineItemEntity: LineItemEntity) {
-        cartDao.update(lineItemEntity)
-    }
-
-    suspend fun delete(lineItemEntity: LineItemEntity) {
-        cartDao.delete(lineItemEntity)
-    }
-
-    fun getAllProduct(): Flow<List<LineItemEntity>> {
-        return cartDao.getAllProduct()
+    suspend fun getOrderById(id: Int): Flow<OrderDto> {
+        return flow {
+            emit(appService.getOrderById(id))
+        }
     }
 
 }
