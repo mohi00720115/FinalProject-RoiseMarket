@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.final_test_01.data.local.LineItemEntity
+import com.example.final_test_01.data.model.dto.order.OrderDto
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.data.repository.Repository
 import com.example.final_test_01.util.ResponseState
@@ -23,8 +24,14 @@ class CartViewModel @Inject constructor(private val repository: Repository) : Vi
     private val _cartList = MutableStateFlow<ResponseState<List<ProductsItemsDto>>>(Loading)
     val cartList: StateFlow<ResponseState<List<ProductsItemsDto>>> = _cartList
 
-    private val _product = MutableLiveData<List<LineItemEntity>>()
-    val product: LiveData<List<LineItemEntity>> = _product
+    private val _product = MutableStateFlow<List<LineItemEntity>>(emptyList())
+    val product: StateFlow<List<LineItemEntity>> = _product
+
+    private val _updateOrderCart = MutableStateFlow<ResponseState<OrderDto>>(Loading)
+    val updateOrderCart: StateFlow<ResponseState<OrderDto>> = _updateOrderCart
+
+    private val _orderByIdCart = MutableStateFlow<ResponseState<OrderDto>>(Loading)
+    val orderByIdCart: StateFlow<ResponseState<OrderDto>> = _orderByIdCart
 
     private val productList = mutableListOf<ProductsItemsDto>()
 
@@ -45,6 +52,20 @@ class CartViewModel @Inject constructor(private val repository: Repository) : Vi
         return productList
     }
 
+    fun putUpdateOrder(id: Int, customerOrder: OrderDto) {
+        viewModelScope.launch {
+            repository.putUpdateOrder(id, customerOrder).asResponseState().collect {
+                _updateOrderCart.value = it
+            }
+        }
+    }
 
+    fun getOrderById(id: Int) {
+        viewModelScope.launch {
+            repository.getOrderById(id).asResponseState().collect {
+                _orderByIdCart.value = it
+            }
+        }
+    }
 
 }

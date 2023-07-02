@@ -11,24 +11,27 @@ import com.example.final_test_01.data.model.dto.order.Billing
 import com.example.final_test_01.data.model.dto.order.OrderDto
 import com.example.final_test_01.data.repository.Repository
 import com.example.final_test_01.util.ResponseState
+import com.example.final_test_01.util.ResponseState.Loading
 import com.example.final_test_01.util.asResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CustomerViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val _customer = MutableLiveData<ResponseState<CustomerDto>>()
-    val customer: LiveData<ResponseState<CustomerDto>> = _customer
+    private val _customer = MutableStateFlow<ResponseState<CustomerDto>>(Loading)
+    val customer: StateFlow<ResponseState<CustomerDto>> = _customer
 
-    private val _getEmailCustomer = MutableLiveData<ResponseState<List<CustomerDto>>>()
-    val getEmailCustomer: LiveData<ResponseState<List<CustomerDto>>> = _getEmailCustomer
+    private val _getEmailCustomer = MutableStateFlow<ResponseState<List<CustomerDto>>>(Loading)
+    val getEmailCustomer: StateFlow<ResponseState<List<CustomerDto>>> = _getEmailCustomer
 
-    private val _searchByEmail = MutableLiveData<ResponseState<List<OrderDto>>>()
-    val searchByEmail: LiveData<ResponseState<List<OrderDto>>> = _searchByEmail
+    private val _searchByEmail = MutableStateFlow<ResponseState<List<OrderDto>>>(Loading)
+    val searchByEmail: StateFlow<ResponseState<List<OrderDto>>> = _searchByEmail
 
-    private val _order = MutableLiveData<ResponseState<OrderDto>>()
-    val order: LiveData<ResponseState<OrderDto>> = _order
+    private val _order = MutableStateFlow<ResponseState<OrderDto>>(Loading)
+    val order: StateFlow<ResponseState<OrderDto>> = _order
 
     val firstName = MutableLiveData("")
     val lastName = MutableLiveData("")
@@ -41,7 +44,8 @@ class CustomerViewModel @Inject constructor(private val repository: Repository) 
     fun getCustomersByEmail() {
         viewModelScope.launch {
             repository.getCustomersByEmail(email.value!!).asResponseState().collect {
-                _getEmailCustomer.postValue(it)
+                _getEmailCustomer.value = it
+                Log.e(TAG, "getCustomersByEmail: $it")
             }
         }
     }
@@ -49,7 +53,7 @@ class CustomerViewModel @Inject constructor(private val repository: Repository) 
     private fun createCustomerByEmail(dto: CustomerDto) {
         viewModelScope.launch {
             repository.createCustomer(dto).asResponseState().collect {
-                _customer.postValue(it)
+                _customer.value = it
                 Log.e(TAG, "createCustomerByEmail: $it")
             }
         }
@@ -58,7 +62,7 @@ class CustomerViewModel @Inject constructor(private val repository: Repository) 
     fun getOrdersByEmail() {
         viewModelScope.launch {
             repository.getOrdersByEmail(email.value!!).asResponseState().collect {
-                _searchByEmail.postValue(it)
+                _searchByEmail.value = it
             }
         }
     }
@@ -68,7 +72,7 @@ class CustomerViewModel @Inject constructor(private val repository: Repository) 
         val order = OrderDto(billing)
         viewModelScope.launch {
             repository.createOrders(order).asResponseState().collect {
-                _order.postValue(it)
+                _order.value = it
                 Log.e(TAG, "createOrders: $it")
             }
         }
