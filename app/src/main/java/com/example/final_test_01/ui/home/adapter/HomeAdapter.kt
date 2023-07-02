@@ -55,9 +55,14 @@ class HomeAdapter(
         holder.apply {
             binding.tvAdapter.text = item.name
             binding.tvPrice.text = "${item.price} تومان"
-            Glide.with(binding.root)
-                .load(item.images[0].src)
-                .into(binding.imageViewAdapter)
+            item.images.let {
+                if (it.isNotEmpty()) {
+                    Glide.with(binding.root)
+                        .load(item.images[0].src)
+                        .into(binding.imageViewAdapter)
+                }
+            }
+
         }
     }
 }

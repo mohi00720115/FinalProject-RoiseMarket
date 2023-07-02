@@ -43,7 +43,10 @@ class ProductsAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsAdapter.MyViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ProductsAdapter.MyViewHolder {
         return MyViewHolder(
             ProductItemAdapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
@@ -53,11 +56,15 @@ class ProductsAdapter(
     override fun onBindViewHolder(holder: ProductsAdapter.MyViewHolder, position: Int) {
         val item: ProductsItemsDto = getItem(position)
         holder.apply {
-            Glide.with(binding.root)
-                .load(item.images[0].src)
-                .into(binding.imageViewProductAdapter)
-            binding.tvProductAdapter.text= item.name
-            binding.tvProductPrice.text = item.price
+            item.images.let {
+                if (it.isNotEmpty()) {
+                    Glide.with(binding.root)
+                        .load(item.images[0].src)
+                        .into(binding.imageViewProductAdapter)
+                    binding.tvProductAdapter.text = item.name
+                    binding.tvProductPrice.text = item.price
+                }
+            }
         }
     }
 }

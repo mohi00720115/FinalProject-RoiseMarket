@@ -55,16 +55,20 @@ class CartAdapter(
         var count = 1
         holder.apply {
             with(binding) {
-                Glide.with(binding.root)
-                    .load(item.images[0].src)
-                    .into(imageViewCartItem)
-                tvProductNameCartItem.text = item.name
-                tvPriceCartItem.text = item.price + " تومان"
-                tvAddProductCart.setOnClickListener {
-                    tvNumberProductCart.text = (++count).toString()
-                }
-                tvMinusProductCart.setOnClickListener {
-                    tvNumberProductCart.text = (--count).toString()
+                item.images.let {
+                    if (it.isNotEmpty()) {
+                        Glide.with(binding.root)
+                            .load(item.images[0].src)
+                            .into(binding.imageViewCartItem)
+                        tvProductNameCartItem.text = item.name
+                        tvPriceCartItem.text = item.price + " تومان"
+                        tvAddProductCart.setOnClickListener {
+                            tvNumberProductCart.text = (++count).toString()
+                        }
+                        tvMinusProductCart.setOnClickListener {
+                            tvNumberProductCart.text = (--count).toString()
+                        }
+                    }
                 }
             }
         }
