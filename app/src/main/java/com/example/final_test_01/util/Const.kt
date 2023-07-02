@@ -11,4 +11,5 @@ object Const {
     const val ORDER_ID = "ORDER_ID"
     const val SHARED_KEY = "SHARED_KEY"
     var STATUS = false
+    var ORDERS_ID = 0
 }
