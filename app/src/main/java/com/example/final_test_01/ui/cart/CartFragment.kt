@@ -54,25 +54,29 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     }
 
     private fun observeAddItemsToCart() {
-        viewModel.product.observe(viewLifecycleOwner) {
-            it.forEach { id -> viewModel.getItemsIdsProducts(id.productId) }
-        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.cartList.collect {
-                    when (it) {
-                        is ResponseState.Error -> {
-                            errorToast()
-                        }
+                viewModel.product.collect {
+                    it.forEach { id -> viewModel.getItemsIdsProducts(id.productId) }
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            viewModel.cartList.collect {
+                                when (it) {
+                                    is ResponseState.Error -> {
+                                        errorToast()
+                                    }
 
-                        ResponseState.Loading -> {
-                            loadingVisibility()
-                        }
+                                    ResponseState.Loading -> {
+                                        loadingVisibility()
+                                    }
 
-                        is ResponseState.Success -> {
-                            succeedVisibility()
-                            val x = viewModel.addItemToList(it.data)
-                            adapter.submitList(x)
+                                    is ResponseState.Success -> {
+                                        succeedVisibility()
+                                        val x = viewModel.addItemToList(it.data)
+                                        adapter.submitList(x)
+                                    }
+                                }
+                            }
                         }
                     }
                 }

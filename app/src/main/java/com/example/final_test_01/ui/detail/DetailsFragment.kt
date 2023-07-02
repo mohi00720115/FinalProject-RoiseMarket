@@ -97,6 +97,10 @@ class DetailsFragment : Fragment(R.layout.detail_dialog) {
                                 errorToast()
                             }
 
+                            ResponseState.Loading -> {
+                                loadingVisibility()
+                            }
+
                             is ResponseState.Success -> {
                                 succeedVisibility()
                                 tvTitleDialog.text = it.data[0].name
@@ -108,10 +112,6 @@ class DetailsFragment : Fragment(R.layout.detail_dialog) {
                                 tvDescriptionDialog.text = description
                                 adapter.submitList(it.data[0].images)
                                 setOnClickBtnAddToCart()
-                            }
-
-                            ResponseState.Loading -> {
-                                loadingVisibility()
                             }
                         }
                     }
@@ -131,7 +131,7 @@ class DetailsFragment : Fragment(R.layout.detail_dialog) {
     }
 
     private fun errorToast() {
-        Toast.makeText(requireContext(),"مشکل در اتصال به شبکه",Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "مشکل در اتصال به شبکه", Toast.LENGTH_SHORT).show()
     }
 
 }

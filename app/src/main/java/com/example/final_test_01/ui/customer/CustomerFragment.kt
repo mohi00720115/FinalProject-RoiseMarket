@@ -11,15 +11,20 @@ import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentCustomerBinding
+import com.example.final_test_01.util.Const.ORDERS_ID
 import com.example.final_test_01.util.Const.STATUS
 import com.example.final_test_01.util.ResponseState
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CustomerFragment : Fragment(R.layout.fragment_customer) {
@@ -33,54 +38,13 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
         binding.viewModel = viewModel
         navController = findNavController()
         setUi()
-        getOrders()
-
-    }
-
-    private fun getOrders() {
-        viewModel.searchByEmail.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseState.Error -> {
-                    errorToast()
-                }
-
-                ResponseState.Loading -> {
-                    loadingVisibility()
-                }
-
-                is ResponseState.Success -> {
-                    succeedVisibility()
-                    if (it.data.isEmpty()) {
-                        viewModel.createOrders()
-                    } else {
-                        val orderId = it.data[0].id
-                    }
-                    Log.e(TAG, "getOrders: ${it.data}")
-                }
-            }
-        }
     }
 
     private fun createCustomerOnClick() {
         with(binding) {
-            /*viewModel?.customer?.observe(viewLifecycleOwner) {
-                when (it) {
-                    is ResponseState.Error -> {
-                        errorToast()
-                    }
-
-                    ResponseState.Loading -> {
-                        loadingVisibility()
-                    }
-
-                    is ResponseState.Success -> {
-                        succeedVisibility()
-                    }
-                }
-            }*/
             btnSignUp.setOnClickListener {
                 STATUS = false
-                if (viewModel.checkCustomerEntries()) {
+                if (!viewModel!!.checkCustomerEntries()) {
                     Toast.makeText(
                         requireContext(),
                         "لطفا تمام اطلاعات رو کامل کنید",
@@ -91,24 +55,61 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
                     /*val sharedPreferences = context?.getSharedPreferences(SHARED_KEY, Context.MODE_PRIVATE)
                     sharedPreferences?.edit()?.putBoolean("BOOLEAN", STATUS)?.apply()*/
                     viewModel?.getCustomersByEmail()
-                    viewModel?.getEmailCustomer?.observe(viewLifecycleOwner) {
-                        when (it) {
-                            is ResponseState.Error -> {
-                                errorToast()
-                            }
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            viewModel?.getEmailCustomer?.collect {
+                                when (it) {
+                                    is ResponseState.Error -> {
+                                        errorToast()
+                                    }
 
-                            ResponseState.Loading -> {
-                                loadingVisibility()
-                            }
+                                    ResponseState.Loading -> {
+                                        loadingVisibility()
+                                    }
 
-                            is ResponseState.Success -> {
-                                succeedVisibility()
-                                if (it.data.isEmpty()) {
-                                    viewModel?.createCustomer()
-                                } else {
-                                    viewModel?.getOrdersByEmail()
+                                    is ResponseState.Success -> {
+                                        succeedVisibility()
+                                        if (it.data.isEmpty()) {
+                                            viewModel?.createCustomer()
+                                            Log.e(TAG, "createCustomer: ${it.data}")
+                                        } else {
+                                            viewModel?.getOrdersByEmail()
+                                            getOrders()
+                                            Log.e(TAG, "getOrdersByEmail: ${it.data}")
+                                        }
+                                    }
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getOrders() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.searchByEmail.collect {
+                    when (it) {
+                        is ResponseState.Error -> {
+                            errorToast()
+                        }
+
+                        ResponseState.Loading -> {
+                            loadingVisibility()
+                        }
+
+                        is ResponseState.Success -> {
+                            succeedVisibility()
+                            val o = it.data
+                            if (it.data.isEmpty()) {
+                                viewModel.createOrders()
+                            } else {
+                                ORDERS_ID = it.data[0].id!!
+                                Log.e(TAG, "getOrders: ORDERS_ID $ORDERS_ID")
+                            }
+                            Log.e(TAG, "getOrders: ${it.data}")
                         }
                     }
                 }
@@ -158,11 +159,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
         binding.animationViewCustomer.visibility = View.INVISIBLE
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility =
             View.VISIBLE
-        Toast.makeText(
-            requireContext(),
-            "ثبت نام با موفقیت انجام شد",
-            Toast.LENGTH_LONG
-        ).show()
+        Toast.makeText(requireContext(), "ثبت نام با موفقیت انجام شد", Toast.LENGTH_LONG).show()
     }
 
     /**
