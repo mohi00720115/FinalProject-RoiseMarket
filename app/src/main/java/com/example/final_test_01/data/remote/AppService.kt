@@ -9,6 +9,8 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AppService {
@@ -122,5 +124,10 @@ interface AppService {
         @Query("orderby") orderby: String = "date",
     ): List<OrderDto>
 
+    @PUT("orders/{id}")
+    suspend fun putUpdateOrder(@Path("id") id: Int, @Body customerOrder: OrderDto): OrderDto
+
+    @GET("orders/{id}")
+    suspend fun getOrderById(@Path("id") id: Int): OrderDto
 
 }
