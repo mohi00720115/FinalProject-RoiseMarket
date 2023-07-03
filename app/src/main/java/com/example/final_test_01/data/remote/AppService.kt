@@ -5,7 +5,9 @@ import com.example.final_test_01.data.model.dto.order.OrderDto
 import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
 import com.example.final_test_01.data.model.dto.product.ProductsDto
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
+import com.example.final_test_01.data.model.dto.review.ReviewDto
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -129,5 +131,20 @@ interface AppService {
 
     @GET("orders/{id}")
     suspend fun getOrderById(@Path("id") id: Int): OrderDto
+
+    @GET("products/reviews")
+    suspend fun getProductReviewList(@Query("product") id: Int): List<ReviewDto>
+
+    /**
+     * دقت
+     */
+    @PUT("products/reviews/{id}")
+    suspend fun putUpdateReview(@Path("id") id: Int): ReviewDto
+
+    /**
+     * دقت
+     */
+    @DELETE("products/reviews/{id}")
+    suspend fun deleteReview(@Path("id") id: Int): ReviewDto
 
 }

@@ -8,6 +8,7 @@ import com.example.final_test_01.data.model.dto.order.OrderDto
 import com.example.final_test_01.data.model.dto.product.ProductsDto
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
+import com.example.final_test_01.data.model.dto.review.ReviewDto
 import com.example.final_test_01.data.remote.AppService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -123,6 +124,24 @@ class Repository @Inject constructor(
     suspend fun getOrderById(id: Int): Flow<OrderDto> {
         return flow {
             emit(appService.getOrderById(id))
+        }
+    }
+
+    suspend fun getProductReviewList(id: Int): Flow<List<ReviewDto>> {
+        return flow {
+            emit(appService.getProductReviewList(id))
+        }
+    }
+
+    suspend fun putUpdateReview(id: Int): Flow<ReviewDto> {
+        return flow {
+            emit(appService.putUpdateReview(id))
+        }
+    }
+
+    suspend fun deleteReview(id: Int): Flow<ReviewDto> {
+        return flow {
+            emit(appService.deleteReview(id))
         }
     }
 
