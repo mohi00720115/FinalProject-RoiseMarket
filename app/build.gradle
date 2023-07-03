@@ -80,6 +80,8 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:3.3.0'
     //Lottie
     implementation "com.airbnb.android:lottie:3.4.0"
+    //Worker
+    implementation "androidx.work:work-runtime-ktx:2.8.1"
 }
 kapt {
     correctErrorTypes true
