@@ -20,7 +20,6 @@ import com.bumptech.glide.Glide
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentCustomerBinding
 import com.example.final_test_01.util.Const.ORDERS_ID
-import com.example.final_test_01.util.Const.STATUS
 import com.example.final_test_01.util.ResponseState
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +42,6 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
     private fun createCustomerOnClick() {
         with(binding) {
             btnSignUp.setOnClickListener {
-                STATUS = false
                 if (!viewModel!!.checkCustomerEntries()) {
                     Toast.makeText(
                         requireContext(),
@@ -51,9 +49,6 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
                         Toast.LENGTH_LONG
                     ).show()
                 } else {
-                    STATUS = true
-                    /*val sharedPreferences = context?.getSharedPreferences(SHARED_KEY, Context.MODE_PRIVATE)
-                    sharedPreferences?.edit()?.putBoolean("BOOLEAN", STATUS)?.apply()*/
                     viewModel?.getCustomersByEmail()
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -168,8 +163,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
     private fun loadingVisibility() {
         binding.constraintLayoutCustomer.visibility = View.INVISIBLE
         binding.animationViewCustomer.visibility = View.VISIBLE
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility =
-            View.GONE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility = View.GONE
     }
 
     /**
@@ -178,8 +172,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
     private fun errorToast() {
         binding.constraintLayoutCustomer.visibility = View.VISIBLE
         binding.animationViewCustomer.visibility = View.INVISIBLE
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility =
-            View.VISIBLE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility = View.VISIBLE
         Toast.makeText(
             requireContext(),
             "اطلاعات تکراریست، لطفا اطلاعات جدید وارد کنید",
