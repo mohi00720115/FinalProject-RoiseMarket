@@ -24,7 +24,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/irmitra"
+            android:fontFamily="@font/ir_mitra"
             android:layoutDirection="rtl"
             android:textColor="?android:textColorPrimary"
             tools:text="product name" />
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:fontFamily="@font/irmitra"
+                android:fontFamily="@font/ir_mitra"
                 android:textColor="?android:textColorPrimary"
                 tools:text="available date" />
 
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:fontFamily="@font/irmitra"
+                android:fontFamily="@font/ir_mitra"
                 android:textColor="?android:textColorPrimary"
                 tools:text="product price" />
 

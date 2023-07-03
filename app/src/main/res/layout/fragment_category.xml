@@ -16,7 +16,7 @@
             android:id="@+id/tv_categories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/iransans_medium"
+            android:fontFamily="@font/iran_sans_medium"
             android:gravity="center"
             android:background="@color/dark_indigo"
             android:textColor="@color/white"

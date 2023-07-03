@@ -42,11 +42,12 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
+                <!--نام محصول-->
                 <TextView
                     android:id="@+id/tv_title_dialog"
                     android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:fontFamily="@font/iransans_bold"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/iran_sans_bold"
                     android:paddingEnd="6sp"
                     android:text="@string/nameProducts"
                     android:textSize="18sp"
@@ -55,6 +56,7 @@
                     app:layout_constraintStart_toStartOf="@+id/recyclerView_gallery"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerView_gallery" />
 
+                <!--قیمت محصول-->
                 <TextView
                     android:id="@+id/tv_price_dialog"
                     android:layout_width="wrap_content"
@@ -67,13 +69,14 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_title_dialog"
                     app:layout_constraintTop_toBottomOf="@+id/tv_title_dialog" />
 
+                <!--توضیحات محصول-->
                 <TextView
                     android:id="@+id/tv_description_dialog"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:fontFamily="@font/iransans_light"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/iran_sans_light"
                     android:layoutDirection="rtl"
-                    android:paddingEnd="6sp"
+                    android:paddingStart="6sp"
                     android:text="@string/descriptionProducts"
                     android:textDirection="rtl"
                     android:textSize="18sp"
@@ -81,29 +84,59 @@
                     app:layout_constraintStart_toStartOf="@+id/tv_price_dialog"
                     app:layout_constraintTop_toBottomOf="@+id/tv_price_dialog" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_mahsolateMoshabeh"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layoutDirection="ltr"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_description_dialog" />
-
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_addToCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:backgroundTint="@color/dark_indigo"
-                    android:text="افزودن به سبد خرید"
+                    android:text="@string/addToCart"
                     android:textColor="@color/light_azure"
                     android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/recyclerView_reviewProduct"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_description_dialog"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_addToReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="308dp"
+                    android:backgroundTint="@color/red"
+                    android:text="@string/submitReview"
+                    android:textColor="@color/light_azure"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_addToCart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.81"
+                    app:layout_constraintStart_toEndOf="@+id/btn_addToCart"
+                    app:layout_constraintTop_toTopOf="@+id/btn_addToCart"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:ignore="MissingConstraints" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    app:layout_constraintBottom_toTopOf="@+id/recyclerView_reviewProduct"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView_mahsolateMoshabeh"
-                    tools:ignore="MissingConstraints" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_addToCart" />
+
+                <!--      نقد و بررسی نظرات     -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_reviewProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="ltr"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_addToCart"
+                    tools:listitem="@layout/review_item_adapter" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

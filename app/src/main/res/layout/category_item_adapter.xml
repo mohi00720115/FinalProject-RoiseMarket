@@ -38,7 +38,7 @@
                     android:id="@+id/tv_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/irmitra_bold"
+                    android:fontFamily="@font/ir_mitra_bold"
                     android:text="@string/tvCategory"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="@+id/imageView_category"
