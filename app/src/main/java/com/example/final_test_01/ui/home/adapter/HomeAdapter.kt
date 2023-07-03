@@ -62,7 +62,6 @@ class HomeAdapter(
                         .into(binding.imageViewAdapter)
                 }
             }
-
         }
     }
 }
