@@ -29,4 +29,20 @@
     <string name="zero">0</string>
     <string name="add">+</string>
     <string name="minus">-</string>
+    <string name="input_is_wrong">مقدار وارد شده صحیح نیست</string>
+    <string name="start">شروع</string>
+    <string name="stop">توقف</string>
+    <string name="hour">ساعت</string>
+    <string name="apply">تایید</string>
+    <string name="notification_setting">تنظیمات نوتفیکیشن</string>
+    <string name="hour_3">3 ساعت</string>
+    <string name="hour_5">5 ساعت</string>
+    <string name="hour_8">8 ساعت</string>
+    <string name="hour_12">12 ساعت</string>
+    <string name="addToCart">افزودن به سبد خرید</string>
+    <string name="enter_description">نظر خود را بنویسید</string>
+    <string name="submitReview">ثبت نظر</string>
+    <string name="date">Date</string>
+    <string name="reviewer">reviewer</string>
+    <string name="status">status</string>
 </resources>
