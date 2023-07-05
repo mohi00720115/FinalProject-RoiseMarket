@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.databinding.CartItemAdapterBinding
+import com.example.final_test_01.util.formatPrice
 
 class CartAdapter(
 //    private val onClick: (Int) -> Unit
@@ -61,7 +62,7 @@ class CartAdapter(
                             .load(item.images[0].src)
                             .into(binding.imageViewCartItem)
                         tvProductNameCartItem.text = item.name
-                        tvPriceCartItem.text = item.price + " تومان"
+                        tvPriceCartItem.text = item.price?.toDouble()?.formatPrice()+" تومان"
                         tvAddProductCart.setOnClickListener {
                             tvNumberProductCart.text = (++count).toString()
                         }

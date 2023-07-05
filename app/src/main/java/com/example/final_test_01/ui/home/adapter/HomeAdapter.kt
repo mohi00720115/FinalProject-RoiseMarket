@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.databinding.ItemAdapterBinding
+import com.example.final_test_01.util.formatPrice
 
 class HomeAdapter(
     private val onClick: (Int) -> Unit
@@ -54,7 +55,7 @@ class HomeAdapter(
         val item: ProductsItemsDto = getItem(position)
         holder.apply {
             binding.tvAdapter.text = item.name
-            binding.tvPrice.text = "${item.price} تومان"
+            binding.tvPrice.text = item.price?.toDouble()?.formatPrice()+" تومان"
             item.images.let {
                 if (it.isNotEmpty()) {
                     Glide.with(binding.root)
