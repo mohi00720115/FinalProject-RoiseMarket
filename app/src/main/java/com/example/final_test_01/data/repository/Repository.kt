@@ -2,7 +2,6 @@ package com.example.final_test_01.data.repository
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.example.final_test_01.data.local.ICartDao
 import com.example.final_test_01.data.model.dto.customer.CustomerDto
 import com.example.final_test_01.data.model.dto.order.OrderDto
 import com.example.final_test_01.data.model.dto.product.ProductsDto
@@ -10,13 +9,14 @@ import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
 import com.example.final_test_01.data.model.dto.product_category.ProductsCategoryItemsDto
 import com.example.final_test_01.data.model.dto.review.ReviewDto
 import com.example.final_test_01.data.remote.AppService
+import com.example.final_test_01.util.Const.CUSTOMER_EMAIL
+import com.example.final_test_01.util.Const.ORDERS_ID
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class Repository @Inject constructor(
     private val appService: AppService,
-    private val cartDao: ICartDao
 ) {
 
     suspend fun getItemsIdsProducts(id: Int): Flow<List<ProductsItemsDto>> {
@@ -87,43 +87,33 @@ class Repository @Inject constructor(
         }
     }
 
-    suspend fun createCustomer(
-//        email: String,
-        dto: CustomerDto
-    ): Flow<CustomerDto> {
-        return flow {
-//            emit(appService.createCustomer(customerItemToCustomerDto(MyCustomerItem.empty.copy(email = email))))
-            emit(appService.createCustomer(dto))
-        }
-    }
-
-    suspend fun getCustomersByEmail(email: String): Flow<List<CustomerDto>> {
-        return flow {
-            emit(appService.getCustomersByEmail(email))
-        }
-    }
-
-    suspend fun createOrders(order: OrderDto): Flow<OrderDto> {
-        return flow {
-            emit(appService.createOrders(order))
-        }
-    }
-
-    suspend fun getOrdersByEmail(searchEmail: String): Flow<List<OrderDto>> {
-        return flow {
-            emit(appService.getOrdersByEmail(searchEmail))
-        }
-    }
-
     suspend fun putUpdateOrder(id: Int, customerOrder: OrderDto): Flow<OrderDto> {
         return flow {
             emit(appService.putUpdateOrder(id, customerOrder))
         }
     }
 
-    suspend fun getOrderById(id: Int): Flow<OrderDto> {
+    suspend fun createReview(reviewDto: ReviewDto): Flow<ReviewDto> {
         return flow {
-            emit(appService.getOrderById(id))
+            emit(appService.createReview(reviewDto))
+        }
+    }
+
+    suspend fun getReviewById(reviewId: Int): Flow<ReviewDto> {
+        return flow {
+            emit(appService.getReviewById(reviewId))
+        }
+    }
+
+    suspend fun updateReview(reviewId: Int, reviewDto: ReviewDto): Flow<ReviewDto> {
+        return flow {
+            emit(appService.updateReview(reviewId, reviewDto))
+        }
+    }
+
+    suspend fun getOrderById(orderId: Int): Flow<OrderDto> {
+        return flow {
+            emit(appService.getOrderById(orderId))
         }
     }
 
@@ -142,6 +132,29 @@ class Repository @Inject constructor(
     suspend fun deleteReview(id: Int): Flow<ReviewDto> {
         return flow {
             emit(appService.deleteReview(id))
+        }
+    }
+
+    /**
+     * چک کردن تمام شروط ثبت نام و ایجاد کاربر و ساخت و نمایش سفارشاتش
+     */
+    suspend fun checkLogin(customerDto: CustomerDto, ordDto: OrderDto): Flow<CustomerDto> {
+        return flow {
+            if (appService.getCustomersByEmail(customerDto.email).isEmpty()) {
+                val customer = appService.createCustomer(customerDto)
+                CUSTOMER_EMAIL = customer.email
+                ORDERS_ID = appService.createOrders(ordDto).id!!
+                emit(customer)
+            } else {
+                val customer = appService.getCustomersByEmail(customerDto.email).first()
+                CUSTOMER_EMAIL = customer.email
+                if (appService.getOrdersByEmail(customerDto.email).isEmpty()) {
+                    ORDERS_ID = appService.createOrders(ordDto).id!!
+                } else {
+                    ORDERS_ID = appService.getOrdersByEmail(customerDto.email).first().id!!
+                }
+                emit(customer)
+            }
         }
     }
 
