@@ -13,8 +13,12 @@ fun <T> Flow<T>.asResponseState(): Flow<ResponseState<T>> {
         .map<T, ResponseState<T>> {
             ResponseState.Success(it)
         }
-        .catch { emit(ResponseState.Error(it)) }
-        .onStart { emit(ResponseState.Loading) }
+        .catch {
+            emit(ResponseState.Error(it))
+        }
+        .onStart {
+            emit(ResponseState.Loading)
+        }
 }
 
 sealed interface ResponseState<out T> {
