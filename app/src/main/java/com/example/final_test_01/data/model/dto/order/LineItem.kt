@@ -5,17 +5,18 @@ import com.google.gson.annotations.SerializedName
 
 data class LineItem(
     @SerializedName("id")
-    val id: Int?,
+    val packageId: Int? = 0,
 //    @SerializedName("meta_data")
 //    val metaData: List<MetaDataX>?,
-//    @SerializedName("name")
-//    val name: String?,
-//    @SerializedName("price")
-//    val price: Int?,
+    @SerializedName("name")
+    val name: String? = "",
+    @SerializedName("price")
+    val price: Int? = 0,
     @SerializedName("product_id")
     val productId: Int?,
     @SerializedName("quantity")
-    val quantity: Int?,
+    val quantity: Int? = 1,
+    val image: Image = Image(),
 //    @SerializedName("sku")
 //    val sku: String?,
 //    @SerializedName("subtotal")
@@ -26,8 +27,8 @@ data class LineItem(
 //    val taxClass: String?,
 //    @SerializedName("taxes")
 //    val taxes: List<Taxe>?,
-//    @SerializedName("total")
-//    val total: String?,
+    @SerializedName("total")
+    val total: String? = "",
 //    @SerializedName("total_tax")
 //    val totalTax: String?,
 //    @SerializedName("variation_id")
