@@ -131,18 +131,19 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <com.google.android.material.textview.MaterialTextView
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/tvMinus_product_cart"
                             android:layout_width="50dp"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
-                            android:layout_margin="5dp"
+                            android:layout_margin="4dp"
                             android:layout_weight="1"
-                            android:background="@color/red"
+                            android:backgroundTint="@color/red"
                             android:gravity="center"
-                            android:text="@string/minus"
+                            app:icon="@drawable/minus"
+                            app:iconGravity="top"
                             android:textColor="@color/white"
-                            android:textSize="24sp"
+                            android:textSize="18sp"
                             app:layout_constraintEnd_toStartOf="@+id/imageView_cart_item"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tvNumberOfProduct_cart_item" />
@@ -159,18 +160,19 @@
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
-                        <com.google.android.material.textview.MaterialTextView
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/tvAdd_product_cart"
                             android:layout_width="50dp"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
-                            android:layout_margin="5dp"
+                            android:layout_margin="4dp"
                             android:layout_weight="1"
-                            android:background="@color/dark_green"
+                            android:backgroundTint="@color/dark_green"
                             android:gravity="center"
-                            android:text="@string/add"
+                            app:icon="@drawable/add"
+                            app:iconGravity="top"
                             android:textColor="@color/light_azure"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             app:layout_constraintEnd_toStartOf="@+id/imageView_cart_item"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tvNumberOfProduct_cart_item" />
