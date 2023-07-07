@@ -130,19 +130,29 @@ interface AppService {
     suspend fun putUpdateOrder(@Path("id") id: Int, @Body customerOrder: OrderDto): OrderDto
 
     @GET("orders/{id}")
-    suspend fun getOrderById(@Path("id") id: Int): OrderDto
+    suspend fun getOrderById(@Path("id") orderId: Int): OrderDto
+
+
+    @POST("products/reviews")
+    suspend fun createReview(@Body reviewDto: ReviewDto): ReviewDto
+
+    @GET("products/reviews/{id}")
+    suspend fun getReviewById(@Path("id") reviewId: Int): ReviewDto
+
+    @PUT("products/reviews/{id}")
+    suspend fun updateReview(@Path("id") reviewId: Int, @Body reviewDto: ReviewDto): ReviewDto
 
     @GET("products/reviews")
     suspend fun getProductReviewList(@Query("product") id: Int): List<ReviewDto>
 
     /**
-     * دقت
+     * آپدیت نظرات
      */
     @PUT("products/reviews/{id}")
     suspend fun putUpdateReview(@Path("id") id: Int): ReviewDto
 
     /**
-     * دقت
+     * حذف نظرات
      */
     @DELETE("products/reviews/{id}")
     suspend fun deleteReview(@Path("id") id: Int): ReviewDto
