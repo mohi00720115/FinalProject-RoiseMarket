@@ -14,14 +14,15 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.final_test_01.R
+import com.example.final_test_01.R.layout.fragment_cart
 import com.example.final_test_01.databinding.FragmentCartBinding
 import com.example.final_test_01.ui.cart.adapter.CartAdapter
-import com.example.final_test_01.util.ResponseState
+import com.example.final_test_01.util.ResponseState.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CartFragment : Fragment(R.layout.fragment_cart) {
+class CartFragment : Fragment(fragment_cart) {
     private lateinit var binding: FragmentCartBinding
     private val viewModel: CartViewModel by viewModels()
     private lateinit var navController: NavController
@@ -37,13 +38,18 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
     private fun setUi() {
         createCartAdapter()
-        observeAddItemsToCart()
+        observeCartItem()
+//        observeAddItemsToCart()
         hideSearchView()
     }
 
     private fun createCartAdapter() {
-        adapter = CartAdapter()
-        viewModel.getItemsIdsProducts(args.cartId)
+        adapter = CartAdapter(
+            onClick = { packageId, quantity, productId ->
+                viewModel.putUpdateOrder(packageId, quantity, productId)
+            }
+        )
+//        viewModel.getItemsIdsProducts(args.cartId)
 //        adapter = CartAdapter(
 //            onClick = {
 //                navController.navigate(
@@ -53,27 +59,54 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         binding.recyclerViewCart.adapter = adapter
     }
 
-    private fun observeAddItemsToCart() {
+    private fun observeCartItem() {
+        viewModel.getOrderById()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.product.collect {
-                    it.forEach { id -> viewModel.getItemsIdsProducts(id.productId) }
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            viewModel.cartList.collect {
-                                when (it) {
-                                    is ResponseState.Error -> {
-                                        errorToast()
-                                    }
+                viewModel.orderByIdCart.collect {
+                    when (it) {
+                        is Error -> {
+                            errorToast()
+                        }
 
-                                    ResponseState.Loading -> {
-                                        loadingVisibility()
-                                    }
+                        Loading -> {
+                            loadingVisibility()
+                        }
 
-                                    is ResponseState.Success -> {
-                                        succeedVisibility()
-                                        val x = viewModel.addItemToList(it.data)
-                                        adapter.submitList(x)
+                        is Success -> {
+                            succeedVisibility()
+                            val cartItems = it.data.lineItems
+                            adapter.submitList(cartItems)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /*
+        private fun observeAddItemsToCart() {
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.product.collect {
+                        it.forEach { id -> viewModel.getItemsIdsProducts(id.productId) }
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                                viewModel.cartList.collect {
+                                    when (it) {
+                                        is ResponseState.Error -> {
+                                            errorToast()
+                                        }
+
+                                        ResponseState.Loading -> {
+                                            loadingVisibility()
+                                        }
+
+                                        is ResponseState.Success -> {
+                                            succeedVisibility()
+                                            val x = viewModel.addItemToList(it.data)
+                                            adapter.submitList(x)
+                                        }
                                     }
                                 }
                             }
@@ -82,7 +115,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 }
             }
         }
-    }
+    */
 
     private fun succeedVisibility() {
         binding.linearLayoutCart.visibility = View.VISIBLE
