@@ -23,11 +23,15 @@
         android:label="DetailsDialog"
         tools:layout="@layout/detail_dialog" >
         <argument
-            android:name="detail_items"
-            app:argType="integer" />
+            android:name="productsId"
+            app:argType="integer"
+            android:defaultValue="1" />
         <action
             android:id="@+id/action_detailsDialog_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_detailsDialog_to_reviewFragment"
+            app:destination="@id/reviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -59,9 +63,40 @@
             android:name="cart_id"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_cartFragment_to_finalCartFragment"
+            app:destination="@id/finalCartFragment" />
     </fragment>
     <fragment
         android:id="@+id/customerFragment"
         android:name="com.example.final_test_01.ui.customer.CustomerFragment"
-        android:label="CustomerFragment" />
+        android:label="CustomerFragment" >
+        <action
+            android:id="@+id/action_customerFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.example.final_test_01.ui.detail.review.ReviewFragment"
+        android:label="ReviewFragment"
+        tools:layout="@layout/fragment_review"  >
+        <argument
+            android:name="review_id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_reviewFragment_to_detailsDialog"
+            app:destination="@id/detailsDialog" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.final_test_01.ui.customer.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/finalCartFragment"
+        android:name="com.example.final_test_01.ui.cart.final_cart.FinalCartFragment"
+        android:label="FinalCartFragment" >
+        <action
+            android:id="@+id/action_finalCartFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
