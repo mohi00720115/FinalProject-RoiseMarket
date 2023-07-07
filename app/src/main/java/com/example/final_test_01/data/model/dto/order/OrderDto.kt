@@ -1,17 +1,18 @@
 package com.example.final_test_01.data.model.dto.order
 
 
+import com.example.final_test_01.data.model.dto.coupon.CouponDtoItem
 import com.google.gson.annotations.SerializedName
 
 data class OrderDto(
     @SerializedName("billing")
-    val billing: Billing?,
+    val billing: Billing? = Billing(),
 //    @SerializedName("cart_hash")
 //    val cartHash: String?,
 //    @SerializedName("cart_tax")
 //    val cartTax: String?,
-//    @SerializedName("coupon_lines")
-//    val couponLines: List<Any>?,
+    @SerializedName("coupon_lines")
+    val couponLines: List<CouponDtoItem>? = emptyList(),
 //    @SerializedName("created_via")
 //    val createdVia: String?,
 //    @SerializedName("currency")
