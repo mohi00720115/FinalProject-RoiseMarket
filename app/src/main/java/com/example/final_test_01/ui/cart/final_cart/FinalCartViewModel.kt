@@ -1,0 +1,10 @@
+package com.example.final_test_01.ui.cart.final_cart
+
+import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class FinalCartViewModel @Inject constructor() : ViewModel() {
+
+}
