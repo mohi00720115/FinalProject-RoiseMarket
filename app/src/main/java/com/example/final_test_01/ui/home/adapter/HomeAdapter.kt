@@ -55,13 +55,16 @@ class HomeAdapter(
         val item: ProductsItemsDto = getItem(position)
         holder.apply {
             binding.tvAdapter.text = item.name
-            binding.tvPrice.text = item.price?.toDouble()?.formatPrice()+" تومان"
             item.images.let {
+                if (item.price != null) {
+                    binding.tvPrice.text = item.price + " تومان"
+                }
                 if (it.isNotEmpty()) {
                     Glide.with(binding.root)
                         .load(item.images[0].src)
                         .into(binding.imageViewAdapter)
                 }
+
             }
         }
     }
