@@ -6,28 +6,29 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.final_test_01.data.model.dto.product.ProductsItemsDto
+import com.example.final_test_01.R
+import com.example.final_test_01.data.model.dto.order.LineItem
 import com.example.final_test_01.databinding.CartItemAdapterBinding
 import com.example.final_test_01.util.formatPrice
+import com.example.final_test_01.util.showImageByGlide
 
 class CartAdapter(
-//    private val onClick: (Int) -> Unit
-) : ListAdapter<ProductsItemsDto, CartAdapter.MyViewHolder>(diffUtil) {
+    private val onClick: (Int, Int, Int) -> Unit
+) : ListAdapter<LineItem, CartAdapter.MyViewHolder>(diffUtil) {
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<ProductsItemsDto>() {
+        val diffUtil = object : DiffUtil.ItemCallback<LineItem>() {
             override fun areItemsTheSame(
-                oldItem: ProductsItemsDto,
-                newItem: ProductsItemsDto
+                oldItem: LineItem,
+                newItem: LineItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ProductsItemsDto,
-                newItem: ProductsItemsDto
+                oldItem: LineItem,
+                newItem: LineItem
             ): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.packageId == newItem.packageId
             }
 
         }
@@ -35,13 +36,13 @@ class CartAdapter(
 
     inner class MyViewHolder(val binding: CartItemAdapterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        init {
+        /*init {
             binding.root.apply {
                 setOnClickListener {
 //                    getItem(absoluteAdapterPosition).id?.let { id -> onClick(id) }
                 }
             }
-        }
+        }*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.MyViewHolder {
@@ -52,24 +53,32 @@ class CartAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CartAdapter.MyViewHolder, position: Int) {
-        val item: ProductsItemsDto = getItem(position)
-        var count = 1
+        val item: LineItem = getItem(position)
+        var quantity = 1
         holder.apply {
             with(binding) {
-                item.images.let {
-                    if (it.isNotEmpty()) {
-                        Glide.with(binding.root)
-                            .load(item.images[0].src)
-                            .into(binding.imageViewCartItem)
-                        tvProductNameCartItem.text = item.name
-                        tvPriceCartItem.text = item.price?.toDouble()?.formatPrice()+" تومان"
-                        tvAddProductCart.setOnClickListener {
-                            tvNumberProductCart.text = (++count).toString()
-                        }
-                        tvMinusProductCart.setOnClickListener {
-                            tvNumberProductCart.text = (--count).toString()
-                        }
+                //وقتی تعداد محصول به 1 میرسه علامت سطل آشغال نمایش داده میشه
+                if (item.quantity == 1) tvMinusProductCart.setIconResource(R.drawable.trash)
+                else tvMinusProductCart.setIconResource(R.drawable.minus)
+
+                item.image.let {
+                    if (it.src.isNotEmpty()) {
+                        binding.imageViewCartItem.showImageByGlide(item.image.src)
                     }
+                }
+                tvProductNameCartItem.text = item.name
+                tvPriceCartItem.text = item.price?.toDouble()?.formatPrice() + " تومان"
+
+                tvAddProductCart.setOnClickListener {
+                    quantity++
+                    tvNumberProductCart.text = (quantity).toString()
+                    onClick(item.packageId!!,item.quantity!!,item.productId!!)
+                }
+
+                tvMinusProductCart.setOnClickListener {
+                    quantity--
+                    tvNumberProductCart.text = (quantity).toString()
+                    onClick(item.packageId!!,item.quantity!!,item.productId!!)
                 }
             }
         }
