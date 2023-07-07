@@ -8,6 +8,7 @@ object Const {
     const val CONSUMER_SECRET = "consumer_secret"
     //Orders
     var ORDERS_ID = 0
+    var CUSTOMER_EMAIL = ""
 
     //Notification
     const val DATA_NAME = "DATA_NAME"
