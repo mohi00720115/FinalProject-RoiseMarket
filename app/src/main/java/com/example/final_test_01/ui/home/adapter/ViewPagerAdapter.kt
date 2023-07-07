@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.PagerAdapter
 import com.example.final_test_01.databinding.SliderItemBinding
-import com.example.final_test_01.util.showImage
+import com.example.final_test_01.util.showImageByGlide
 
 class ViewPagerAdapter(val context: Context, val imageList: List<String>) : PagerAdapter() {
 
@@ -23,7 +23,7 @@ class ViewPagerAdapter(val context: Context, val imageList: List<String>) : Page
         val mLayoutInflater = LayoutInflater.from(context)
         val itemView: SliderItemBinding =
             SliderItemBinding.inflate(mLayoutInflater, container, false)
-        itemView.imageViewSlider.showImage(imageList[position])
+        itemView.imageViewSlider.showImageByGlide(imageList[position])
         container.addView(itemView.root)
         return itemView.root
     }

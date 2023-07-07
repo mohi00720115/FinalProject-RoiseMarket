@@ -7,7 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
 import java.util.Locale
 
-fun ImageView.showImage(url: String) {
+fun ImageView.showImageByGlide(url: String) {
     Glide.with(this).load(url).into(this)
 }
 
