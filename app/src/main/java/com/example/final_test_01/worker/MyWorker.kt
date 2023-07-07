@@ -62,13 +62,13 @@ class MyWorker(
         notificationManager.createNotificationChannel(notificationChannel)
 
         builder = Notification.Builder(appContext, "CHANNEL_ID")
-            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setSmallIcon(R.mipmap.ic_logo)
             .setContentIntent(pendingIntent)
             .setContentTitle(product?.name)
             .setContentText(if (product?.price!!.isNotBlank()) product.price else product.salePrice)
             .setAutoCancel(true)
             .setLargeIcon(
-                BitmapFactory.decodeResource(appContext.resources,R.mipmap.ic_launcher_round)
+                BitmapFactory.decodeResource(appContext.resources,R.mipmap.ic_logo)
             )
         notificationManager.notify(1001, builder.build())
     }
