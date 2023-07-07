@@ -1,8 +1,5 @@
 package com.example.final_test_01.ui.customer
 
-import android.content.ContentValues.TAG
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,15 +18,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CustomerViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val _customer = MutableStateFlow<ResponseState<CustomerDto>>(Loading)
-    val customer: StateFlow<ResponseState<CustomerDto>> = _customer
-
-    private val _getEmailCustomer = MutableStateFlow<ResponseState<List<CustomerDto>>>(Loading)
-    val getEmailCustomer: StateFlow<ResponseState<List<CustomerDto>>> = _getEmailCustomer
-
-    private val _searchByEmail = MutableStateFlow<ResponseState<List<OrderDto>>>(Loading)
-    val searchByEmail: StateFlow<ResponseState<List<OrderDto>>> = _searchByEmail
-
     private val _order = MutableStateFlow<ResponseState<OrderDto>>(Loading)
     val order: StateFlow<ResponseState<OrderDto>> = _order
 
@@ -37,43 +25,20 @@ class CustomerViewModel @Inject constructor(private val repository: Repository) 
     val lastName = MutableLiveData("")
     val email = MutableLiveData("")
 
-    fun createCustomer() {
-        createCustomerByEmail(CustomerDto(firstName.value!!, lastName.value!!, email.value!!))
-    }
+    private val _login = MutableStateFlow<ResponseState<CustomerDto>>(Loading)
+    val login: StateFlow<ResponseState<CustomerDto>> = _login
 
-    fun getCustomersByEmail() {
+    /**
+     * چک کردن تمام شروط ثبت نام و ایجاد کاربر و ساخت و نمایش سفارشاتش
+     */
+    fun checkLogin() {
         viewModelScope.launch {
-            repository.getCustomersByEmail(email.value!!).asResponseState().collect {
-                _getEmailCustomer.value = it
-                Log.e(TAG, "getCustomersByEmail: $it")
-            }
-        }
-    }
-
-    private fun createCustomerByEmail(dto: CustomerDto) {
-        viewModelScope.launch {
-            repository.createCustomer(dto).asResponseState().collect {
-                _customer.value = it
-                Log.e(TAG, "createCustomerByEmail: $it")
-            }
-        }
-    }
-
-    fun getOrdersByEmail() {
-        viewModelScope.launch {
-            repository.getOrdersByEmail(email.value!!).asResponseState().collect {
-                _searchByEmail.value = it
-            }
-        }
-    }
-
-    fun createOrders() {
-        val billing = Billing(email = email.value!!)
-        val order = OrderDto(billing)
-        viewModelScope.launch {
-            repository.createOrders(order).asResponseState().collect {
-                _order.value = it
-                Log.e(TAG, "createOrders: $it")
+            val billing = Billing(email = email.value!!)
+            repository.checkLogin(
+                CustomerDto(firstName.value!!, lastName.value!!, email.value!!),
+                OrderDto(billing)
+            ).asResponseState().collect {
+                _login.value = it
             }
         }
     }

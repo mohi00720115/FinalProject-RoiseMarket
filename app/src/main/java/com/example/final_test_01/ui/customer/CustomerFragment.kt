@@ -1,10 +1,8 @@
 package com.example.final_test_01.ui.customer
 
 import android.app.Activity.RESULT_OK
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -19,8 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.final_test_01.R
 import com.example.final_test_01.databinding.FragmentCustomerBinding
-import com.example.final_test_01.util.Const.ORDERS_ID
-import com.example.final_test_01.util.ResponseState
+import com.example.final_test_01.util.ResponseState.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -39,84 +36,44 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
         setUi()
     }
 
-    private fun createCustomerOnClick() {
-        with(binding) {
-            btnSignUp.setOnClickListener {
-                if (!viewModel!!.checkCustomerEntries()) {
-                    Toast.makeText(
-                        requireContext(),
-                        "لطفا تمام اطلاعات رو کامل کنید",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    viewModel?.getCustomersByEmail()
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            viewModel?.getEmailCustomer?.collect {
-                                when (it) {
-                                    is ResponseState.Error -> {
-                                        errorToast()
-                                    }
+    private fun setUi() {
+        login()
+        hideSearchView()
+        setImageAsGallery()
+    }
 
-                                    ResponseState.Loading -> {
-                                        loadingVisibility()
-                                    }
+    private fun login() {
+        binding.btnSignUp.setOnClickListener {
+            if (!viewModel.checkCustomerEntries()){
+                Toast.makeText(requireContext(), "همه اطلاعات رو وارد کنید", Toast.LENGTH_SHORT).show()
+            }else{
+                viewModel.checkLogin()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.login.collect {
+                            when (it) {
+                                is Error -> {
+                                    errorToast()
+                                }
 
-                                    is ResponseState.Success -> {
-                                        succeedVisibility()
-                                        if (it.data.isEmpty()) {
-                                            viewModel?.createCustomer()
-                                            Log.e(TAG, "createCustomer: ${it.data}")
-                                        } else {
-                                            viewModel?.getOrdersByEmail()
-                                            getOrders()
-                                            Log.e(TAG, "getOrdersByEmail: ${it.data}")
-                                        }
-                                    }
+                                Loading -> {
+                                    loadingVisibility()
+                                }
+
+                                is Success -> {
+                                    succeedVisibility()
+                                    Toast.makeText(requireContext(),"انجام شد",Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
                         }
                     }
                 }
             }
+
         }
     }
 
-    private fun getOrders() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.searchByEmail.collect {
-                    when (it) {
-                        is ResponseState.Error -> {
-                            errorToast()
-                        }
-
-                        ResponseState.Loading -> {
-                            loadingVisibility()
-                        }
-
-                        is ResponseState.Success -> {
-                            succeedVisibility()
-                            val o = it.data
-                            if (it.data.isEmpty()) {
-                                viewModel.createOrders()
-                            } else {
-                                ORDERS_ID = it.data[0].id!!
-                                Log.e(TAG, "getOrders: ORDERS_ID $ORDERS_ID")
-                            }
-                            Log.e(TAG, "getOrders: ${it.data}")
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun setUi() {
-        createCustomerOnClick()
-        hideSearchView()
-        setImageAsGallery()
-    }
 
     /**
      * ست کردن عکس از گالری در صفحه ثبت نام
@@ -154,7 +111,7 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
         binding.animationViewCustomer.visibility = View.INVISIBLE
         requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility =
             View.VISIBLE
-        Toast.makeText(requireContext(), "ثبت نام با موفقیت انجام شد", Toast.LENGTH_LONG).show()
+//        Toast.makeText(requireContext(), "ثبت نام با موفقیت انجام شد", Toast.LENGTH_LONG).show()
     }
 
     /**
@@ -172,7 +129,8 @@ class CustomerFragment : Fragment(R.layout.fragment_customer) {
     private fun errorToast() {
         binding.constraintLayoutCustomer.visibility = View.VISIBLE
         binding.animationViewCustomer.visibility = View.INVISIBLE
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility = View.VISIBLE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav).visibility =
+            View.VISIBLE
         Toast.makeText(
             requireContext(),
             "اطلاعات تکراریست، لطفا اطلاعات جدید وارد کنید",
